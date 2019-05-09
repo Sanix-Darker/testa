@@ -1,0 +1,8 @@
+{
+    "name": "myapp",
+    "path": "./myapp",
+    "accepted_extensions": [".js", ".ts"],
+    "except": ["./node_modules/"],
+    "core": "node",
+    "command_reg": "node ****"
+}
