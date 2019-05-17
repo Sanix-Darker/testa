@@ -122,10 +122,10 @@ To test it, after cloning this repository, hit:
 # Tesla will perform tests following what it is on tjs.json
 teslacli -c ./tjs.json
 
-# Or for python
+# Or for PYTHON
 teslacli -c ./tpy.json
 
-# Or for php
+# Or for PHP
 teslacli -c ./tphp.json
 ```
 And that's where the magic of Tesla is, for any language, you have only to write a simple JSON file and specify paths where you will do tests.

@@ -1,5 +1,13 @@
 # ::tesla_start::
 # ::case_start::
+# >> tesla.isEqual(2, 2)
+# << true
+# ::case_end::
+# ::tesla_end::
+
+
+# ::tesla_start::
+# ::case_start::
 # >> square(9)
 # << 3.0
 # ::case_end::

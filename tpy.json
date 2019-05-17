@@ -13,5 +13,8 @@
     "NoneNull": "None",
     "selfOrThis": "self",
     "selfOnFunctionParams": true,
-    "semicolomn": ""
+    "semicolomn": "",
+    "scriptStarter": "",
+    "scriptEnder": "",
+    "prefixVariable": ""
 }

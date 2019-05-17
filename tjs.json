@@ -4,7 +4,7 @@
     "launcher": "node",
     "outputMethod": "console.log",
     "commentStartBy": "//",
-    "tryCatch": "try{ \n\t **** \n}catch(err){ \n\t console.log(es)}",
+    "tryCatch": "}try{ \n\t **** \n}catch(err){ \n\t console.log(es);}",
     "function": " ",
     "varDeclaration": "var ",
     "classInstantiationNew": "new ",
@@ -13,5 +13,8 @@
     "NoneNull": "null",
     "selfOrThis": "this",
     "selfOnFunctionParams": false,
-    "semicolomn": ";"
+    "semicolomn": ";",
+    "scriptStarter": "",
+    "scriptEnder": "",
+    "prefixVariable": ""
 }

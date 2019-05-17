@@ -1,0 +1,20 @@
+{
+    "path": ["./php/square.php"],
+    "extensions": [".php"],
+    "launcher": "php",
+    "outputMethod": "print",
+    "commentStartBy": "//",
+    "tryCatch": "try{ \n\t **** \n}catch(Exception $e){ \n\t print($e);}",
+    "function": "function ",
+    "varDeclaration": "$",
+    "classInstantiationNew": "new ",
+    "AccoladStart": "{",
+    "AccoladEnd": "}",
+    "NoneNull": "null",
+    "selfOrThis": "$this",
+    "selfOnFunctionParams": false,
+    "semicolomn": ";",
+    "scriptStarter": "<?php \n",
+    "scriptEnder": "\n ?>",
+    "prefixVariable": "$"
+}
