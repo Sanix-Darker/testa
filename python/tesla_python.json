@@ -1,0 +1,17 @@
+{
+    "path": ["./my_python_app/", "./square.py"],
+    "extensions": [".py"],
+    "launcher": "python",
+    "outputMethod": "print",
+    "commentStartBy": "#",
+    "tryCatch": "try: \n\t **** \nexcept Exception as es: \n\t print(str(es))",
+    "function": "def ",
+    "varDeclaration": "",
+    "classInstantiationNew": "",
+    "AccoladStart": ":",
+    "AccoladEnd": "",
+    "NoneNull": "None",
+    "selfOrThis": "self",
+    "selfOnFunctionParams": true,
+    "semicolomn": ""
+}

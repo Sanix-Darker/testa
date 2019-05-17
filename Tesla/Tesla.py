@@ -19,6 +19,9 @@ from os import remove, path as pathit
 from pathlib import Path
 from subprocess import Popen, PIPE, STDOUT
 
+import argparse
+import json
+
 class Tesla:
 
     def __init__(self):
@@ -44,10 +47,12 @@ class Tesla:
         self.AccoladEnd = "" # }
         self.NoneNull = "None" # null
         self.selfOrThis = "self" # this
-        self.selfOnFunctionParams = True
+        self.selfOnFunctionParams = True # if there is a need of self in the declaration of a function
         self.semicolomn = "" # ; 
         self.TeslAssertClass = ""
         self.listAssertFailed = ""
+        self.date_report = ""
+
 
     def selfOnParams(self, check, selfOnFunctionParams, addSemmicolomn = False):
         if(selfOnFunctionParams == True):
@@ -67,6 +72,8 @@ class Tesla:
         self.addresume("#  |_|   |_____| |____/  |_____| /_/   \_\\ v0.1")
         self.addresume("##################################################################\n")
 
+        self.date_report = "reports_"+time.strftime("%Y-%m-%d %H:%M:%S")
+        
         ####################################################################################################
         ##---------------------------------------------------------------------------------------------------
         ## Assert Method tests,lte's build our TestClass ere to do tests
@@ -127,6 +134,7 @@ class Tesla:
 
 
     def end(self):
+
         self.addresume("\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         self.addresume("%% Tesla reports:")
         self.addresume("%%")
@@ -295,6 +303,7 @@ class Tesla:
     def TestFunctionsInAFile(self, filePath):
         if(not pathit.isdir(filePath)):
             print("Tesla testing on "+filePath)
+            self.teslaPrint("**********************************************************************************************************************************")
             self.teslaPrint("---------------------------------------------------------------")
             self.teslaPrint(" Tesla-Test on :"+ filePath)
             self.teslaPrint("---------------------------------------------------------------")
@@ -325,7 +334,7 @@ class Tesla:
                         inRecodingMode = False
 
                     else:
-                        print("Processing...")
+                        # print("Processing...")
                         # Here we find the test Case
                     
                         if not inRecordingMode2:
@@ -391,7 +400,7 @@ class Tesla:
                                 # We write this in the file
                                 # Remove all commented line
                                 functions_filepath = "testfunction__"+str(iteration)+self.extension
-                                print(functions_filepath)
+                                # print(functions_filepath)
                                 if "#" not in line and len(line) > 3 and line not in allready_write:
                                     function_toWrite += line + "\n"
                                     allready_write += function_toWrite
@@ -530,8 +539,65 @@ class Tesla:
 
         print("Tesla testing ended on "+str(path))
 
+
 ########################################################################################
 # THE MAIN WHERE WE WORK
 
 # 1- GET PARAMS
 # PROCEED WITH TESTS
+
+prs = argparse.ArgumentParser()    
+prs.add_argument('-c', '--config', help='The Tesla configuration file', type=str)
+prs = prs.parse_args()
+
+
+config = prs.config
+
+try:
+
+    if config != None :
+
+        with open(config, 'r+') as filee:
+            teslaconfig = json.loads(filee.read())
+
+            # We instantiate the Tesla Test
+            TeslaTest = Tesla()
+
+            # We Start the TeslaTest
+            TeslaTest.start()
+
+            # We can generate a Report of the test we are going to do:
+            TeslaTest.setgenerateReport(True)
+
+            TeslaTest.commentStartBy = teslaconfig["commentStartBy"]
+            TeslaTest.launcher = teslaconfig["launcher"]
+            TeslaTest.outputMethod = teslaconfig["outputMethod"]
+            TeslaTest.extension = teslaconfig["extensions"][0]
+            TeslaTest.tryCatch = teslaconfig["tryCatch"]
+                
+            # For building class test
+            TeslaTest.function = teslaconfig["function"] # function, etc...
+            TeslaTest.varDeclaration = teslaconfig["varDeclaration"] # var, let, etc...
+            TeslaTest.classInstantiationNew = teslaconfig["classInstantiationNew"] # new, etc...
+            TeslaTest.AccoladStart = teslaconfig["AccoladStart"] # {
+            TeslaTest.AccoladEnd = teslaconfig["AccoladEnd"] # }
+            TeslaTest.NoneNull = teslaconfig["NoneNull"] # null
+            TeslaTest.selfOrThis = teslaconfig["selfOrThis"] # this
+            TeslaTest.selfOnFunctionParams = teslaconfig["selfOnFunctionParams"] # if there is a need of self in the declaration of a function
+            TeslaTest.semicolomn = teslaconfig["semicolomn"] # ; 
+
+            for ppath in teslaconfig["path"]:
+                TeslaTest.Function(ppath, teslaconfig["extensions"])
+
+            # Most Important, ALWAYS We need to End the test.
+            TeslaTest.end()
+            # We Print the Report resume:
+            # print(TeslaTest.getresume())
+            print("Reports saved in './"+TeslaTest.date_report+"'")
+    else:
+        print("Bad parameters input for the path and the config!")
+
+except Exception as es:
+    print("Tesla just Crached !!!")
+    print(es)
+

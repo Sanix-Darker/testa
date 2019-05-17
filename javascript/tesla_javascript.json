@@ -1,0 +1,17 @@
+{
+    "name": "myapp",
+    "extensions": [".js"],
+    "launcher": "node",
+    "outputMethod": "console.log",
+    "commentStartBy": "//",
+    "tryCatch": "try{ \n\t **** \ncatch(err){ \n\t console.log(es)}",
+    "function": "function ",
+    "varDeclaration": "var ",
+    "classInstantiationNew": "new ",
+    "AccoladStart": "{",
+    "AccoladEnd": "}",
+    "NoneNull": "null",
+    "selfOrThis": "this",
+    "selfOnFunctionParams": false,
+    "semicolomn": ";"
+}
