@@ -1,10 +1,13 @@
 ## Tesla - Python
 
-An implementation of the Tesla test in python.
+Here you can have an example of a directory containing some files wich contains some functions and test Case.
 
-### Requirements
+## How to test it
 
-Any requirements need for this.
+Just hit this command in your cli:
+```shell
+teslacli -c ./tpy.json
+```
 
 ## Author
 

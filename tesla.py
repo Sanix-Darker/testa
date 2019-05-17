@@ -587,4 +587,3 @@ try:
 except Exception as es:
     print("Tesla just Crached !!!")
     print(es)
-
