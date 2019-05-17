@@ -1,0 +1,20 @@
+{
+    "path": ["./python/my_ruby_app/", "./ruby/square.rb"],
+    "extensions": [".rb"],
+    "launcher": "python",
+    "outputMethod": "puts",
+    "commentStartBy": "#",
+    "tryCatch": "try: \n\t **** \nexcept Exception as es \n\t puts(es)",
+    "function": "def ",
+    "varDeclaration": "",
+    "classInstantiationNew": "",
+    "AccoladStart": "",
+    "AccoladEnd": "\n end",
+    "NoneNull": "None",
+    "selfOrThis": "self",
+    "selfOnFunctionParams": true,
+    "semicolomn": "",
+    "scriptStarter": "",
+    "scriptEnder": "",
+    "prefixVariable": ""
+}

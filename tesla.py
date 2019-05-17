@@ -292,6 +292,8 @@ class Tesla:
         with open(filePath+"_tmp_", "r+") as filet:
             with open(filePath, "w") as filet2:
                 filet2.write(filet.read())
+                
+        # We delete the tempory file
         remove(filePath+"_tmp_")
 
 
@@ -484,7 +486,7 @@ class Tesla:
                     print("| Error")
                 
                 # We remove the tempory function file
-                # remove(file_function)
+                remove(file_function)
                 ii = ii + 1
 
     def Function(self, filePath, extension_list=None): # This method test all functions in one application

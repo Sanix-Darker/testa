@@ -1,26 +1,24 @@
 # Tesla
 
-Tesla is the best, simple and UnnitTest tool "CrossPlatform" and "CrossLanguages" develop by developpers for developpers based on comments in your code.
+Tesla is the best, simple and UnnitTest tool "CrossPlatform" and "CrossLanguages" (Only Script language for now) develop by developpers for developpers based on comments in your code.
 The power in this tool is that the grammar is the same for all your implementation languages.
 
 ## Features
 
 - Tesla can do any Unittest you want from an assertion.
-- Tesla Can Save Your Tests reports so that you can check it later in a persistent file.
+- Tesla Can Save Your Tests reports so that you can check it later in a persistant file.
 - Tesla is light and simple.
 - Tesla have a specific and very simple grammar for testing "all methods" presents in a file in one time and generate reports.
 - Tesla is build from scratch so it doesn't have any dependency or any kind of troubleshooting with potentials externals libs.
-- Tesla is build in 7 programming languages to cover all kind of application you are building in many way.
 
 ## Tesla can test all theese programming languages
 
 List of languages, where you can perform tesla test:
 
-- Python
-- Javascript
-- TypeScript
-- PHP
-- Ruby
+- [Done] Python
+- [Done] Javascript
+- [Done] PHP
+- [Working] Ruby
 - Pascal
 - Perl
 - Erlang
@@ -93,14 +91,14 @@ List of languages, where you can perform tesla test:
 
 - Second : You need to config a tesla json file or just to use what is allready config here.
     - An example of tesla config file for `Javascript`:
-```json
+```php
 {
     "path": ["./javascript/square.js", "./javascript/my_javascript_app/"], // All path where tesla will perform tests
     "extensions": [".js"], // extensions to be tests
     "launcher": "node", // the core
     "outputMethod": "console.log", // the default print for the appropriate language
     "commentStartBy": "//", // The default started comment
-    "tryCatch": "try{ \n\t **** \n}catch(err){ \n\t console.log(es)}", // A oneline try catch to get errors
+    "tryCatch": "try{ \n\t **** \n}catch(err){ \n\t console.log(es);}", // A oneline try catch to get errors when the code crach
     "function": " ", 
     "varDeclaration": "var ", // the prefix on instantiation of a variable
     "classInstantiationNew": "new ", 
@@ -113,7 +111,7 @@ List of languages, where you can perform tesla test:
 }
 ```
 
-## TEEEESSSSSSSSSTTTSS
+## TEEEESSSSSSTTS :-)
 
 That can look really complicated to config but in fact it's really simple and all available tsla Json file have been allready configured for you:
 
@@ -127,11 +125,14 @@ teslacli -c ./tpy.json
 
 # Or for PHP
 teslacli -c ./tphp.json
+
+# Or for Ruby
+teslacli -c ./trb.json
 ```
 And that's where the magic of Tesla is, for any language, you have only to write a simple JSON file and specify paths where you will do tests.
 
 Records of the test will be saved in a txt file with this format for example:
-```python
+```php
 
 ##################################################################
 #         |_   _| | ____| / ___|  | |        / \                 #
@@ -220,15 +221,9 @@ Records of the test will be saved in a txt file with this format for example:
 
 ## How to contribute
 
-- Colne the repository
+- Clone the repository.
 - Create a branch for your feature you want to add or a personnal configuration.
-- Do a pull request
-
-## Interesting ressources:
-
-- [Types of testing](https://www.softwaretestinghelp.com/types-of-software-testing/)
-- [Group of tests](https://www.atlassian.com/continuous-delivery/software-testing/types-of-software-testing)
-
+- Do a pull request.
 
 ## Author
 
