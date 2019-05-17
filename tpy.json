@@ -1,5 +1,5 @@
 {
-    "path": ["./my_python_app/", "./square.py"],
+    "path": ["./python/my_python_app/", "./python/square.py"],
     "extensions": [".py"],
     "launcher": "python",
     "outputMethod": "print",

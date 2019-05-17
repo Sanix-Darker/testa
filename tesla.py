@@ -66,10 +66,12 @@ class Tesla:
 
     def start(self):
         self.addresume("\n##################################################################")
-        self.addresume("#|_   _| | ____| / ___|  | |        / \   ")
-        self.addresume("#  | |   |  _|   \___ \  | |       / _ \  ")
-        self.addresume("#  | |   | |___   ___) | | |___   / ___ \ ")
-        self.addresume("#  |_|   |_____| |____/  |_____| /_/   \_\\ v0.1")
+        self.addresume("#         |_   _| | ____| / ___|  | |        / \                 #")
+        self.addresume("#           | |   |  _|   \___ \  | |       / _ \                #")
+        self.addresume("#           | |   | |___   ___) | | |___   / ___ \               #")
+        self.addresume("#           |_|   |_____| |____/  |_____| /_/   \_\\ v0.1         #")
+        self.addresume("#----------------------------------------------------------------#")
+        self.addresume("#-------------------------------------------- By S@n1x d4rk3r ---#")
         self.addresume("##################################################################\n")
 
         self.date_report = "reports_"+time.strftime("%Y-%m-%d %H:%M:%S")
@@ -79,62 +81,51 @@ class Tesla:
         ## Assert Method tests,lte's build our TestClass ere to do tests
         ##---------------------------------------------------------------------------------------------------
         ####################################################################################################
-        self.TeslAssertClass = "class TeslaAssertpython"+self.AccoladStart
+        self.TeslAssertClass = "class TeslaAssert"+self.AccoladStart
 
         self.TeslAssertClass += "\n    "+self.function+" __init__("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams)+")"+self.AccoladStart
-        self.TeslAssertClass += "\n        "+self.selfOrThis+".zero = 0"+self.semicolomn
-        self.TeslAssertClass += "\n    "+self.AccoladEnd
+        self.TeslAssertClass += "\n        "+self.selfOrThis+".zero = 0"+self.semicolomn + self.AccoladEnd
 
         self.TeslAssertClass += "\n    "+self.function+" checkAsswert("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" assertt)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return assertt"+self.semicolomn
-        self.TeslAssertClass += "\n    "+self.AccoladEnd
+        self.TeslAssertClass += "\n        return assertt"+self.semicolomn + self.AccoladEnd
 
         self.TeslAssertClass += "\n    "+self.function+" isEqual("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" a, b)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert(a == b)"+self.semicolomn
-        self.TeslAssertClass += "\n    "+self.AccoladEnd
+        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert(a == b)"+self.semicolomn + self.AccoladEnd
 
         self.TeslAssertClass += "\n    "+self.function+" isNotEqual("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" a, b)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert(a != b)"+self.semicolomn
-        self.TeslAssertClass += "\n    "+self.AccoladEnd
+        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert(a != b)"+self.semicolomn + self.AccoladEnd
 
         self.TeslAssertClass += "\n    "+self.function+" isTrue("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" x)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return  "+self.selfOrThis+".checkAsswert(x)"+self.semicolomn
-        self.TeslAssertClass += "\n    "+self.AccoladEnd
+        self.TeslAssertClass += "\n        return  "+self.selfOrThis+".checkAsswert(x)"+self.semicolomn + self.AccoladEnd
 
         self.TeslAssertClass += "\n    "+self.function+" isFalse("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" y)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return  "+self.selfOrThis+".checkAsswert(y)"+self.semicolomn
-        self.TeslAssertClass += "\n    "+self.AccoladEnd
+        self.TeslAssertClass += "\n        return  "+self.selfOrThis+".checkAsswert(y)"+self.semicolomn + self.AccoladEnd
 
         self.TeslAssertClass += "\n    "+self.function+" isIsNoneNull("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" x)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert(x == "+self.NoneNull+")"+self.semicolomn
-        self.TeslAssertClass += "\n    "+self.AccoladEnd
+        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert(x == "+self.NoneNull+")"+self.semicolomn + self.AccoladEnd
 
         self.TeslAssertClass += "\n    "+self.function+" isIsNotNoneNull("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" x)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert(x != "+self.NoneNull+")"+self.semicolomn
-        self.TeslAssertClass += "\n    "+self.AccoladEnd
+        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert(x != "+self.NoneNull+")"+self.semicolomn + self.AccoladEnd
 
         self.TeslAssertClass += "\n    "+self.function+" isSup("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" a, b)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert(a > b)"+self.semicolomn
-        self.TeslAssertClass += "\n    "+self.AccoladEnd
+        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert(a > b)"+self.semicolomn + self.AccoladEnd
 
         self.TeslAssertClass += "\n    "+self.function+" isSupEqual("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" a, b)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert(a >= b)"+self.semicolomn
-        self.TeslAssertClass += "\n    "+self.AccoladEnd
+        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert(a >= b)"+self.semicolomn + self.AccoladEnd
 
         self.TeslAssertClass += "\n    "+self.function+" isInf("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" a, b)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert(a < b)"+self.semicolomn
-        self.TeslAssertClass += "\n    "+self.AccoladEnd
+        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert(a < b)"+self.semicolomn + self.AccoladEnd
 
         self.TeslAssertClass += "\n    "+self.function+" isInfEqual("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" a, b)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert(a <= b)"+self.semicolomn
-        self.TeslAssertClass += "\n    "+self.AccoladEnd
+        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert(a <= b)"+self.semicolomn + self.AccoladEnd
+
+        self.TeslAssertClass += self.AccoladEnd
 
         # Let instantiate the class
-        self.TeslAssertClass += "\n"+self.varDeclaration+"tesla = "+self.classInstantiationNew+"TeslaAssertpython()"+self.semicolomn
+        self.TeslAssertClass += "\n"+self.varDeclaration+"tesla = "+self.classInstantiationNew+"TeslaAssert()"+self.semicolomn
 
 
     def end(self):
-
         self.addresume("\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         self.addresume("%% Tesla reports:")
         self.addresume("%%")
@@ -416,9 +407,6 @@ class Tesla:
                             iteration = iteration + 1
                             isAssert = False
 
-
-                        #print("functions: ", functions)
-
             # Parcours now each functions file path
             ii = 0 # iteration for Test Case array
             # print("functions: ", functions)
@@ -432,7 +420,7 @@ class Tesla:
                 with open(fnc, "r+") as fileee:
                     to_append_at_the_end = fileee.read()
                     with open(fnc, "w") as fileee2:
-                        fileee2.write( self.TeslAssertClass + "\n\n" + to_append_at_the_end )
+                        fileee2.write( self.TeslAssertClass + "\n\n" + to_append_at_the_end + self.AccoladEnd )
                             
 
                 with open(fnc, "a+") as fileee:
@@ -492,7 +480,6 @@ class Tesla:
                 
                 # We remove the tempory function file
                 remove(file_function)
-
                 ii = ii + 1
 
     def Function(self, filePath, extension_list=None): # This method test all functions in one application
@@ -563,18 +550,11 @@ try:
             # We instantiate the Tesla Test
             TeslaTest = Tesla()
 
-            # We Start the TeslaTest
-            TeslaTest.start()
-
-            # We can generate a Report of the test we are going to do:
-            TeslaTest.setgenerateReport(True)
-
             TeslaTest.commentStartBy = teslaconfig["commentStartBy"]
             TeslaTest.launcher = teslaconfig["launcher"]
             TeslaTest.outputMethod = teslaconfig["outputMethod"]
             TeslaTest.extension = teslaconfig["extensions"][0]
             TeslaTest.tryCatch = teslaconfig["tryCatch"]
-                
             # For building class test
             TeslaTest.function = teslaconfig["function"] # function, etc...
             TeslaTest.varDeclaration = teslaconfig["varDeclaration"] # var, let, etc...
@@ -585,6 +565,13 @@ try:
             TeslaTest.selfOrThis = teslaconfig["selfOrThis"] # this
             TeslaTest.selfOnFunctionParams = teslaconfig["selfOnFunctionParams"] # if there is a need of self in the declaration of a function
             TeslaTest.semicolomn = teslaconfig["semicolomn"] # ; 
+
+
+            # We Start the TeslaTest
+            TeslaTest.start()
+
+            # We can generate a Report of the test we are going to do:
+            TeslaTest.setgenerateReport(True)
 
             for ppath in teslaconfig["path"]:
                 TeslaTest.Function(ppath, teslaconfig["extensions"])
