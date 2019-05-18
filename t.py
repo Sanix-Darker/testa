@@ -1,5 +1,7 @@
+#!/usr/bin/python
+
 #
-#---------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------
 #
 #|_   _| | ____| / ___|  | |        / \   
 #  | |   |  _|   \___ \  | |       / _ \  
@@ -10,15 +12,24 @@
 # A simple Class that's allow you to do UnitTests grammatically whatever the language you are using.
 # Tesla will be able tout test assertions, functions, classes and a complete application.
 # Created by Sanix-darker [ https://github.com/sanix-darker ]
-#---------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------
 #
 
 import time
 from threading import Thread
-from os import remove, path as pathit
-from pathlib import Path
-from subprocess import Popen, PIPE, STDOUT
+from os import system, remove, path as pathit
 
+try:
+    from pathlib import Path
+except:
+    system("pip install pathlib")
+    try:
+        from pathlib import Path
+    except:
+        print("Unable to install pathlib, Tesla will have some problem in recursively tests.")
+
+
+from subprocess import Popen, PIPE, STDOUT
 import argparse
 import json
 

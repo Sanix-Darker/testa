@@ -3,6 +3,8 @@
 Tesla is the best, simple and UnnitTest tool "CrossPlatform" and "CrossLanguages" (Only Script language for now) develop by developpers for developpers based on comments in your code.
 The power in this tool is that the grammar is the same for all your implementation languages.
 
+**Note:** This project is completly experimental, am still working on it, not sure where am going with it lol.
+
 ## Features
 
 - Tesla can do any Unittest you want from an assertion.
@@ -18,7 +20,7 @@ List of languages, where you can perform tesla test:
 - [Done] Python
 - [Done] Javascript
 - [Done] PHP
-- [Working] Ruby
+- [Working...] Ruby
 - Pascal
 - Perl
 - Erlang
@@ -117,17 +119,21 @@ That can look really complicated to config but in fact it's really simple and al
 
 To test it, after cloning this repository, hit:
 ```shell
+
+# First you need to cd where the json file is:
+cd ./my/path
+
 # Tesla will perform tests following what it is on tjs.json
-teslacli -c ./tjs.json
+python t.py -c ./tjs.json
 
 # Or for PYTHON
-teslacli -c ./tpy.json
+python t.py -c ./tpy.json
 
 # Or for PHP
-teslacli -c ./tphp.json
+python t.py -c ./tphp.json
 
 # Or for Ruby
-teslacli -c ./trb.json
+python t.py -c ./trb.json
 ```
 And that's where the magic of Tesla is, for any language, you have only to write a simple JSON file and specify paths where you will do tests.
 
