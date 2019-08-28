@@ -139,7 +139,13 @@ python tesla.py -c ./ruby/tesla.json
 ```
 And that's where the magic of Tesla is, for any language, you have only to write a simple JSON file and specify paths where you will do tests.
 
-Records of the test will be saved in a txt file with this format for example:
+
+## DEMO
+
+<img src="./demo.gif">
+
+
+Records of the test will be saved in a .txt file with this format for example:
 ```php
 
 ##################################################################

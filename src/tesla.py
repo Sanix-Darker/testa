@@ -88,7 +88,7 @@ class Tesla:
         self.addresume("#-------------------------------------------- By S@n1x d4rk3r ---#")
         self.addresume("##################################################################\n")
 
-        self.date_report = "reports_"+time.strftime("%Y-%m-%d %H:%M:%S")
+        self.date_report = "reports_"+time.strftime("%Y-%m-%d_%H:%M:%S")
 
         ####################################################################################################
         ##--------------------------------------------------------------------------------------------------
@@ -152,7 +152,7 @@ class Tesla:
         self.addresume("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 
         if(self.generateReport == True):
-            with open("reports_"+time.strftime("%Y-%m-%d %H:%M:%S")+"txt", "w") as ffr:
+            with open("reports_"+time.strftime("%Y-%m-%d_%H:%M:%S")+".txt", "w") as ffr:
                 ffr.write(self.resume)
 
     # The getter
