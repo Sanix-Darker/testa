@@ -1,7 +1,7 @@
 {
-    "path": ["./python/my_ruby_app/", "./ruby/square.rb"],
+    "path": ["./ruby/my_ruby_app/", "./ruby/square.rb"],
     "extensions": [".rb"],
-    "launcher": "python",
+    "launcher": "ruby",
     "outputMethod": "puts",
     "commentStartBy": "#",
     "tryCatch": "try: \n\t **** \nexcept Exception as es \n\t puts(es)",

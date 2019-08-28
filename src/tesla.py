@@ -50,7 +50,7 @@ class Tesla:
         self.outputMethod = "print"
         self.extension = ".py"
         self.tryCatch = "try: \n\t **** \nexcept Exception as es: \n\t print(str(es))"
-            
+
         # For building class test
         self.scriptStarter = " " # with what the script start For example in php it's <?php, etc...
         self.prefixVariable = "" # in php we have '$' for example
@@ -67,7 +67,6 @@ class Tesla:
         self.listAssertFailed = ""
         self.date_report = ""
         self.scriptEnder = " " # with what the script start For example in php it's <?php, etc...
-
 
 
     def selfOnParams(self, check, selfOnFunctionParams, addSemmicolomn = False):
@@ -93,46 +92,46 @@ class Tesla:
         self.date_report = "reports_"+time.strftime("%Y-%m-%d %H:%M:%S")
         
         ####################################################################################################
-        ##---------------------------------------------------------------------------------------------------
+        ##--------------------------------------------------------------------------------------------------
         ## Assert Method tests,lte's build our TestClass ere to do tests
-        ##---------------------------------------------------------------------------------------------------
+        ##--------------------------------------------------------------------------------------------------
         ####################################################################################################
         self.TeslAssertClass = "class TeslaAssert"+self.AccoladStart
 
         # self.TeslAssertClass += "\n    "+self.function+" __init__("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams)+")"+self.AccoladStart
         # self.TeslAssertClass += "\n        "+self.selfOrThis+".zero = 0"+self.semicolomn + self.AccoladEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" checkAsswert("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" "+self.prefixVariable+"assertt)"+self.AccoladStart
+        self.TeslAssertClass += "\n    "+self.function+" checkAsswert("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"assertt)"+self.AccoladStart
         self.TeslAssertClass += "\n        return "+self.prefixVariable+"assertt"+self.semicolomn + self.AccoladEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isEqual("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
+        self.TeslAssertClass += "\n    "+self.function+" isEqual("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
         self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"a == "+self.prefixVariable+"b)"+self.semicolomn + self.AccoladEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isNotEqual("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
+        self.TeslAssertClass += "\n    "+self.function+" isNotEqual("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
         self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"a != "+self.prefixVariable+"b)"+self.semicolomn + self.AccoladEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isTrue("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" "+self.prefixVariable+"x)"+self.AccoladStart
+        self.TeslAssertClass += "\n    "+self.function+" isTrue("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"x)"+self.AccoladStart
         self.TeslAssertClass += "\n        return  "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"x)"+self.semicolomn + self.AccoladEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isFalse("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" "+self.prefixVariable+"y)"+self.AccoladStart
+        self.TeslAssertClass += "\n    "+self.function+" isFalse("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"y)"+self.AccoladStart
         self.TeslAssertClass += "\n        return  "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"y)"+self.semicolomn + self.AccoladEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isIsNoneNull("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" "+self.prefixVariable+"x)"+self.AccoladStart
+        self.TeslAssertClass += "\n    "+self.function+" isIsNoneNull("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"x)"+self.AccoladStart
         self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"x == "+self.NoneNull+")"+self.semicolomn + self.AccoladEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isIsNotNoneNull("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" "+self.prefixVariable+"x)"+self.AccoladStart
+        self.TeslAssertClass += "\n    "+self.function+" isIsNotNoneNull("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"x)"+self.AccoladStart
         self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"x != "+self.NoneNull+")"+self.semicolomn + self.AccoladEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isSup("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
+        self.TeslAssertClass += "\n    "+self.function+" isSup("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
         self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"a > "+self.prefixVariable+"b)"+self.semicolomn + self.AccoladEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isSupEqual("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
+        self.TeslAssertClass += "\n    "+self.function+" isSupEqual("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
         self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"a >= "+self.prefixVariable+"b)"+self.semicolomn + self.AccoladEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isInf("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
+        self.TeslAssertClass += "\n    "+self.function+" isInf("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
         self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"a < "+self.prefixVariable+"b)"+self.semicolomn + self.AccoladEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isInfEqual("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True)+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
+        self.TeslAssertClass += "\n    "+self.function+" isInfEqual("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
         self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"a <= "+self.prefixVariable+"b)"+self.semicolomn + self.AccoladEnd
 
         self.TeslAssertClass += self.AccoladEnd
@@ -377,7 +376,6 @@ class Tesla:
                                             with open(functions_filepath, "a+") as fileee:
                                                 # We replace the output method by putting a comment at the beginning
                                                 fileee.write( case_to_add.replace(self.outputMethod, self.commentStartBy+self.outputMethod) )
-                                        
 
                             # if it's not a simple assertion
                             result_to_add = line.replace(" ", "").replace("<<", "").replace(self.commentStartBy, "")
@@ -391,7 +389,6 @@ class Tesla:
                             # The function and then
                             if not inRecordingMode3:
                                 if "::code_start::" in line:
-                                    
                                     self.iteration = self.iteration + 1
                                     inRecordingMode3 = True
                                     function_toWrite = ""
@@ -550,60 +547,63 @@ class Tesla:
 
 # 1- GET PARAMS
 # PROCEED WITH TESTS
+def main():
+    prs = argparse.ArgumentParser()    
+    prs.add_argument('-c', '--config', help='The Tesla configuration file', type=str)
+    prs = prs.parse_args()
 
-prs = argparse.ArgumentParser()    
-prs.add_argument('-c', '--config', help='The Tesla configuration file', type=str)
-prs = prs.parse_args()
 
+    config = prs.config
 
-config = prs.config
+    try:
 
-try:
+        if config != None :
 
-    if config != None :
+            with open(config, 'r+') as filee:
+                teslaconfig = json.loads(filee.read())
 
-        with open(config, 'r+') as filee:
-            teslaconfig = json.loads(filee.read())
+                # We instantiate the Tesla Test
+                TeslaTest = Tesla()
 
-            # We instantiate the Tesla Test
-            TeslaTest = Tesla()
+                TeslaTest.scriptStarter = teslaconfig["scriptStarter"]
+                TeslaTest.prefixVariable = teslaconfig["prefixVariable"]
+                TeslaTest.commentStartBy = teslaconfig["commentStartBy"]
+                TeslaTest.launcher = teslaconfig["launcher"]
+                TeslaTest.outputMethod = teslaconfig["outputMethod"]
+                TeslaTest.extension = teslaconfig["extensions"][0]
+                TeslaTest.tryCatch = teslaconfig["tryCatch"]
+                # For building class test
+                TeslaTest.function = teslaconfig["function"] # function, etc...
+                TeslaTest.varDeclaration = teslaconfig["varDeclaration"] # var, let, etc...
+                TeslaTest.classInstantiationNew = teslaconfig["classInstantiationNew"] # new, etc...
+                TeslaTest.AccoladStart = teslaconfig["AccoladStart"] # {
+                TeslaTest.AccoladEnd = teslaconfig["AccoladEnd"] # }
+                TeslaTest.NoneNull = teslaconfig["NoneNull"] # null
+                TeslaTest.selfOrThis = teslaconfig["selfOrThis"] # this
+                TeslaTest.selfOnFunctionParams = teslaconfig["selfOnFunctionParams"] # if there is a need of self in the declaration of a function
+                TeslaTest.semicolomn = teslaconfig["semicolomn"] # ;
+                TeslaTest.scriptEnder = teslaconfig["scriptEnder"]
 
-            TeslaTest.scriptStarter = teslaconfig["scriptStarter"]
-            TeslaTest.prefixVariable = teslaconfig["prefixVariable"]
-            TeslaTest.commentStartBy = teslaconfig["commentStartBy"]
-            TeslaTest.launcher = teslaconfig["launcher"]
-            TeslaTest.outputMethod = teslaconfig["outputMethod"]
-            TeslaTest.extension = teslaconfig["extensions"][0]
-            TeslaTest.tryCatch = teslaconfig["tryCatch"]
-            # For building class test
-            TeslaTest.function = teslaconfig["function"] # function, etc...
-            TeslaTest.varDeclaration = teslaconfig["varDeclaration"] # var, let, etc...
-            TeslaTest.classInstantiationNew = teslaconfig["classInstantiationNew"] # new, etc...
-            TeslaTest.AccoladStart = teslaconfig["AccoladStart"] # {
-            TeslaTest.AccoladEnd = teslaconfig["AccoladEnd"] # }
-            TeslaTest.NoneNull = teslaconfig["NoneNull"] # null
-            TeslaTest.selfOrThis = teslaconfig["selfOrThis"] # this
-            TeslaTest.selfOnFunctionParams = teslaconfig["selfOnFunctionParams"] # if there is a need of self in the declaration of a function
-            TeslaTest.semicolomn = teslaconfig["semicolomn"] # ; 
-            TeslaTest.scriptEnder = teslaconfig["scriptEnder"]
+                # We Start the TeslaTest
+                TeslaTest.start()
 
-            # We Start the TeslaTest
-            TeslaTest.start()
+                # We can generate a Report of the test we are going to do:
+                TeslaTest.setgenerateReport(True)
 
-            # We can generate a Report of the test we are going to do:
-            TeslaTest.setgenerateReport(True)
+                for ppath in teslaconfig["path"]:
+                    TeslaTest.Function(ppath, teslaconfig["extensions"])
 
-            for ppath in teslaconfig["path"]:
-                TeslaTest.Function(ppath, teslaconfig["extensions"])
+                # Most Important, ALWAYS We need to End the test.
+                TeslaTest.end()
+                # We Print the Report resume:
+                # print(TeslaTest.getresume())
+                print("Reports saved in './"+TeslaTest.date_report+"'")
+        else:
+            print("Bad parameters input for the path and the config!")
 
-            # Most Important, ALWAYS We need to End the test.
-            TeslaTest.end()
-            # We Print the Report resume:
-            # print(TeslaTest.getresume())
-            print("Reports saved in './"+TeslaTest.date_report+"'")
-    else:
-        print("Bad parameters input for the path and the config!")
+    except Exception as es:
+        print("Tesla just Crached !!!")
+        print(es)
 
-except Exception as es:
-    print("Tesla just Crached !!!")
-    print(es)
+# Let's run the Main script
+main()
