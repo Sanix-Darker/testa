@@ -123,19 +123,19 @@ To test it, after cloning this repository, hit:
 ```shell
 
 # First you need to cd where the json file is:
-cd ./my/path
+cd ./examples
 
 # Tesla will perform tests following what it is on tjs.json
-python t.py -c ./tjs.json
+python tesla.py -c ./javascript/tesla.json
 
 # Or for PYTHON
-python t.py -c ./tpy.json
+python tesla.py -c ./python/tesla.json
 
 # Or for PHP
-python t.py -c ./tphp.json
+python tesla.py -c ./python/tesla.json
 
 # Or for Ruby
-python t.py -c ./trb.json
+python tesla.py -c ./ruby/tesla.json
 ```
 And that's where the magic of Tesla is, for any language, you have only to write a simple JSON file and specify paths where you will do tests.
 

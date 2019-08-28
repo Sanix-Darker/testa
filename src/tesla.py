@@ -30,7 +30,6 @@ except:
 
 
 from subprocess import Popen, PIPE, STDOUT
-import argparse
 import json
 
 class Tesla:
@@ -90,7 +89,7 @@ class Tesla:
         self.addresume("##################################################################\n")
 
         self.date_report = "reports_"+time.strftime("%Y-%m-%d %H:%M:%S")
-        
+
         ####################################################################################################
         ##--------------------------------------------------------------------------------------------------
         ## Assert Method tests,lte's build our TestClass ere to do tests
@@ -284,9 +283,7 @@ class Tesla:
 
 
     def checkAsswertFunction(self, assertt, assert_string=None, msg=None):
- 
         self.checkCore(assertt, assert_string, msg)
-        
         return assertt
 
 
@@ -543,7 +540,11 @@ class Tesla:
 
 
 ########################################################################################
+########################################################################################
 # THE MAIN WHERE WE WORK
+########################################################################################
+
+import argparse
 
 # 1- GET PARAMS
 # PROCEED WITH TESTS
