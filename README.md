@@ -14,6 +14,7 @@ The power in this tool is that the grammar is the same for all your implementati
 - Tesla is light and simple.
 - Tesla have a specific and very simple grammar for testing "all methods" presents in a file in one time and generate reports.
 - Tesla is build from scratch so it doesn't have any dependency or any kind of troubleshooting with potentials externals libs.
+- Tesla can generate for you a small and readable documentation whatever the language you're using
 
 ## Tesla can test all theese programming languages
 
@@ -28,7 +29,6 @@ List of languages, where you can perform tesla test:
 - Erlang
 - Haskell
 - Fortran
-- MatLab
 - Rust
 - R
 
@@ -47,6 +47,13 @@ List of languages, where you can perform tesla test:
         # ::case_end::
         # ::tesla_end::
 
+        #
+        # ::doc_start::
+        #  .
+        #  Here a small description of the function  that will be generate on the documentation
+        #  .
+        # ::doc_end::
+        #
 
         # For more instructions:
 
@@ -84,6 +91,15 @@ List of languages, where you can perform tesla test:
         // >> addition(2, 2)
         // << 4
         // ::case_end::
+
+        //
+        // ::doc_start::
+        //  .
+        //  Here a small description of the function  that will be generate on the documentation
+        //  .
+        // ::doc_end::
+        //
+
         // ::code_start::
         // --- Your specific list of instruction / functions source code here!
         function addition(a, b){
