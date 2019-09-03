@@ -277,7 +277,7 @@ class Tesla:
 
         now = time.time() #Time after it finished
         self.setTestTimer(now-then)
-        self.setTotalTimer(self.totalTimer + self.getTestTimer())
+        self.setTotalTimer(self.totalTimer + int(self.getTestTimer()))
 
         return assertt
 
@@ -299,7 +299,7 @@ class Tesla:
         with open(filePath+"_tmp_", "r+") as filet:
             with open(filePath, "w") as filet2:
                 filet2.write(filet.read())
-                
+
         # We delete the tempory file
         remove(filePath+"_tmp_")
 
@@ -340,7 +340,6 @@ class Tesla:
                     else:
                         # print("Processing...")
                         # Here we find the test Case
-                    
                         if not inRecordingMode2:
                             if "::case_start::" in line:
                                 #print("BIM start tesla case")
@@ -420,9 +419,9 @@ class Tesla:
 
             # Parcours now each functions file path
             ii = 0 # iteration for Test Case array
-            print("functions: ", functions)
-            print("Case: ", Case)
-            print("Result: ", Result)
+            # print("functions: ", functions)
+            # print("Case: ", Case)
+            # print("Result: ", Result)
             for fnc in functions:
                 # if it's not a simple assertion
                 to_write = self.outputMethod+"("+Case[ii]+")"+self.semicolomn+" \n " + self.commentStartBy+" Should returns: "+Result[ii]
@@ -432,22 +431,20 @@ class Tesla:
                     to_append_at_the_end = fileee.read()
                     with open(fnc, "w") as fileee2:
                         fileee2.write( self.scriptStarter +"\n"+ self.TeslAssertClass + "\n\n" + to_append_at_the_end) #  + self.AccoladEnd
-                            
 
                 with open(fnc, "a+") as fileee:
                     fileee.write(self.tryCatch.replace("****", to_write) + self.scriptEnder)
-                
 
                 # Let's delete duplicated lines
                 self.deleteDuplicateLine(fnc)
 
-                ii = ii + 1 
+                ii = ii + 1
 
             # Now we will test each function by running each file and get the result
             # if the result is what it's expect We build a Test that win, if not we write it failed
             ii = 0 # iteration for Test Case array
             for file_function in functions:
-        
+
                 # Timer started!
                 self.setTestTimer(0)
                 then = time.time() #Time before the operations start
@@ -481,15 +478,15 @@ class Tesla:
 
                 now = time.time() #Time after it finished
                 self.setTestTimer(now-then)
-                self.setTotalTimer(self.totalTimer + self.getTestTimer())
+                self.setTotalTimer(self.totalTimer + int(self.getTestTimer()))
 
                 self.checkAsswertFunction(assert_, assert_string, descriptive_message)
-                
+
                 if wanted == output:
                     print("| Success!\n-----------------------------------------------------")
                 else:
                     print("| Error")
-                
+
                 # We remove the tempory function file
                 remove(file_function)
                 ii = ii + 1
@@ -539,6 +536,36 @@ class Tesla:
         print("Tesla testing ended on "+str(path))
 
 
+    def generateDoc(self): # This method will generate automaticcally a small documentation in html format of sure about tests done on a function
+        # --------------------------------------------------------------------------------
+        # The GRAMMAR --------------------------------------------------------------------
+
+        # ::tesla_start::
+        #
+        # ::doc_start::
+        #  .
+        #  Here a small description of the function  that will be generate on the documentation
+        #  .
+        # ::doc_end::
+        #
+        # ::case_start::
+        # >> addition(2, 2)
+        # << 4
+        # ::case_end::
+        #
+        # ::code_start::
+        #
+        # --- Your specific function source code here!
+        #
+        # ::code_end::
+        #
+        # ::tesla_end::
+
+        # The GRAMMAR --------------------------------------------------------------------
+
+        print("[+] Starting generating documentation...")
+
+
 ########################################################################################
 ########################################################################################
 # THE MAIN WHERE WE WORK
@@ -549,7 +576,7 @@ import argparse
 # 1- GET PARAMS
 # PROCEED WITH TESTS
 def main():
-    prs = argparse.ArgumentParser()    
+    prs = argparse.ArgumentParser()
     prs.add_argument('-c', '--config', help='The Tesla configuration file', type=str)
     prs = prs.parse_args()
 
