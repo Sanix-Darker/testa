@@ -35,7 +35,7 @@ List of languages, where you can perform tesla test:
 ## How to config it
 
 - First : In your code, make sure to enclose the instructions you want to test with the tesla grammar, for example:
-    - In Python: 
+    - In Python:
     ```python
 
         # For a Simple assertion:
@@ -121,7 +121,7 @@ List of languages, where you can perform tesla test:
     "tryCatch": "try{ \n\t **** \n}catch(err){ \n\t console.log(es);}", // A oneline try catch to get errors when the code crach
     "function": " ", 
     "varDeclaration": "var ", // the prefix on instantiation of a variable
-    "classInstantiationNew": "new ", 
+    "classInstantiationNew": "new ",
     "AccoladStart": "{",
     "AccoladEnd": "}",
     "NoneNull": "null", // Nonde for python and null for javascript

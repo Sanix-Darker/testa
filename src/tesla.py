@@ -18,15 +18,21 @@
 import time
 from threading import Thread
 from os import system, remove, path as pathit
+from sys import exit
 
 try:
     from pathlib import Path
 except:
-    system("pip install pathlib")
+    try:
+        system("pip3 install pathlib")
+    except:
+        system("pip install pathlib")
+
     try:
         from pathlib import Path
     except:
-        print("Unable to install pathlib, Tesla will have some problem in recursively tests.")
+        print("[+] Unable to install `pathlib`, Tesla will have some problem in recursively tests.")
+        exit()
 
 
 from subprocess import Popen, PIPE, STDOUT
@@ -61,7 +67,7 @@ class Tesla:
         self.NoneNull = "None" # null
         self.selfOrThis = "self" # this
         self.selfOnFunctionParams = True # if there is a need of self in the declaration of a function
-        self.semicolomn = "" # ; 
+        self.semicolomn = "" # ;
         self.TeslAssertClass = ""
         self.listAssertFailed = ""
         self.date_report = ""
@@ -304,6 +310,15 @@ class Tesla:
         remove(filePath+"_tmp_")
 
 
+    def recordOrNot(self, recordMode, line, start_block, end_block):
+        if not recordMode:
+            if start_block in line:
+                recordMode = True
+        elif end_block in line:
+            recordMode = False
+        return recordMode
+
+
     # This method test the list of functions contained in a file
     def TestFunctionsInAFile(self, filePath):
         if(not pathit.isdir(filePath)):
@@ -329,25 +344,19 @@ class Tesla:
 
                 for line in lines:
 
+                    # First we get the tesla block
                     if not inRecordingMode:
                         if "::tesla_start::" in line:
-                            #print("BIM start tesla")
                             inRecordingMode = True
                     elif "::tesla_end::" in line:
-                        #print("BIM end tesla")
                         inRecodingMode = False
-
                     else:
-                        # print("Processing...")
+                        # Second we get the case block
                         # Here we find the test Case
                         if not inRecordingMode2:
                             if "::case_start::" in line:
-                                #print("BIM start tesla case")
-
                                 inRecordingMode2 = True
                         elif "::case_end::" in line:
-                            #print("BIM end tesla case")
-
                             inRecodingMode2 = False
                         else:
 
@@ -361,10 +370,8 @@ class Tesla:
                                     if "tesla." in line:
                                         isAssert = True
                                         functions_filepath = "testfunction__"+str(self.iteration)+self.extension
-                                        #print(functions_filepath)
                                         if len(line) > 3:
                                             if functions_filepath not in functions and line not in allready_write:
-                                                #print("NOOOOOOOOOOOOOOOTTTTTTTTTTTTTTTTT IN")
                                                 # We append on function list
                                                 functions.append(functions_filepath)
                                                 allready_write += case_to_add
@@ -380,7 +387,7 @@ class Tesla:
                                 # We append on Result list
                                 Result.append(result_to_add)
 
-
+                        # Third, the code block
                         if (isAssert == False):
                             # The function and then
                             if not inRecordingMode3:
@@ -437,7 +444,6 @@ class Tesla:
 
                 # Let's delete duplicated lines
                 self.deleteDuplicateLine(fnc)
-
                 ii = ii + 1
 
             # Now we will test each function by running each file and get the result
