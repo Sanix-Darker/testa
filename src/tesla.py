@@ -333,12 +333,14 @@ class Tesla:
             functions = []
             function_toWrite = ""
             allready_write = ""
+            doc_ = ""
             with open(filePath, 'r') as filee:
                 lines = filee.readlines()
 
                 inRecordingMode = False
                 inRecordingMode2 = False
                 inRecordingMode3 = False
+                inRecordingMode4 = False
 
                 isAssert = False
 
@@ -351,6 +353,19 @@ class Tesla:
                     elif "::tesla_end::" in line:
                         inRecodingMode = False
                     else:
+
+                        if not inRecordingMode4:
+                            if "::doc_start::" in line:
+                                inRecordingMode4 = True
+                                doc_ = "------------------------------------------\n Documentation on :"+filePath+"\n------------------------------------------"
+                        elif "::doc_end::" in line:
+                            with open("./doc_"+filePath.replace("/", "-").replace(self.extension, "")+".txt", "w") as frt:
+                                frt.write(doc_)
+                            inRecodingMode4 = False
+                            doc_ = ""
+                        else:
+                            doc_ += "\n"+line.replace(self.commentStartBy, "")
+
                         # Second we get the case block
                         # Here we find the test Case
                         if not inRecordingMode2:
@@ -386,6 +401,7 @@ class Tesla:
                                 #if result_to_add not in Result:
                                 # We append on Result list
                                 Result.append(result_to_add)
+
 
                         # Third, the code block
                         if (isAssert == False):
