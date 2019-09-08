@@ -519,6 +519,11 @@ class Tesla:
         # The GRAMMAR --------------------------------------------------------------------
 
         # ::tesla_start::
+        # ::doc_start::
+        #  .
+        #  Here a small description of the function  that will be generate on the documentation
+        #  .
+        # ::doc_end::
         # ::case_start::
         # >> addition(2, 2)
         # << 4
