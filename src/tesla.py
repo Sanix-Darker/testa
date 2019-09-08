@@ -557,37 +557,6 @@ class Tesla:
 
         print("Tesla testing ended on "+str(path))
 
-
-    def generateDoc(self): # This method will generate automaticcally a small documentation in html format of sure about tests done on a function
-        # --------------------------------------------------------------------------------
-        # The GRAMMAR --------------------------------------------------------------------
-
-        # ::tesla_start::
-        #
-        # ::doc_start::
-        #  .
-        #  Here a small description of the function  that will be generate on the documentation
-        #  .
-        # ::doc_end::
-        #
-        # ::case_start::
-        # >> addition(2, 2)
-        # << 4
-        # ::case_end::
-        #
-        # ::code_start::
-        #
-        # --- Your specific function source code here!
-        #
-        # ::code_end::
-        #
-        # ::tesla_end::
-
-        # The GRAMMAR --------------------------------------------------------------------
-
-        print("[+] Starting generating documentation...")
-
-
 ########################################################################################
 ########################################################################################
 # THE MAIN WHERE WE WORK
