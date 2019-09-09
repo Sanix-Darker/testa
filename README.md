@@ -118,20 +118,20 @@ List of languages, where you can perform tesla test:
     "launcher": "node", // the core
     "outputMethod": "console.log", // the default print for the appropriate language
     "commentStartBy": "//", // The default started comment
-    "tryCatch": "try{ \n\t **** \n}catch(err){ \n\t console.log(es);}", // A oneline try catch to get errors when the code crach
+    "tryCatch": "try{ \n\t **** \n}catch(err){ \n\t console.log(es);}", // A oneline try catch to get errors when the code crash, the **** will be were the code will be place
     "function": " ", 
     "varDeclaration": "var ", // the prefix on instantiation of a variable
     "classInstantiationNew": "new ",
-    "AccoladStart": "{",
-    "AccoladEnd": "}",
+    "AccoladStart": "{", // This define the start of a function or a class
+    "AccoladEnd": "}", // This define the end of a method or a class
     "NoneNull": "null", // Nonde for python and null for javascript
     "selfOrThis": "this", // self for python and this for javascript for example
-    "selfOnFunctionParams": false,
-    "semicolomn": ";"
+    "selfOnFunctionParams": false, // the 'self' or 'this' parameter present on method
+    "semicolomn": ";" // For thoose langage that supporting instructions only with a ";" (semicolomn)
 }
 ```
 
-## TEEEESSSSSSTTS :-)
+## TEEEESSSSTTS :-)
 
 That can look really complicated to config but in fact it's really simple and all available tsla Json file have been allready configured for you:
 

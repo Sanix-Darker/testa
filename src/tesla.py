@@ -515,26 +515,36 @@ class Tesla:
 
     def Function(self, filePath, extension_list=None): # This method test all functions in one application
 
-        # --------------------------------------------------------------------------------
-        # The GRAMMAR --------------------------------------------------------------------
+        # -----------------------------------------------------------------------------------
+        # The GRAMMAR -----------------------------------------------------------------------
 
         # ::tesla_start::
+        #
         # ::doc_start::
-        #  .
-        #  Here a small description of the function  that will be generate on the documentation
-        #  .
+        # Summary line.
+        #
+        # Extended description of function.
+        #
+        # Parameters:
+        # arg1 (int): Description of arg1
+        #
+        # Returns:
+        # int: Description of return value
         # ::doc_end::
+        #
         # ::case_start::
         # >> addition(2, 2)
         # << 4
         # ::case_end::
+        #
         # ::code_start::
         # --- Your specific function source code here!
         # ::code_end::
+        #
         # ::tesla_end::
 
-        # The GRAMMAR --------------------------------------------------------------------
-        # --------------------------------------------------------------------------------
+        # The GRAMMAR -----------------------------------------------------------------------
+        # -----------------------------------------------------------------------------------
 
         path = filePath
         if extension_list == None:
@@ -575,7 +585,6 @@ def main():
     prs = argparse.ArgumentParser()
     prs.add_argument('-c', '--config', help='The Tesla configuration file', type=str)
     prs = prs.parse_args()
-
 
     config = prs.config
 
@@ -626,7 +635,7 @@ def main():
             print("Bad parameters input for the path and the config!")
 
     except Exception as es:
-        print("Tesla just Crached !!!")
+        print("Tesla just Crached, verify your JSON file !!!")
         print(es)
 
 # Let's run the Main script
