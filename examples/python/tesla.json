@@ -4,7 +4,7 @@
     "launcher": "python",
     "outputMethod": "print",
     "commentStartBy": "#",
-    "tryCatch": "try: \n\t **** \nexcept Exception as es: \n\t print(str(es))",
+    "tryCatch": "try: \n\t **** \nexcept Exception as es: \n\t print(str(es))\n",
     "function": "def ",
     "varDeclaration": "",
     "classInstantiationNew": "",

@@ -342,6 +342,7 @@ class Tesla:
                 inRecordingMode2 = False
                 inRecordingMode3 = False
                 inRecordingMode4 = False
+                inRecordingMode5 = False
 
                 isAssert = False
 
@@ -349,17 +350,15 @@ class Tesla:
 
                     # if we have some import at the head of the file that's method depends on
                     # First we get the tesla block
-                    if not inRecordingMode:
+                    if not inRecordingMode5:
                         if "::import_start::" in line:
-                            inRecordingMode = True
-                            importToWrite = ""
-
+                            inRecordingMode5 = True
                     elif "::import_end::" in line:
-                        inRecodingMode = False
-                        importToWrite = ""
-
+                        inRecordingMode5 = False
+                        #importToWrite = ""
                     else:
-                        importToWrite += line + "\n"
+                        importToWrite += line.replace(self.commentStartBy, "") + "\n"
+
 
                     # First we get the tesla block
                     if not inRecordingMode:
@@ -425,7 +424,8 @@ class Tesla:
                                 if "::code_start::" in line:
                                     self.iteration = self.iteration + 1
                                     inRecordingMode3 = True
-                                    function_toWrite = ""
+
+                                    function_toWrite += importToWrite
 
                             elif "::code_end::" in line:
 
@@ -439,7 +439,7 @@ class Tesla:
                                 functions_filepath = "testfunction__"+str(self.iteration)+self.extension
                                 # print(functions_filepath)
                                 if "#" not in line and len(line) > 3 and line not in allready_write:
-                                    function_toWrite += line + "\n"
+                                    function_toWrite += line.replace(self.commentStartBy, "") + "\n"
                                     allready_write += function_toWrite
 
                                     if functions_filepath not in functions:
@@ -455,10 +455,11 @@ class Tesla:
 
             # Parcours now each functions file path
             ii = 0 # iteration for Test Case array
-            # print("functions: ", functions)
-            # print("Case: ", Case)
-            # print("Result: ", Result)
+            print("functions: ", functions)
+            print("Case: ", Case)
+            print("Result: ", Result)
             for fnc in functions:
+                print("IN--")
                 # if it's not a simple assertion
                 to_write = self.outputMethod+"("+Case[ii].replace("\n", "")+")"+self.semicolomn+" \n " + self.commentStartBy+" Should returns: "+Result[ii]
 
@@ -466,10 +467,11 @@ class Tesla:
                 with open(fnc, "r+") as fileee:
                     to_append_at_the_end = fileee.read()
                     with open(fnc, "w") as fileee2:
-                        fileee2.write( self.scriptStarter +"\n"+ self.TeslAssertClass + "\n\n" + to_append_at_the_end) #  + self.AccoladEnd
+                        fileee2.write( self.scriptStarter +"\n"+ self.TeslAssertClass + "\n\n"+ importToWrite + "\n\n" + to_append_at_the_end) #  + self.AccoladEnd
 
                 with open(fnc, "a+") as fileee:
-                    fileee.write(self.tryCatch.replace("****", to_write)) #  + self.scriptEnder
+                    print("FINAL: ", self.tryCatch.replace("****", to_write) + self.scriptEnder)
+                    fileee.write(self.tryCatch.replace("****", to_write) + self.scriptEnder)
 
                 # Let's delete duplicated lines
                 self.deleteDuplicateLine(fnc)
@@ -523,7 +525,7 @@ class Tesla:
                     print("| Error")
 
                 # We remove the tempory function file
-                # remove(file_function)
+                remove(file_function)
                 ii = ii + 1
 
     def Function(self, filePath, extension_list=None): # This method test all functions in one application
