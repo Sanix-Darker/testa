@@ -98,7 +98,7 @@ class Tesla:
 
         ####################################################################################################
         ##--------------------------------------------------------------------------------------------------
-        ## Assert Method tests,lte's build our TestClass ere to do tests
+        ## Assert Method tests,let's build our TestClass ere to do tests
         ##--------------------------------------------------------------------------------------------------
         ####################################################################################################
         self.TeslAssertClass = "class TeslaAssert"+self.AccoladStart
@@ -333,6 +333,7 @@ class Tesla:
             functions = []
             function_toWrite = ""
             allready_write = ""
+            importToWrite = ""
             doc_ = ""
             with open(filePath, 'r') as filee:
                 lines = filee.readlines()
@@ -345,6 +346,20 @@ class Tesla:
                 isAssert = False
 
                 for line in lines:
+
+                    # if we have some import at the head of the file that's method depends on
+                    # First we get the tesla block
+                    if not inRecordingMode:
+                        if "::import_start::" in line:
+                            inRecordingMode = True
+                            importToWrite = ""
+
+                    elif "::import_end::" in line:
+                        inRecodingMode = False
+                        importToWrite = ""
+
+                    else:
+                        importToWrite += line + "\n"
 
                     # First we get the tesla block
                     if not inRecordingMode:
@@ -418,8 +433,6 @@ class Tesla:
                                 inRecodingMode3 = False
                                 function_toWrite = ""
 
-                                # with open("testfunction__"+str(iteration - 1)+".py", "w+") as fileee:
-                                #     fileee.write(Case[iteration])
                             else:
                                 # We write this in the file
                                 # Remove all commented line
@@ -447,7 +460,7 @@ class Tesla:
             # print("Result: ", Result)
             for fnc in functions:
                 # if it's not a simple assertion
-                to_write = self.outputMethod+"("+Case[ii]+")"+self.semicolomn+" \n " + self.commentStartBy+" Should returns: "+Result[ii]
+                to_write = self.outputMethod+"("+Case[ii].replace("\n", "")+")"+self.semicolomn+" \n " + self.commentStartBy+" Should returns: "+Result[ii]
 
                 # We open each function path and add the tesla class a the top
                 with open(fnc, "r+") as fileee:
@@ -456,7 +469,7 @@ class Tesla:
                         fileee2.write( self.scriptStarter +"\n"+ self.TeslAssertClass + "\n\n" + to_append_at_the_end) #  + self.AccoladEnd
 
                 with open(fnc, "a+") as fileee:
-                    fileee.write(self.tryCatch.replace("****", to_write) + self.scriptEnder)
+                    fileee.write(self.tryCatch.replace("****", to_write)) #  + self.scriptEnder
 
                 # Let's delete duplicated lines
                 self.deleteDuplicateLine(fnc)
@@ -510,41 +523,10 @@ class Tesla:
                     print("| Error")
 
                 # We remove the tempory function file
-                remove(file_function)
+                # remove(file_function)
                 ii = ii + 1
 
     def Function(self, filePath, extension_list=None): # This method test all functions in one application
-
-        # -----------------------------------------------------------------------------------
-        # The GRAMMAR -----------------------------------------------------------------------
-
-        # ::tesla_start::
-        #
-        # ::doc_start::
-        # Summary line.
-        #
-        # Extended description of function.
-        #
-        # Parameters:
-        # arg1 (int): Description of arg1
-        #
-        # Returns:
-        # int: Description of return value
-        # ::doc_end::
-        #
-        # ::case_start::
-        # >> addition(2, 2)
-        # << 4
-        # ::case_end::
-        #
-        # ::code_start::
-        # --- Your specific function source code here!
-        # ::code_end::
-        #
-        # ::tesla_end::
-
-        # The GRAMMAR -----------------------------------------------------------------------
-        # -----------------------------------------------------------------------------------
 
         path = filePath
         if extension_list == None:

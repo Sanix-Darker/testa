@@ -40,6 +40,10 @@ List of languages, where you can perform tesla test:
 
         # For a Simple assertion:
 
+        # ::import_start::
+        # --- Your imports herer ---
+        # ::import_end::
+
         # ::tesla_start::
         # ::case_start::
         # >> tesla.isEqual(2, 2)
@@ -73,6 +77,10 @@ List of languages, where you can perform tesla test:
 
     - In Javascript: 
     ```javascript
+
+        // ::import_start::
+        // --- Your imports herer ---
+        // ::import_end::
 
         // For a Simple assertion:
 
@@ -111,25 +119,25 @@ List of languages, where you can perform tesla test:
 
 - Second : You need to config a tesla json file or just to use what is allready config here.
     - An example of tesla config file for `Javascript`:
-```php
-{
-    "path": ["./javascript/square.js", "./javascript/my_javascript_app/"], // All path where tesla will perform tests
-    "extensions": [".js"], // extensions to be tests
-    "launcher": "node", // the core
-    "outputMethod": "console.log", // the default print for the appropriate language
-    "commentStartBy": "//", // The default started comment
-    "tryCatch": "try{ \n\t **** \n}catch(err){ \n\t console.log(es);}", // A oneline try catch to get errors when the code crash, the **** will be were the code will be place
-    "function": " ", 
-    "varDeclaration": "var ", // the prefix on instantiation of a variable
-    "classInstantiationNew": "new ",
-    "AccoladStart": "{", // This define the start of a function or a class
-    "AccoladEnd": "}", // This define the end of a method or a class
-    "NoneNull": "null", // Nonde for python and null for javascript
-    "selfOrThis": "this", // self for python and this for javascript for example
-    "selfOnFunctionParams": false, // the 'self' or 'this' parameter present on method
-    "semicolomn": ";" // For thoose langage that supporting instructions only with a ";" (semicolomn)
-}
-```
+    ```json
+    {
+        "path": ["./javascript/square.js", "./javascript/my_javascript_app/"], // All path where tesla will perform tests
+        "extensions": [".js"], // extensions to be tests
+        "launcher": "node", // the core
+        "outputMethod": "console.log", // the default print for the appropriate language
+        "commentStartBy": "//", // The default started comment
+        "tryCatch": "try{ \n\t **** \n}catch(err){ \n\t console.log(es);}", // A oneline try catch to get errors when the code crash, the **** will be were the code will be place
+        "function": " ", 
+        "varDeclaration": "var ", // the prefix on instantiation of a variable
+        "classInstantiationNew": "new ",
+        "AccoladStart": "{", // This define the start of a function or a class
+        "AccoladEnd": "}", // This define the end of a method or a class
+        "NoneNull": "null", // Nonde for python and null for javascript
+        "selfOrThis": "this", // self for python and this for javascript for example
+        "selfOnFunctionParams": false, // the 'self' or 'this' parameter present on method
+        "semicolomn": ";" // For thoose langage that supporting instructions only with a ";" (semicolomn)
+    }
+    ```
 
 ## TEEEESSSSTTS :-)
 
