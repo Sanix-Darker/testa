@@ -20,20 +20,8 @@ from threading import Thread
 from os import system, remove, path as pathit
 from sys import exit
 
-try:
-    from pathlib import Path
-except:
-    try:
-        system("pip3 install pathlib")
-    except:
-        system("pip install pathlib")
-
-    try:
-        from pathlib import Path
-    except:
-        print("[+] Unable to install `pathlib`, Tesla will have some problem in recursively tests.")
-        exit()
-
+from . import custom_pathlib as customPath
+Path = customPath.Path
 
 from subprocess import Popen, PIPE, STDOUT
 import json

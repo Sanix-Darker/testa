@@ -1,5 +1,5 @@
 {
-    "path": ["./javascript/square.js"],
+    "path": ["./javascript/square.js", "./javascript/my_javascript_app/"],
     "extensions": [".js"],
     "launcher": "node",
     "outputMethod": "console.log",
