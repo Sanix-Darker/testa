@@ -24,13 +24,6 @@ List of languages, where you can perform tesla test:
 - [Done] Javascript
 - [Done] PHP
 - [Working...] Ruby
-- Pascal
-- Perl
-- Erlang
-- Haskell
-- Fortran
-- Rust
-- R
 
 ## How to config it
 
@@ -119,7 +112,7 @@ List of languages, where you can perform tesla test:
 
 - Second : You need to config a tesla json file or just to use what is allready config here.
     - An example of tesla config file for `Javascript`:
-    ```json
+    ```php
     {
         "path": ["./javascript/square.js", "./javascript/my_javascript_app/"], // All path where tesla will perform tests
         "extensions": [".js"], // extensions to be tests
@@ -127,7 +120,7 @@ List of languages, where you can perform tesla test:
         "outputMethod": "console.log", // the default print for the appropriate language
         "commentStartBy": "//", // The default started comment
         "tryCatch": "try{ \n\t **** \n}catch(err){ \n\t console.log(es);}", // A oneline try catch to get errors when the code crash, the **** will be were the code will be place
-        "function": " ", 
+        "function": " ",
         "varDeclaration": "var ", // the prefix on instantiation of a variable
         "classInstantiationNew": "new ",
         "AccoladStart": "{", // This define the start of a function or a class
