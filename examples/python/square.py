@@ -1,12 +1,12 @@
-# ::tesla_start::
+# ::testa_start::
 # ::case_start::
-# >> tesla.isEqual(2, 2)
+# >> testa.isEqual(2, 2)
 # << true
 # ::case_end::
-# ::tesla_end::
+# ::testa_end::
 
 
-# ::tesla_start::
+# ::testa_start::
 # ::case_start::
 # >> square(9)
 # << 3.0
@@ -17,4 +17,4 @@ from math import sqrt as math_square
 def square(a):
     return math_square(a)
 # ::code_end::
-# ::tesla_end::
+# ::testa_end::

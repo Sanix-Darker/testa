@@ -1,6 +1,6 @@
 <?php 
 
-// ::tesla_start::
+// ::testa_start::
 // ::case_start::
 // >> divisionby2(14)
 // << 7.0
@@ -10,6 +10,6 @@ function divisionby2($a){
     return $a/2;
 }
 // ::code_end::
-// ::tesla_end::
+// ::testa_end::
 
 ?>

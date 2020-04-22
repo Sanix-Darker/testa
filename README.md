@@ -1,24 +1,24 @@
 <img src="logo.jpg">
 
-# Tesla
+# Testa
 
-Tesla is the best, simple and UnnitTest tool "CrossPlatform" and "CrossLanguages" (Only Script language for now) develop by developpers for developpers based on comments in your code.
+Testa is the best, simple and UnnitTest tool "CrossPlatform" and "CrossLanguages" (Only Script language for now) develop by developpers for developpers based on comments in your code.
 The power in this tool is that the grammar is the same for all your implementation languages.
 
 **Note:** This project is completly experimental, am still working on it, not sure where am going with it lol.
 
 ## Features
 
-- Tesla can do any Unittest you want from an assertion.
-- Tesla Can Save Your Tests reports so that you can check it later in a persistant file.
-- Tesla is light and simple.
-- Tesla have a specific and very simple grammar for testing "all methods" presents in a file in one time and generate reports.
-- Tesla is build from scratch so it doesn't have any dependency or any kind of troubleshooting with potentials externals libs.
-- Tesla can generate for you a small and readable documentation whatever the language you're using
+- Testa can do any Unittest you want from an assertion.
+- Testa Can Save Your Tests reports so that you can check it later in a persistant file.
+- Testa is light and simple.
+- Testa have a specific and very simple grammar for testing "all methods" presents in a file in one time and generate reports.
+- Testa is build from scratch so it doesn't have any dependency or any kind of troubleshooting with potentials externals libs.
+- Testa can generate for you a small and readable documentation whatever the language you're using
 
-## Tesla can test all theese programming languages
+## Testa can test all theese programming languages
 
-List of languages, where you can perform tesla test:
+List of languages, where you can perform testa test:
 
 - [Done] Python
 - [Done] Javascript
@@ -27,22 +27,22 @@ List of languages, where you can perform tesla test:
 
 ## How to config it
 
-- First : In your code, make sure to enclose the instructions you want to test with the tesla grammar, for example:
+- First : In your code, make sure to enclose the instructions you want to test with the testa grammar, for example:
     - In Python:
     ```python
 
         # For a Simple assertion:
 
         # ::import_start::
-        # --- Your imports herer ---
+        # --- Your imports here, if your methods need them ---
         # ::import_end::
 
-        # ::tesla_start::
+        # ::testa_start::
         # ::case_start::
-        # >> tesla.isEqual(2, 2)
+        # >> testa.isEqual(2, 2)
         # << true
         # ::case_end::
-        # ::tesla_end::
+        # ::testa_end::
 
         #
         # ::doc_start::
@@ -52,19 +52,18 @@ List of languages, where you can perform tesla test:
         # ::doc_end::
         #
 
-        # For more instructions:
+        # With methods :
 
-        # ::tesla_start::
+        # ::testa_start::
         # ::case_start::
         # >> addition(2, 2)
         # << 4
         # ::case_end::
         # ::code_start::
-        # --- Your specific list of instruction / functions source code here!
         def addition(a, b):
             return a+b
         # ::code_end::
-        # ::tesla_end::
+        # ::testa_end::
 
     ```
 
@@ -72,22 +71,22 @@ List of languages, where you can perform tesla test:
     ```javascript
 
         // ::import_start::
-        // --- Your imports herer ---
+        // --- Your imports here ---
         // ::import_end::
 
         // For a Simple assertion:
 
-        // ::tesla_start::
+        // ::testa_start::
         // ::case_start::
-        // >> tesla.isEqual(2, 2)
+        // >> testa.isEqual(2, 2)
         // << true
         // ::case_end::
-        // ::tesla_end::
+        // ::testa_end::
 
 
         // For more instructions:
 
-        // ::tesla_start::
+        // ::testa_start::
         // ::case_start::
         // >> addition(2, 2)
         // << 4
@@ -107,14 +106,14 @@ List of languages, where you can perform tesla test:
             return a+b
         }
         // ::code_end::
-        // ::tesla_end::
+        // ::testa_end::
     ```
 
-- Second : You need to config a tesla json file or just to use what is allready config here.
-    - An example of tesla config file for `Javascript`:
+- Second : You need to config a `testa_json_file` or just to use what is allready config for each anguage as default.
+    - An example of testa config file for `Javascript`:
     ```php
     {
-        "path": ["./javascript/square.js", "./javascript/my_javascript_app/"], // All path where tesla will perform tests
+        "path": ["./javascript/square.js", "./javascript/my_javascript_app/"], // All path where testa will perform tests
         "extensions": [".js"], // extensions to be tests
         "launcher": "node", // the core
         "outputMethod": "console.log", // the default print for the appropriate language
@@ -142,19 +141,19 @@ To test it, after cloning this repository, hit:
 # First you need to cd where the json file is:
 cd ./examples
 
-# Tesla will perform tests following what it is on tjs.json
-python tesla.py -c ./javascript/tesla.json
+# Testa will perform tests following what it is on tjs.json
+python testa.py -c ./javascript/testa.json
 
 # Or for PYTHON
-python tesla.py -c ./python/tesla.json
+python testa.py -c ./python/testa.json
 
 # Or for PHP
-python tesla.py -c ./python/tesla.json
+python testa.py -c ./python/testa.json
 
 # Or for Ruby
-python tesla.py -c ./ruby/tesla.json
+python testa.py -c ./ruby/testa.json
 ```
-And that's where the magic of Tesla is, for any language, you have only to write a simple JSON file and specify paths where you will do tests.
+And that's where the magic of Testa is, for any language, you have only to write a simple JSON file and specify paths where you will do tests.
 
 
 ## DEMO
@@ -177,7 +176,7 @@ Records of the test will be saved in a .txt file with this format for example:
 
 | **********************************************************************************************************************************
 | ---------------------------------------------------------------
-|  Tesla-Test on :./javascript/square.js
+|  Testa-Test on :./javascript/square.js
 | ---------------------------------------------------------------
 -Test 1----------------------------------------------------------
 |
@@ -196,7 +195,7 @@ Records of the test will be saved in a .txt file with this format for example:
 
 | **********************************************************************************************************************************
 | ---------------------------------------------------------------
-|  Tesla-Test on :javascript/my_javascript_app/divisionby2.js
+|  Testa-Test on :javascript/my_javascript_app/divisionby2.js
 | ---------------------------------------------------------------
 -Test 2----------------------------------------------------------
 |
@@ -215,7 +214,7 @@ Records of the test will be saved in a .txt file with this format for example:
 
 | **********************************************************************************************************************************
 | ---------------------------------------------------------------
-|  Tesla-Test on :javascript/my_javascript_app/multiplicationby3.js
+|  Testa-Test on :javascript/my_javascript_app/multiplicationby3.js
 | ---------------------------------------------------------------
 -Test 3----------------------------------------------------------
 |
@@ -233,7 +232,7 @@ Records of the test will be saved in a .txt file with this format for example:
 | _______________________________________________________________
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Tesla reports:
+%% Testa reports:
 %%
 %% 3 tests done! 
 %%
@@ -258,4 +257,4 @@ Records of the test will be saved in a .txt file with this format for example:
 
 ## Author
 
-- Sanix darker (Ange SAADJIO).
+- Sanix darker

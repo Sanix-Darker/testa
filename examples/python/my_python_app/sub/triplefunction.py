@@ -1,4 +1,4 @@
-# ::tesla_start::
+# ::testa_start::
 # ::case_start::
 # >> triplefunction(3)
 # << 9
@@ -7,4 +7,4 @@
 def triplefunction(a):
     return a*3
 # ::code_end::
-# ::tesla_end::
+# ::testa_end::

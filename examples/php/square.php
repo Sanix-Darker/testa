@@ -1,6 +1,6 @@
  
 <?php
-    // ::tesla_start::
+    // ::testa_start::
     // ::case_start::
     // >> square(9)
     // << 3.0
@@ -10,5 +10,5 @@
         return sqrt($a);
     }
     // ::code_end::
-    // ::tesla_end::
+    // ::testa_end::
  ?>

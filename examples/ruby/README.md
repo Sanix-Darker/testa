@@ -1,4 +1,4 @@
-## Tesla - Ruby
+## Testa - Ruby
 
 Here you can have an example of a directory containing some files wich contains some functions and test Case.
 
@@ -6,7 +6,7 @@ Here you can have an example of a directory containing some files wich contains 
 
 Just hit this command in your cli:
 ```shell
-teslacli -c ./trb.json
+testacli -c ./trb.json
 ```
 
 ## Author

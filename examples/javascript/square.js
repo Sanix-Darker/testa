@@ -1,4 +1,4 @@
-// ::tesla_start::
+// ::testa_start::
 // ::doc_start::
 // Methode square qui doit retourner la racine carre d'un nombre.
 // il prend en parametre une valeur numerique et retourne sa racine carree
@@ -12,4 +12,4 @@ function square(a){
     return Math.pow(a, 1/2);
 }
 // ::code_end::
-// ::tesla_end::
+// ::testa_end::

@@ -3,14 +3,15 @@
 #
 #-----------------------------------------------------------------------------------------------------
 #
-#|_   _| | ____| / ___|  | |        / \   
-#  | |   |  _|   \___ \  | |       / _ \  
-#  | |   | |___   ___) | | |___   / ___ \ 
-#  |_|   |_____| |____/  |_____| /_/   \_\
+#  _____ _____ ____ _____       _    
+# |_   _| ____/ ___|_   _|     / \   
+#   | | |  _| \___ \ | |_____ / _ \  
+#   | | | |___ ___) || |_____/ ___ \ 
+#   |_| |_____|____/ |_|    /_/   \_\
 #
-# Welcome to Tesla Python's Class implementation
+# Welcome to Testa Python's Class implementation
 # A simple Class that's allow you to do UnitTests grammatically whatever the language you are using.
-# Tesla will be able tout test assertions, functions, classes and a complete application.
+# Testa will be able tout test assertions, functions, classes and a complete application.
 # Created by Sanix-darker [ https://github.com/sanix-darker ]
 #-----------------------------------------------------------------------------------------------------
 #
@@ -19,14 +20,15 @@ import time
 from threading import Thread
 from os import system, remove, path as pathit
 from sys import exit
+import argparse
 
-from . import custom_pathlib as customPath
+from src import custom_pathlib as customPath
 Path = customPath.Path
 
 from subprocess import Popen, PIPE, STDOUT
 import json
 
-class Tesla:
+class Testa:
 
     def __init__(self):
         self.countTest = 0
@@ -89,7 +91,7 @@ class Tesla:
         ## Assert Method tests,let's build our TestClass ere to do tests
         ##--------------------------------------------------------------------------------------------------
         ####################################################################################################
-        self.TeslAssertClass = "class TeslaAssert"+self.AccoladStart
+        self.TeslAssertClass = "class TestaAssert"+self.AccoladStart
 
         # self.TeslAssertClass += "\n    "+self.function+" __init__("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams)+")"+self.AccoladStart
         # self.TeslAssertClass += "\n        "+self.selfOrThis+".zero = 0"+self.semicolomn + self.AccoladEnd
@@ -130,12 +132,12 @@ class Tesla:
         self.TeslAssertClass += self.AccoladEnd
 
         # Let instantiate the class
-        self.TeslAssertClass += "\n"+self.varDeclaration+"tesla = "+self.classInstantiationNew+"TeslaAssert()"+self.semicolomn
+        self.TeslAssertClass += "\n"+self.varDeclaration+"testa = "+self.classInstantiationNew+"TestaAssert()"+self.semicolomn
 
 
     def end(self):
         self.addresume("\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-        self.addresume("%% Tesla reports:")
+        self.addresume("%% Testa reports:")
         self.addresume("%%")
         self.addresume("%% "+str(self.countTest)+" tests done! ")
         self.addresume("%%")
@@ -211,7 +213,7 @@ class Tesla:
     def addTestCount(self):
         self.countTest = self.countTest + 1
 
-    def teslaPrint(self, msg):
+    def testaPrint(self, msg):
         self.setresume(self.resume + "\n"+ "| "+str(msg))
         # print(" >"+str(msg))
 
@@ -234,8 +236,8 @@ class Tesla:
         self.addTestCount()
 
         if assert_string != None:
-            self.teslaPrint(">> "+str(assert_string))
-        self.teslaPrint("<< "+str(assertt))
+            self.testaPrint(">> "+str(assert_string))
+        self.testaPrint("<< "+str(assertt))
 
         status = "✗"
         if assertt == True:
@@ -245,19 +247,19 @@ class Tesla:
             self.addCountFail()
 
         if (msg != None):
-            self.teslaPrint(str(msg))
+            self.testaPrint(str(msg))
 
-        self.teslaPrint("_______________________________________________________________")
-        self.teslaPrint("")
+        self.testaPrint("_______________________________________________________________")
+        self.testaPrint("")
 
         if assertt == True:
-            self.teslaPrint("Status: "+ status + " Success!")
+            self.testaPrint("Status: "+ status + " Success!")
         else:
-            self.teslaPrint("Status: "+ status + " Failed!")
+            self.testaPrint("Status: "+ status + " Failed!")
 
-        self.teslaPrint("End on: "+str(self.getTestTimer()) + " s.")
+        self.testaPrint("End on: "+str(self.getTestTimer()) + " s.")
 
-        self.teslaPrint("_______________________________________________________________")
+        self.testaPrint("_______________________________________________________________")
 
         self.footTestPresentation()
 
@@ -310,11 +312,11 @@ class Tesla:
     # This method test the list of functions contained in a file
     def TestFunctionsInAFile(self, filePath):
         if(not pathit.isdir(filePath)):
-            print("Tesla testing on "+filePath)
-            self.teslaPrint("**********************************************************************************************************************************")
-            self.teslaPrint("---------------------------------------------------------------")
-            self.teslaPrint(" Tesla-Test on :"+ filePath)
-            self.teslaPrint("---------------------------------------------------------------")
+            print("Testa testing on "+filePath)
+            self.testaPrint("**********************************************************************************************************************************")
+            self.testaPrint("---------------------------------------------------------------")
+            self.testaPrint(" Testa-Test on :"+ filePath)
+            self.testaPrint("---------------------------------------------------------------")
             # Read the file and parcours line by lines
             Case = []
             Result = []
@@ -337,7 +339,7 @@ class Tesla:
                 for line in lines:
 
                     # if we have some import at the head of the file that's method depends on
-                    # First we get the tesla block
+                    # First we get the testa block
                     if not inRecordingMode5:
                         if "::import_start::" in line:
                             inRecordingMode5 = True
@@ -348,11 +350,11 @@ class Tesla:
                         importToWrite += line.replace(self.commentStartBy, "") + "\n"
 
 
-                    # First we get the tesla block
+                    # First we get the testa block
                     if not inRecordingMode:
-                        if "::tesla_start::" in line:
+                        if "::testa_start::" in line:
                             inRecordingMode = True
-                    elif "::tesla_end::" in line:
+                    elif "::testa_end::" in line:
                         inRecodingMode = False
                     else:
 
@@ -384,7 +386,7 @@ class Tesla:
                                     # We append on Case list
                                     Case.append(case_to_add)
 
-                                    if "tesla." in line:
+                                    if "testa." in line:
                                         isAssert = True
                                         functions_filepath = "testfunction__"+str(self.iteration)+self.extension
                                         if len(line) > 3:
@@ -451,7 +453,7 @@ class Tesla:
                 # if it's not a simple assertion
                 to_write = self.outputMethod+"("+Case[ii].replace("\n", "")+")"+self.semicolomn+" \n " + self.commentStartBy+" Should returns: "+Result[ii]
 
-                # We open each function path and add the tesla class a the top
+                # We open each function path and add the testa class a the top
                 with open(fnc, "r+") as fileee:
                     to_append_at_the_end = fileee.read()
                     with open(fnc, "w") as fileee2:
@@ -542,20 +544,18 @@ class Tesla:
             else:
                 print("> This path " + str(path) + " (file/directory) is not valid.")
 
-        print("Tesla testing ended on "+str(path))
+        print("Testa testing ended on "+str(path))
 
 ########################################################################################
 ########################################################################################
 # THE MAIN WHERE WE WORK
 ########################################################################################
 
-import argparse
-
 # 1- GET PARAMS
 # PROCEED WITH TESTS
 def main():
     prs = argparse.ArgumentParser()
-    prs.add_argument('-c', '--config', help='The Tesla configuration file', type=str)
+    prs.add_argument('-c', '--config', help='The Testa configuration file', type=str)
     prs = prs.parse_args()
 
     config = prs.config
@@ -565,49 +565,49 @@ def main():
         if config != None :
 
             with open(config, 'r+') as filee:
-                teslaconfig = json.loads(filee.read())
+                testaconfig = json.loads(filee.read())
 
-                # We instantiate the Tesla Test
-                TeslaTest = Tesla()
+                # We instantiate the Testa Test
+                TestaTest = Testa()
 
-                TeslaTest.scriptStarter = teslaconfig["scriptStarter"]
-                TeslaTest.prefixVariable = teslaconfig["prefixVariable"]
-                TeslaTest.commentStartBy = teslaconfig["commentStartBy"]
-                TeslaTest.launcher = teslaconfig["launcher"]
-                TeslaTest.outputMethod = teslaconfig["outputMethod"]
-                TeslaTest.extension = teslaconfig["extensions"][0]
-                TeslaTest.tryCatch = teslaconfig["tryCatch"]
+                TestaTest.scriptStarter = testaconfig["scriptStarter"]
+                TestaTest.prefixVariable = testaconfig["prefixVariable"]
+                TestaTest.commentStartBy = testaconfig["commentStartBy"]
+                TestaTest.launcher = testaconfig["launcher"]
+                TestaTest.outputMethod = testaconfig["outputMethod"]
+                TestaTest.extension = testaconfig["extensions"][0]
+                TestaTest.tryCatch = testaconfig["tryCatch"]
                 # For building class test
-                TeslaTest.function = teslaconfig["function"] # function, etc...
-                TeslaTest.varDeclaration = teslaconfig["varDeclaration"] # var, let, etc...
-                TeslaTest.classInstantiationNew = teslaconfig["classInstantiationNew"] # new, etc...
-                TeslaTest.AccoladStart = teslaconfig["AccoladStart"] # {
-                TeslaTest.AccoladEnd = teslaconfig["AccoladEnd"] # }
-                TeslaTest.NoneNull = teslaconfig["NoneNull"] # null
-                TeslaTest.selfOrThis = teslaconfig["selfOrThis"] # this
-                TeslaTest.selfOnFunctionParams = teslaconfig["selfOnFunctionParams"] # if there is a need of self in the declaration of a function
-                TeslaTest.semicolomn = teslaconfig["semicolomn"] # ;
-                TeslaTest.scriptEnder = teslaconfig["scriptEnder"]
+                TestaTest.function = testaconfig["function"] # function, etc...
+                TestaTest.varDeclaration = testaconfig["varDeclaration"] # var, let, etc...
+                TestaTest.classInstantiationNew = testaconfig["classInstantiationNew"] # new, etc...
+                TestaTest.AccoladStart = testaconfig["AccoladStart"] # {
+                TestaTest.AccoladEnd = testaconfig["AccoladEnd"] # }
+                TestaTest.NoneNull = testaconfig["NoneNull"] # null
+                TestaTest.selfOrThis = testaconfig["selfOrThis"] # this
+                TestaTest.selfOnFunctionParams = testaconfig["selfOnFunctionParams"] # if there is a need of self in the declaration of a function
+                TestaTest.semicolomn = testaconfig["semicolomn"] # ;
+                TestaTest.scriptEnder = testaconfig["scriptEnder"]
 
-                # We Start the TeslaTest
-                TeslaTest.start()
+                # We Start the TestaTest
+                TestaTest.start()
 
                 # We can generate a Report of the test we are going to do:
-                TeslaTest.setgenerateReport(True)
+                TestaTest.setgenerateReport(True)
 
-                for ppath in teslaconfig["path"]:
-                    TeslaTest.Function(ppath, teslaconfig["extensions"])
+                for ppath in testaconfig["path"]:
+                    TestaTest.Function(ppath, testaconfig["extensions"])
 
                 # Most Important, ALWAYS We need to End the test.
-                TeslaTest.end()
+                TestaTest.end()
                 # We Print the Report resume:
-                # print(TeslaTest.getresume())
-                print("Reports saved in './"+TeslaTest.date_report+"'")
+                # print(TestaTest.getresume())
+                print("Reports saved in './"+TestaTest.date_report+"'")
         else:
             print("Bad parameters input for the path and the config!")
 
     except Exception as es:
-        print("Tesla just Crached, verify your JSON file !!!")
+        print("Testa just Crached, verify your JSON file !!!")
         print(es)
 
 # Let's run the Main script

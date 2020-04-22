@@ -1,4 +1,4 @@
-# ::tesla_start::
+# ::testa_start::
 # ::case_start::
 # >> multiplicationby3(2)
 # << 6
@@ -7,4 +7,4 @@
 def multiplicationby3(a):
     return a*3
 # ::code_end::
-# ::tesla_end::
+# ::testa_end::
