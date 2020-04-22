@@ -109,6 +109,22 @@ List of languages, where you can perform testa test:
         // ::testa_end::
     ```
 
+    - In php :
+    ```php
+        <?php
+            // ::testa_start::
+            // ::case_start::
+            // >> square(9)
+            // << 3.0
+            // ::case_end::
+            // ::code_start::
+            function square($a){
+                return sqrt($a);
+            }
+            // ::code_end::
+            // ::testa_end::
+    ```
+
 - Second : You need to config a `testa_json_file` or just to use what is allready config for each anguage as default.
     - An example of testa config file for `Javascript`:
     ```php
