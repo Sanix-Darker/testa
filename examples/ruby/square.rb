@@ -13,6 +13,6 @@
 # ::case_end::
 # ::code_start::
 def square(a)
-    return 2a/2
+    return a/2
 # ::code_end::
 # ::testa_end::
