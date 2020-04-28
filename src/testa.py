@@ -446,11 +446,11 @@ class Testa:
 
             # Parcours now each functions file path
             ii = 0 # iteration for Test Case array
-            print("functions: ", functions)
-            print("Case: ", Case)
-            print("Result: ", Result)
+            # print("functions: ", functions)
+            # print("Case: ", Case)
+            # print("Result: ", Result)
             for fnc in functions:
-                print("IN--")
+                
                 # if it's not a simple assertion
                 to_write = self.outputMethod+"("+Case[ii].replace("\n", "")+")"+self.semicolomn+" \n " + self.commentStartBy+" Should returns: "+Result[ii]
 
@@ -461,7 +461,7 @@ class Testa:
                         fileee2.write( self.scriptStarter +"\n"+ self.TeslAssertClass + "\n\n"+ importToWrite + "\n\n" + to_append_at_the_end) #  + self.AccoladEnd
 
                 with open(fnc, "a+") as fileee:
-                    print("FINAL: ", self.tryCatch.replace("****", to_write) + self.scriptEnder)
+                    # print("FINAL: ", self.tryCatch.replace("****", to_write) + self.scriptEnder)
                     fileee.write(self.tryCatch.replace("****", to_write) + self.scriptEnder)
 
                 # Let's delete duplicated lines
@@ -612,4 +612,4 @@ def main():
         print(es)
 
 # Let's run the Main script
-main()
+# main()
