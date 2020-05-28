@@ -331,9 +331,11 @@ allready configured for you:
 
 To test it, after cloning this repository, hit:
 ```shell
+# First clone the repo
+git clone https://github.com/sanix-darker/testa
 
-# First you need to cd where the json file is:
-cd ./examples
+# now, you need to cd where the json file is:
+cd ./path/to/testa/examples
 
 # Testa will perform tests following what it is on tjs.json
 python testacli.py -c ./javascript/tjs.json
