@@ -215,8 +215,8 @@ You need to config a `testa json file` or just use default one for the appropria
 
 In your code, make sure to enclose the instructions you want to test with the testa grammar, for example:
 - In Python:
-```python
 
+```python
 # For a Simple assertion:
 
 # ::import_start::
@@ -250,10 +250,10 @@ def addition(a, b):
     return a+b
 # ::code_end::
 # ::testa_end::
-
 ```
 
-- In Javascript: 
+- In Javascript:
+ 
 ```javascript
 
 // ::import_start::
@@ -296,6 +296,7 @@ function addition(a, b){
 ```
 
 - In php :
+
 ```php
 // ::testa_start::
 // ::case_start::
@@ -311,6 +312,7 @@ function square($a){
 ```
 
 - In Ruby :
+
 ```ruby
 # ::testa_start::
 # ::case_start::
@@ -330,6 +332,7 @@ This can look really complicated to config but in fact it's really simple and al
 allready configured for you:
 
 To test it, after cloning this repository, hit:
+
 ```shell
 # First clone the repo
 git clone https://github.com/sanix-darker/testa
@@ -354,6 +357,7 @@ And that's where the magic of Testa is, for any language, you have only to write
 ## DEMO
 
 Records of the test will be saved in a .txt file with this format for example:
+
 ```php
 ##################################################################
 #         |_   _| | ____| / ___|  | |        / \                 #
