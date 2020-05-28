@@ -1,3 +1,7 @@
+# ::import_start::
+from math import sqrt as math_square
+# ::import_end::
+
 # ::testa_start::
 # ::case_start::
 # >> testa.isEqual(2, 2)
@@ -12,7 +16,7 @@
 # << 3.0
 # ::case_end::
 # ::code_start::
-from math import sqrt as math_square
+
 
 def square(a):
     return math_square(a)

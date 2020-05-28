@@ -4,6 +4,8 @@
 # << 7.0
 # ::case_end::
 # ::code_start::
+
+
 def divisionby2(a):
     return a/2
 # ::code_end::

@@ -4,6 +4,8 @@
 # << 9
 # ::case_end::
 # ::code_start::
+
+
 def triplefunction(a):
     return a*3
 # ::code_end::
