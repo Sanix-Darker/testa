@@ -8,13 +8,13 @@
     "function": "function ",
     "varDeclaration": "$",
     "classInstantiationNew": "new ",
-    "AccoladStart": "{",
-    "AccoladEnd": "}",
+    "AccoladeStart": "{",
+    "AccoladeEnd": "}",
     "NoneNull": "null",
     "selfOrThis": "$this",
     "selfOnFunctionParams": false,
-    "semicolomn": ";",
+    "semicolon": ";",
     "scriptStarter": "<?php \n",
-    "scriptEnder": "\n ?>",
+    "scriptEnd": "\n ?>",
     "prefixVariable": "$"
 }

@@ -11,4 +11,4 @@ testacli -c ./trb.json
 
 ## Author
 
-- Sanix-darker(Ange SAA DJIO)
+- Sanix-darker

@@ -11,4 +11,4 @@ testacli -c ./tjs.json
 
 ## Author
 
-- Sanix-darker(Ange SAA DJIO)
+- Sanix-darker

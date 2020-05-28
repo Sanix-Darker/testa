@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 #
-#-----------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------
 #
 #  _____ _____ ____ _____       _    
 # |_   _| ____/ ___|_   _|     / \   
@@ -13,20 +13,19 @@
 # A simple Class that's allow you to do UnitTests grammatically whatever the language you are using.
 # Testa will be able tout test assertions, functions, classes and a complete application.
 # Created by Sanix-darker [ https://github.com/sanix-darker ]
-#-----------------------------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------
 #
-
+import json
 import time
-from threading import Thread
-from os import system, remove, path as pathit
-from sys import exit
 import argparse
+from os import remove, path as pathit
+from subprocess import Popen, PIPE, STDOUT
 
 from src import custom_pathlib as customPath
+from src.utils import *
+
 Path = customPath.Path
 
-from subprocess import Popen, PIPE, STDOUT
-import json
 
 class Testa:
 
@@ -47,114 +46,144 @@ class Testa:
         self.tryCatch = "try: \n\t **** \nexcept Exception as es: \n\t print(str(es))"
 
         # For building class test
-        self.scriptStarter = " " # with what the script start For example in php it's <?php, etc...
-        self.prefixVariable = "" # in php we have '$' for example
-        self.function = "def " # function, etc...
-        self.varDeclaration = "" # var, let, etc...
-        self.classInstantiationNew = "" # new, etc...
-        self.AccoladStart = ":" # {
-        self.AccoladEnd = "" # }
-        self.NoneNull = "None" # null
-        self.selfOrThis = "self" # this
-        self.selfOnFunctionParams = True # if there is a need of self in the declaration of a function
-        self.semicolomn = "" # ;
+        self.scriptStarter = " "  # with what the script start For example in php it's <?php, etc...
+        self.prefixVariable = ""  # in php we have '$' for example
+        self.function = "def "  # function, etc...
+        self.varDeclaration = ""  # var, let, etc...
+        self.classInstantiationNew = ""  # new, etc...
+        self.AccoladeStart = ":"  # {
+        self.AccoladeEnd = ""  # }
+        self.NoneNull = "None"  # null
+        self.selfOrThis = "self"  # this
+        self.self_on_function_params = True  # if there is a need of self in the declaration of a function
+        self.semicolon = ""  # ;
         self.TeslAssertClass = ""
         self.listAssertFailed = ""
         self.date_report = ""
-        self.scriptEnder = " " # with what the script start For example in php it's <?php, etc...
-
-
-    def selfOnParams(self, check, selfOnFunctionParams, addSemmicolomn = False):
-        if(selfOnFunctionParams == True):
-            comma = ""
-            if addSemmicolomn == True:
-                comma = ","
-            if len(check) > 2:
-                return check+comma
-        else:
-            return ""
+        self.scriptEnd = " "  # with what the script start For example in php it's <?php, etc...
 
     def start(self):
-        self.addresume("\n##################################################################")
-        self.addresume("#      _____ _____ ____ _____       _                            #")
-        self.addresume("#     |_   _| ____/ ___|_   _|     / \                           #")
-        self.addresume("#       | | |  _| \___ \ | |_____ / _ \                          #")
-        self.addresume("#       | | | |___ ___) || |_____/ ___ \                         #")
-        self.addresume("#       |_| |_____|____/ |_|    /_/   \_\\ v0.1                  #")
-        self.addresume("#----------------------------------------------------------------#")
-        self.addresume("#-------------------------------------------- By S@n1x d4rk3r ---#")
-        self.addresume("##################################################################\n")
+        self.addResume("""
+##################################################################
+#      _____ _____ ____ _____       _                            #
+#     |_   _| ____/ ___|_   _|     / \\                           #
+#       | | |  _| \\___ \\ | |_____ / _ \\                          #
+#       | | | |___ ___) || |_____/ ___ \\                         #
+#       |_| |_____|____/ |_|    /_/   \\_\\ v0.1                   #
+#----------------------------------------------------------------#
+#-------------------------------------------- By S@n1x d4rk3r ---#
+##################################################################
+        """)
 
-        self.date_report = "reports_"+time.strftime("%Y-%m-%d_%H:%M:%S")
+        self.date_report = "reports_" + time.strftime("%Y-%m-%d_%H:%M:%S")
 
-        ####################################################################################################
-        ##--------------------------------------------------------------------------------------------------
-        ## Assert Method tests,let's build our TestClass ere to do tests
-        ##--------------------------------------------------------------------------------------------------
-        ####################################################################################################
-        self.TeslAssertClass = "class TestaAssert"+self.AccoladStart
+        # Assert Method tests,let's build our TestClass ere to do tests
+        self.TeslAssertClass = "class TestaAssert" + self.AccoladeStart
 
-        # self.TeslAssertClass += "\n    "+self.function+" __init__("+self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams)+")"+self.AccoladStart
-        # self.TeslAssertClass += "\n        "+self.selfOrThis+".zero = 0"+self.semicolomn + self.AccoladEnd
+        # self.TeslAssertClass += "\n    "+self.function+" __init__("+self.selfOnParams(self.selfOrThis,
+        # self.self_on_function_params)+")"+self.AccoladeStart self.TeslAssertClass += "\n
+        # "+self.selfOrThis+".zero = 0"+self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" checkAsswert("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"assertt)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.prefixVariable+"assertt"+self.semicolomn + self.AccoladEnd
+        self.TeslAssertClass += "\n    " + self.function + " checkAssert(" + str(
+            selfOnParams(self.selfOrThis, self.self_on_function_params,
+                         True)) + " " + self.prefixVariable + "assertt)" + self.AccoladeStart
+        self.TeslAssertClass += "\n        return " + self.prefixVariable + "assertt" + self.semicolon \
+                                + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isEqual("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"a == "+self.prefixVariable+"b)"+self.semicolomn + self.AccoladEnd
+        self.TeslAssertClass += "\n    " + self.function + " isEqual(" + str(
+            selfOnParams(self.selfOrThis, self.self_on_function_params,
+                         True)) + " " + self.prefixVariable + "a, " + self.prefixVariable + "b)" \
+                                + self.AccoladeStart
+        self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" \
+                                + self.prefixVariable + "a == " + self.prefixVariable + "b)" + self.semicolon \
+                                + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isNotEqual("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"a != "+self.prefixVariable+"b)"+self.semicolomn + self.AccoladEnd
+        self.TeslAssertClass += "\n    " + self.function + " isNotEqual(" + str(
+            selfOnParams(self.selfOrThis, self.self_on_function_params,
+                         True)) + " " + self.prefixVariable + "a, " + self.prefixVariable + "b)" \
+                                + self.AccoladeStart
+        self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
+                                + "a != " + self.prefixVariable + "b)" + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isTrue("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"x)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return  "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"x)"+self.semicolomn + self.AccoladEnd
+        self.TeslAssertClass += "\n    " + self.function + " isTrue(" + str(
+            selfOnParams(self.selfOrThis, self.self_on_function_params,
+                         True)) + " " + self.prefixVariable + "x)" + self.AccoladeStart
+        self.TeslAssertClass += "\n        return  " + self.selfOrThis + ".checkAssert(" + self.prefixVariable + "x)" \
+                                + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isFalse("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"y)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return  "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"y)"+self.semicolomn + self.AccoladEnd
+        self.TeslAssertClass += "\n    " + self.function + " isFalse(" + str(
+            selfOnParams(self.selfOrThis, self.self_on_function_params,
+                         True)) + " " + self.prefixVariable + "y)" + self.AccoladeStart
+        self.TeslAssertClass += "\n        return  " + self.selfOrThis + ".checkAssert(" + self.prefixVariable + "y)" \
+                                + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isIsNoneNull("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"x)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"x == "+self.NoneNull+")"+self.semicolomn + self.AccoladEnd
+        self.TeslAssertClass += "\n    " + self.function + " isIsNoneNull(" + str(
+            selfOnParams(self.selfOrThis, self.self_on_function_params,
+                         True)) + " " + self.prefixVariable + "x)" + self.AccoladeStart
+        self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
+                                + "x == " + self.NoneNull + ")" + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isIsNotNoneNull("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"x)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"x != "+self.NoneNull+")"+self.semicolomn + self.AccoladEnd
+        self.TeslAssertClass += "\n    " + self.function + " isIsNotNoneNull(" + str(
+            selfOnParams(self.selfOrThis, self.self_on_function_params,
+                         True)) + " " + self.prefixVariable + "x)" + self.AccoladeStart
+        self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
+                                + "x != " + self.NoneNull + ")" + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isSup("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"a > "+self.prefixVariable+"b)"+self.semicolomn + self.AccoladEnd
+        self.TeslAssertClass += "\n    " + self.function + " isSup(" + str(
+            selfOnParams(self.selfOrThis, self.self_on_function_params,
+                         True)) + " " + self.prefixVariable + "a, " + self.prefixVariable + "b)" \
+                                + self.AccoladeStart
+        self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
+                                + "a > " + self.prefixVariable + "b)" + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isSupEqual("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"a >= "+self.prefixVariable+"b)"+self.semicolomn + self.AccoladEnd
+        self.TeslAssertClass += "\n    " + self.function + " isSupEqual(" + str(
+            selfOnParams(self.selfOrThis, self.self_on_function_params,
+                         True)) + " " + self.prefixVariable + "a, " + self.prefixVariable + "b)" \
+                                + self.AccoladeStart
+        self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
+                                + "a >= " + self.prefixVariable + "b)" + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isInf("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"a < "+self.prefixVariable+"b)"+self.semicolomn + self.AccoladEnd
+        self.TeslAssertClass += "\n    " + self.function + " isInf(" + str(
+            selfOnParams(self.selfOrThis, self.self_on_function_params,
+                         True)) + " " + self.prefixVariable + "a, " + self.prefixVariable + "b)" \
+                                + self.AccoladeStart
+        self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
+                                + "a < " + self.prefixVariable + "b)" + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    "+self.function+" isInfEqual("+str(self.selfOnParams(self.selfOrThis, self.selfOnFunctionParams, True))+" "+self.prefixVariable+"a, "+self.prefixVariable+"b)"+self.AccoladStart
-        self.TeslAssertClass += "\n        return "+self.selfOrThis+".checkAsswert("+self.prefixVariable+"a <= "+self.prefixVariable+"b)"+self.semicolomn + self.AccoladEnd
+        self.TeslAssertClass += "\n    " + self.function + " isInfEqual(" + str(
+            selfOnParams(self.selfOrThis, self.self_on_function_params,
+                         True)) + " " + self.prefixVariable + "a, " + self.prefixVariable + "b)" \
+                                + self.AccoladeStart
+        self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
+                                + "a <= " + self.prefixVariable + "b)" + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += self.AccoladEnd
+        self.TeslAssertClass += self.AccoladeEnd
 
         # Let instantiate the class
-        self.TeslAssertClass += "\n"+self.varDeclaration+"testa = "+self.classInstantiationNew+"TestaAssert()"+self.semicolomn
-
+        self.TeslAssertClass += "\n" + self.varDeclaration + "testa = " + self.classInstantiationNew + "TestaAssert()" \
+                                + self.semicolon
 
     def end(self):
-        self.addresume("\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-        self.addresume("%% Testa reports:")
-        self.addresume("%%")
-        self.addresume("%% "+str(self.countTest)+" tests done! ")
-        self.addresume("%%")
-        self.addresume("%% "+str(self.countSuccess)+" succeed and "+str(self.countFail)+ " failed!")
-        self.addresume("%% "+self.listAssertFailed)
-        self.addresume("%% "+ "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" if len(self.listAssertFailed) > 3 else "")
-        self.addresume("%% Running time: "+str(self.totalTimer)+" s")
-        self.addresume("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+        self.addResume("\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+        self.addResume("%% Testa reports:")
+        self.addResume("%%")
+        self.addResume("%% " + str(self.countTest) + " tests done! ")
+        self.addResume("%%")
+        self.addResume("%% " + str(self.countSuccess) + " succeed and " + str(self.countFail) + " failed!")
+        self.addResume("%% " + self.listAssertFailed)
+        self.addResume(
+            "%% " + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" if len(self.listAssertFailed) > 3 else "")
+        self.addResume("%% Running time: " + str(self.totalTimer) + " s")
+        self.addResume("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 
-        if(self.generateReport == True):
-            with open("reports_"+time.strftime("%Y-%m-%d_%H:%M:%S")+".txt", "w") as ffr:
+        if self.generateReport:
+            with open("reports_" + time.strftime("%Y-%m-%d_%H:%M:%S") + ".txt", "w") as ffr:
                 ffr.write(self.resume)
 
     # The getter
     def getTotalTimer(self):
         return self.totalTimer
+
     # The setter
     def setTotalTimer(self, value):
         self.totalTimer = value
@@ -162,6 +191,7 @@ class Testa:
     # The getter
     def getTestTimer(self):
         return self.testTimer
+
     # The setter
     def setTestTimer(self, value):
         self.testTimer = value
@@ -170,39 +200,43 @@ class Testa:
         self.stopTestTimer = True
 
     def startTestTimer(self):
-        while (1):
+        while True:
             time.sleep(0.0001)
             self.testTimer += 0.0001
             self.totalTimer += 0.0001
 
-            if(self.stopTestTimer == True):
+            if self.stopTestTimer:
                 break
 
     # Getter and setter for countSuccess
     def setcountSuccess(self, value):
         self.countSuccess = value
+
     def getcountSuccess(self):
         return self.countSuccess
 
     # Getter and setter for countFail
     def setcountFail(self, value):
         self.countFail = value
+
     def getcountFail(self):
         return self.countFail
 
     # Getter and setter for resume
-    def setresume(self, value):
+    def setResume(self, value):
         self.resume = value
-    def getresume(self):
+
+    def getResume(self):
         return self.resume
 
     # Getter and setter for generateReport
-    def setgenerateReport(self, value):
+    def setGenerateReport(self, value):
         self.generateReport = value
-    def getgenerateReport(self):
+
+    def getGenerateReport(self):
         return self.generateReport
 
-    def addresume(self, value):
+    def addResume(self, value):
         self.resume = self.resume + str(value) + "\n"
 
     def addCountSuccess(self):
@@ -215,181 +249,146 @@ class Testa:
         self.countTest = self.countTest + 1
 
     def testaPrint(self, msg):
-        self.setresume(self.resume + "\n"+ "| "+str(msg))
-        # print(" >"+str(msg))
+        self.setResume(self.resume + "\n" + "| " + str(msg))
+        # print("[+]  >"+str(msg))
 
     def headTestPresentation(self):
-        self.setresume(self.resume + "\n-Test "+str(self.countTest+1)+"----------------------------------------------------------\n|")
+        self.setResume(self.resume + "\n-Test " + str(
+            self.countTest + 1) + "----------------------------------------------------------\n|")
 
     def footTestPresentation(self):
-        self.setresume(self.resume + "\n")
-
-    def returnStateMentIfMessageIsEmpty(self, msg, statement):
-        if msg == None:
-            return statement + ":"
-        else:
-            return msg + ":\n| >> " + statement
-
+        self.setResume(self.resume + "\n")
 
     def checkCore(self, assertt, assert_string=None, msg=None):
 
         self.headTestPresentation()
         self.addTestCount()
 
-        if assert_string != None:
-            self.testaPrint(">> "+str(assert_string))
-        self.testaPrint("<< "+str(assertt))
+        if assert_string is not None:
+            self.testaPrint(">> " + str(assert_string))
+        self.testaPrint("<< " + str(assertt))
 
         status = "✗"
-        if assertt == True:
+        if assertt:
             self.addCountSuccess()
             status = "✓"
         else:
             self.addCountFail()
 
-        if (msg != None):
+        if msg is not None:
             self.testaPrint(str(msg))
 
         self.testaPrint("_______________________________________________________________")
         self.testaPrint("")
 
-        if assertt == True:
-            self.testaPrint("Status: "+ status + " Success!")
+        if assertt:
+            self.testaPrint("Status: " + status + " Success!")
         else:
-            self.testaPrint("Status: "+ status + " Failed!")
+            self.testaPrint("Status: " + status + " Failed!")
 
-        self.testaPrint("End on: "+str(self.getTestTimer()) + " s.")
+        self.testaPrint("End on: " + str(self.getTestTimer()) + " s.")
 
         self.testaPrint("_______________________________________________________________")
 
         self.footTestPresentation()
 
-
-    def checkAsswert(self, assertt, assert_string=None, msg=None):
+    def checkAssert(self, assertt, assert_string=None, msg=None):
         # Timer started!
         self.setTestTimer(0)
-        then = time.time() #Time before the operations start
+        then = time.time()  # Time before the operations start
 
         self.checkCore(assertt, assert_string, msg)
 
-        now = time.time() #Time after it finished
-        self.setTestTimer(now-then)
+        now = time.time()  # Time after it finished
+        self.setTestTimer(now - then)
         self.setTotalTimer(self.totalTimer + int(self.getTestTimer()))
 
         return assertt
 
-
-    def checkAsswertFunction(self, assertt, assert_string=None, msg=None):
+    def checkAssertFunction(self, assertt, assert_string=None, msg=None):
         self.checkCore(assertt, assert_string, msg)
         return assertt
 
-
-    def deleteDuplicateLine(self, filePath):
-        lines_seen = set() # holds lines already seen
-        outfile = open(filePath+"_tmp_", "w")
-        for line in open(filePath, "r"):
-            if line not in lines_seen: # not a duplicate
-                outfile.write(line)
-                lines_seen.add(line)
-        outfile.close()
-
-        with open(filePath+"_tmp_", "r+") as filet:
-            with open(filePath, "w") as filet2:
-                filet2.write(filet.read())
-
-        # We delete the tempory file
-        remove(filePath+"_tmp_")
-
-
-    def recordOrNot(self, recordMode, line, start_block, end_block):
-        if not recordMode:
-            if start_block in line:
-                recordMode = True
-        elif end_block in line:
-            recordMode = False
-        return recordMode
-
-
     # This method test the list of functions contained in a file
-    def TestFunctionsInAFile(self, filePath):
-        if(not pathit.isdir(filePath)):
-            print("Testa testing on "+filePath)
-            self.testaPrint("**********************************************************************************************************************************")
+    def TestFunctionsInAFile(self, file_path):
+        if not pathit.isdir(file_path):
+            print("[+] Testa testing on " + file_path)
+            self.testaPrint("******************************************************************************")
             self.testaPrint("---------------------------------------------------------------")
-            self.testaPrint(" Testa-Test on :"+ filePath)
+            self.testaPrint(" Testa-Test on :" + file_path)
             self.testaPrint("---------------------------------------------------------------")
             # Read the file and parcours line by lines
-            Case = []
-            Result = []
+            case = []
+            result = []
             functions = []
-            function_toWrite = ""
+            function_to_write = ""
             allready_write = ""
-            importToWrite = ""
+            import_to_write = ""
             doc_ = ""
-            with open(filePath, 'r') as filee:
+            with open(file_path, 'r') as filee:
                 lines = filee.readlines()
 
-                inRecordingMode = False
-                inRecordingMode2 = False
-                inRecordingMode3 = False
-                inRecordingMode4 = False
-                inRecordingMode5 = False
+                in_recording_mode = False
+                in_recording_mode2 = False
+                in_recording_mode3 = False
+                in_recording_mode4 = False
+                in_recording_mode5 = False
 
-                isAssert = False
+                is_assert = False
 
                 for line in lines:
 
                     # if we have some import at the head of the file that's method depends on
                     # First we get the testa block
-                    if not inRecordingMode5:
+                    if not in_recording_mode5:
                         if "::import_start::" in line:
-                            inRecordingMode5 = True
+                            in_recording_mode5 = True
                     elif "::import_end::" in line:
-                        inRecordingMode5 = False
-                        #importToWrite = ""
+                        in_recording_mode5 = False
+                        # import_to_write = ""
                     else:
-                        importToWrite += line.replace(self.commentStartBy, "") + "\n"
-
+                        import_to_write += line.replace(self.commentStartBy, "") + "\n"
 
                     # First we get the testa block
-                    if not inRecordingMode:
+                    if not in_recording_mode:
                         if "::testa_start::" in line:
-                            inRecordingMode = True
+                            in_recording_mode = True
                     elif "::testa_end::" in line:
-                        inRecodingMode = False
+                        in_recording_mode = False
                     else:
 
-                        if not inRecordingMode4:
+                        if not in_recording_mode4:
                             if "::doc_start::" in line:
-                                inRecordingMode4 = True
-                                doc_ = "------------------------------------------\n Documentation on :"+filePath+"\n------------------------------------------"
+                                in_recording_mode4 = True
+                                doc_ = "------------------------------------------\n Documentation on :" + file_path \
+                                       + "\n------------------------------------------"
                         elif "::doc_end::" in line:
-                            with open("./doc_"+filePath.replace("/", "-").replace(self.extension, "")+".txt", "w") as frt:
+                            with open("./doc_" + file_path.replace("/", "-").replace(self.extension, "") + ".txt",
+                                      "w") as frt:
                                 frt.write(doc_)
-                            inRecodingMode4 = False
+                            in_recording_mode4 = False
                             doc_ = ""
                         else:
-                            doc_ += "\n"+line.replace(self.commentStartBy, "")
+                            doc_ += "\n" + line.replace(self.commentStartBy, "")
 
                         # Second we get the case block
-                        # Here we find the test Case
-                        if not inRecordingMode2:
+                        # Here we find the test case
+                        if not in_recording_mode2:
                             if "::case_start::" in line:
-                                inRecordingMode2 = True
+                                in_recording_mode2 = True
                         elif "::case_end::" in line:
-                            inRecodingMode2 = False
+                            in_recording_mode2 = False
                         else:
-
                             # We need to verify here if it's a simple assert or more
                             case_to_add = line.replace(" ", "").replace(">>", "").replace(self.commentStartBy, "")
                             if ">>" in line:
-                                if case_to_add not in Case:
-                                    # We append on Case list
-                                    Case.append(case_to_add)
+                                if case_to_add not in case:
+                                    # We append on case list
+                                    case.append(case_to_add)
 
                                     if "testa." in line:
-                                        isAssert = True
-                                        functions_filepath = "testfunction__"+str(self.iteration)+self.extension
+                                        is_assert = True
+                                        functions_filepath = "testfunction__" + str(self.iteration) + self.extension
                                         if len(line) > 3:
                                             if functions_filepath not in functions and line not in allready_write:
                                                 # We append on function list
@@ -398,154 +397,161 @@ class Testa:
 
                                             with open(functions_filepath, "a+") as fileee:
                                                 # We replace the output method by putting a comment at the beginning
-                                                fileee.write( case_to_add.replace(self.outputMethod, self.commentStartBy+self.outputMethod) )
+                                                fileee.write(case_to_add.replace(self.outputMethod,
+                                                                                 self.commentStartBy
+                                                                                 + self.outputMethod))
 
                             # if it's not a simple assertion
                             result_to_add = line.replace(" ", "").replace("<<", "").replace(self.commentStartBy, "")
-                            if "<<" in line and len(Result) < len(Case):
-                                #if result_to_add not in Result:
-                                # We append on Result list
-                                Result.append(result_to_add)
-
+                            if "<<" in line and len(result) < len(case):
+                                # if result_to_add not in result:
+                                # We append on result list
+                                result.append(result_to_add)
 
                         # Third, the code block
-                        if (isAssert == False):
+                        if not is_assert:
                             # The function and then
-                            if not inRecordingMode3:
+                            if not in_recording_mode3:
                                 if "::code_start::" in line:
                                     self.iteration = self.iteration + 1
-                                    inRecordingMode3 = True
+                                    in_recording_mode3 = True
 
-                                    function_toWrite += importToWrite
+                                    function_to_write += import_to_write
 
                             elif "::code_end::" in line:
 
                                 self.iteration = self.iteration + 1
-                                inRecodingMode3 = False
-                                function_toWrite = ""
+                                in_recording_mode3 = False
+                                function_to_write = ""
 
                             else:
                                 # We write this in the file
                                 # Remove all commented line
-                                functions_filepath = "testfunction__"+str(self.iteration)+self.extension
+                                functions_filepath = "testfunction__" + str(self.iteration) + self.extension
                                 # print(functions_filepath)
                                 if "#" not in line and len(line) > 3 and line not in allready_write:
-                                    function_toWrite += line.replace(self.commentStartBy, "") + "\n"
-                                    allready_write += function_toWrite
+                                    function_to_write += line.replace(self.commentStartBy, "") + "\n"
+                                    allready_write += function_to_write
 
                                     if functions_filepath not in functions:
                                         # We append on function list
                                         functions.append(functions_filepath)
                                     with open(functions_filepath, "a+") as fileee:
                                         # We replace the output method by putting a comment at the beginning
-                                        fileee.write( function_toWrite.replace(self.outputMethod, self.commentStartBy+self.outputMethod) )
+                                        fileee.write(function_to_write.replace(self.outputMethod,
+                                                                               self.commentStartBy + self.outputMethod))
 
-                        elif (isAssert == True):
+                        elif is_assert:
                             self.iteration = self.iteration + 1
-                            isAssert = False
+                            is_assert = False
 
             # Parcours now each functions file path
-            ii = 0 # iteration for Test Case array
-            # print("functions: ", functions)
-            # print("Case: ", Case)
-            # print("Result: ", Result)
+            ii = 0  # iteration for Test case array
+            # print("[+] functions: ", functions)
+            # print("[+] case: ", case)
+            # print("[+] result: ", result)
             for fnc in functions:
-                
                 # if it's not a simple assertion
-                to_write = self.outputMethod+"("+Case[ii].replace("\n", "")+")"+self.semicolomn+" \n " + self.commentStartBy+" Should returns: "+Result[ii]
+                to_write = self.outputMethod + "(" + case[ii].replace("\n", "") + ")" + self.semicolon + " \n " \
+                           + self.commentStartBy + " Should returns: " + \
+                           result[ii]
 
                 # We open each function path and add the testa class a the top
                 with open(fnc, "r+") as fileee:
                     to_append_at_the_end = fileee.read()
                     with open(fnc, "w") as fileee2:
-                        fileee2.write( self.scriptStarter +"\n"+ self.TeslAssertClass + "\n\n"+ importToWrite + "\n\n" + to_append_at_the_end) #  + self.AccoladEnd
+                        fileee2.write(
+                            self.scriptStarter + "\n" + self.TeslAssertClass + "\n\n" + import_to_write + "\n\n"
+                            + to_append_at_the_end)  # + self.AccoladeEnd
 
                 with open(fnc, "a+") as fileee:
-                    # print("FINAL: ", self.tryCatch.replace("****", to_write) + self.scriptEnder)
-                    fileee.write(self.tryCatch.replace("****", to_write) + self.scriptEnder)
+                    # print("[+] FINAL: ", self.tryCatch.replace("****", to_write) + self.scriptEnd)
+                    fileee.write(self.tryCatch.replace("****", to_write) + self.scriptEnd)
 
                 # Let's delete duplicated lines
-                self.deleteDuplicateLine(fnc)
+                delete_duplicate_line(fnc)
                 ii = ii + 1
 
             # Now we will test each function by running each file and get the result
             # if the result is what it's expect We build a Test that win, if not we write it failed
-            ii = 0 # iteration for Test Case array
+            ii = 0  # iteration for Test case array
             for file_function in functions:
 
                 # Timer started!
                 self.setTestTimer(0)
-                then = time.time() #Time before the operations start
+                then = time.time()  # Time before the operations start
 
                 proc = Popen([self.launcher, file_function], stdout=PIPE, stderr=STDOUT)
                 output = proc.communicate()[0].decode("utf-8")
 
-                function_ = str(Case[ii].replace("\n", "").split("(")[0])
-                statement_ = str(Case[ii].replace("\n", ""))
+                function_ = str(case[ii].replace("\n", "").split("(")[0])
+                statement_ = str(case[ii].replace("\n", ""))
                 output_ = str(output.replace("\n", ""))
-                retult_ = str(Result[ii].replace("\n", ""))
+                retult_ = str(result[ii].replace("\n", ""))
 
                 descriptive_message = ""
-                descriptive_message += "\n| On: "+ function_ + "\n"
-                descriptive_message += "| Statement: "+ statement_ + "\n"
-                descriptive_message += "| output: "+ output_ + "\n"
+                descriptive_message += "\n| On: " + function_ + "\n"
+                descriptive_message += "| Statement: " + statement_ + "\n"
+                descriptive_message += "| output: " + output_ + "\n"
 
                 # if it's not a simple assertion
-                descriptive_message += "| Wanted : "+ retult_ + ""
-
+                descriptive_message += "| Wanted : " + retult_ + ""
 
                 output = output.replace("\n", "")
-                wanted = Result[ii].replace("\n", "")
+                wanted = result[ii].replace("\n", "")
                 assert_ = (output_.lower() == wanted.lower())
                 assert_string = "output == wanted"
 
-                if assert_ == False:
+                if not assert_:
                     if ii == 0:
-                        self.listAssertFailed += "\n%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n%% Tests failing:"
-                    self.listAssertFailed += "\n%%    -'"+function_+"' in "+filePath
+                        self.listAssertFailed += "\n%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n%% Tests " \
+                                                 "failing: "
+                    self.listAssertFailed += "\n%%    -'" + function_ + "' in " + file_path
 
-                now = time.time() #Time after it finished
-                self.setTestTimer(now-then)
+                now = time.time()  # Time after it finished
+                self.setTestTimer(now - then)
                 self.setTotalTimer(self.totalTimer + int(self.getTestTimer()))
 
-                self.checkAsswertFunction(assert_, assert_string, descriptive_message)
+                self.checkAssertFunction(assert_, assert_string, descriptive_message)
 
                 if wanted == output:
-                    print("| Success!\n-----------------------------------------------------")
+                    print("[+] | Success!\n-----------------------------------------------------")
                 else:
-                    print("| Error")
+                    print("[+] | Error")
 
                 # We remove the tempory function file
                 remove(file_function)
                 ii = ii + 1
 
-    def Function(self, filePath, extension_list=None): # This method test all functions in one application
+    def Function(self, file_path, extension_list=None):  # This method test all functions in one application
 
-        path = filePath
-        if extension_list == None:
+        path = file_path
+        if extension_list is None:
             self.TestFunctionsInAFile(path)
         else:
-            if(pathit.exists(path)):
-                if(pathit.isfile(path)):
-                    print("> A file given!")
+            if pathit.exists(path):
+                if pathit.isfile(path):
+                    print("[+] Tests started...!")
                     self.TestFunctionsInAFile(path)
                 else:
-                    if(pathit.isdir(path)):
+                    if pathit.isdir(path):
                         # if it start with.
-                        if(any(ext in path for ext in extension_list)):
-                            print("> Skipping: ", path)
+                        if any(ext in path for ext in extension_list):
+                            print("[+] > Skipping: ", path)
                         else:
-                            print("> ---------")
-                            print("> In "+str(path))
+                            print("[+] > ---------")
+                            print("[+] > In " + str(path))
                             for path in Path(path).glob('**/*'):
-                                if (not pathit.isdir(path)):
+                                if not pathit.isdir(path):
                                     self.TestFunctionsInAFile(str(path))
                     else:
-                        print("> This path " + str(path) + " is not valid, please verify it again before relaunch me.")
+                        print("[+] > This path " + str(path)
+                              + " is not valid, please verify it again before relaunch me.")
             else:
-                print("> This path " + str(path) + " (file/directory) is not valid.")
+                print("[+] > This path " + str(path) + " (file/directory) is not valid.")
 
-        print("Testa testing ended on "+str(path))
+        print("[+] Testa testing ended on " + str(path))
+
 
 ########################################################################################
 ########################################################################################
@@ -563,53 +569,54 @@ def main():
 
     try:
 
-        if config != None :
+        if config is not None:
 
             with open(config, 'r+') as filee:
                 testaconfig = json.loads(filee.read())
 
                 # We instantiate the Testa Test
-                TestaTest = Testa()
+                testa_test = Testa()
 
-                TestaTest.scriptStarter = testaconfig["scriptStarter"]
-                TestaTest.prefixVariable = testaconfig["prefixVariable"]
-                TestaTest.commentStartBy = testaconfig["commentStartBy"]
-                TestaTest.launcher = testaconfig["launcher"]
-                TestaTest.outputMethod = testaconfig["outputMethod"]
-                TestaTest.extension = testaconfig["extensions"][0]
-                TestaTest.tryCatch = testaconfig["tryCatch"]
+                testa_test.scriptStarter = testaconfig["scriptStarter"]
+                testa_test.prefixVariable = testaconfig["prefixVariable"]
+                testa_test.commentStartBy = testaconfig["commentStartBy"]
+                testa_test.launcher = testaconfig["launcher"]
+                testa_test.outputMethod = testaconfig["outputMethod"]
+                testa_test.extension = testaconfig["extensions"][0]
+                testa_test.tryCatch = testaconfig["tryCatch"]
                 # For building class test
-                TestaTest.function = testaconfig["function"] # function, etc...
-                TestaTest.varDeclaration = testaconfig["varDeclaration"] # var, let, etc...
-                TestaTest.classInstantiationNew = testaconfig["classInstantiationNew"] # new, etc...
-                TestaTest.AccoladStart = testaconfig["AccoladStart"] # {
-                TestaTest.AccoladEnd = testaconfig["AccoladEnd"] # }
-                TestaTest.NoneNull = testaconfig["NoneNull"] # null
-                TestaTest.selfOrThis = testaconfig["selfOrThis"] # this
-                TestaTest.selfOnFunctionParams = testaconfig["selfOnFunctionParams"] # if there is a need of self in the declaration of a function
-                TestaTest.semicolomn = testaconfig["semicolomn"] # ;
-                TestaTest.scriptEnder = testaconfig["scriptEnder"]
+                testa_test.function = testaconfig["function"]  # function, etc...
+                testa_test.varDeclaration = testaconfig["varDeclaration"]  # var, let, etc...
+                testa_test.classInstantiationNew = testaconfig["classInstantiationNew"]  # new, etc...
+                testa_test.AccoladeStart = testaconfig["AccoladeStart"]  # {
+                testa_test.AccoladeEnd = testaconfig["AccoladeEnd"]  # }
+                testa_test.NoneNull = testaconfig["NoneNull"]  # null
+                testa_test.selfOrThis = testaconfig["selfOrThis"]  # this
+                testa_test.self_on_function_params = testaconfig[
+                    "selfOnFunctionParams"]  # if there is a need of self in the declaration of a function
+                testa_test.semicolon = testaconfig["semicolon"]  # ;
+                testa_test.scriptEnd = testaconfig["scriptEnd"]
 
-                # We Start the TestaTest
-                TestaTest.start()
+                # We Start the testa_test
+                testa_test.start()
 
                 # We can generate a Report of the test we are going to do:
-                TestaTest.setgenerateReport(True)
+                testa_test.setGenerateReport(True)
 
                 for ppath in testaconfig["path"]:
-                    TestaTest.Function(ppath, testaconfig["extensions"])
+                    testa_test.Function(ppath, testaconfig["extensions"])
 
                 # Most Important, ALWAYS We need to End the test.
-                TestaTest.end()
+                testa_test.end()
                 # We Print the Report resume:
-                # print(TestaTest.getresume())
-                print("Reports saved in './"+TestaTest.date_report+"'")
+                # print(testa_test.getResume())
+                print("[+] Reports saved in './" + testa_test.date_report + "'")
         else:
-            print("Bad parameters input for the path and the config!")
+            print("[+] Bad parameters input for the path and the config!")
 
-    except Exception as es:
-        print("Testa just Crached, verify your JSON file !!!")
-        print(es)
+    except Exception:
+        print("[+] Testa just Crached, verify your JSON file !!!")
+        get_trace()
 
 # Let's run the Main script
 # main()

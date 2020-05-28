@@ -8,13 +8,13 @@
     "function": "def ",
     "varDeclaration": "",
     "classInstantiationNew": "",
-    "AccoladStart": ":",
-    "AccoladEnd": "",
+    "AccoladeStart": ":",
+    "AccoladeEnd": "",
     "NoneNull": "None",
     "selfOrThis": "self",
     "selfOnFunctionParams": true,
-    "semicolomn": "",
+    "semicolon": "",
     "scriptStarter": "",
-    "scriptEnder": "",
+    "scriptEnd": "",
     "prefixVariable": ""
 }

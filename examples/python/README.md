@@ -11,4 +11,4 @@ testacli -c ./tpy.json
 
 ## Author
 
-- Sanix-darker(Ange SAA DJIO)
+- Sanix-darker

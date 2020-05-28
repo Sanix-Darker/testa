@@ -6,9 +6,9 @@ Here you can have an example of a directory containing some files wich contains 
 
 Just hit this command in your cli:
 ```shell
-testacli -c ./tjs.json
+testacli -c ./tphp.json
 ```
 
 ## Author
 
-- Sanix-darker(Ange SAA DJIO)
+- Sanix-darker

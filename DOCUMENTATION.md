@@ -128,12 +128,12 @@ Some few things to know before using testa.
         "function": " ",
         "varDeclaration": "var ",
         "classInstantiationNew": "new ",
-        "AccoladStart": "{",
-        "AccoladEnd": "}",
+        "AccoladeStart": "{",
+        "AccoladeEnd": "}",
         "NoneNull": "null",
         "selfOrThis": "this",
         "selfOnFunctionParams": false,
-        "semicolomn": ";"
+        "semicolon": ";"
     }
     ```
     - An example of testa config file for `PHP`:
@@ -148,14 +148,14 @@ Some few things to know before using testa.
         "function": "function ",
         "varDeclaration": "$",
         "classInstantiationNew": "new ",
-        "AccoladStart": "{",
-        "AccoladEnd": "}",
+        "AccoladeStart": "{",
+        "AccoladeEnd": "}",
         "NoneNull": "null",
         "selfOrThis": "$this",
         "selfOnFunctionParams": false,
-        "semicolomn": ";",
+        "semicolon": ";",
         "scriptStarter": "<?php \n",
-        "scriptEnder": "\n ?>",
+        "scriptEnd": "\n ?>",
         "prefixVariable": "$"
     }
     ```
@@ -171,14 +171,14 @@ Some few things to know before using testa.
         "function": "def ",
         "varDeclaration": "",
         "classInstantiationNew": "",
-        "AccoladStart": ":",
-        "AccoladEnd": "",
+        "AccoladeStart": ":",
+        "AccoladeEnd": "",
         "NoneNull": "None",
         "selfOrThis": "self",
         "selfOnFunctionParams": true,
-        "semicolomn": "",
+        "semicolon": "",
         "scriptStarter": "",
-        "scriptEnder": "",
+        "scriptEnd": "",
         "prefixVariable": ""
     }
     ```
@@ -194,14 +194,14 @@ Some few things to know before using testa.
         "function": "def ",
         "varDeclaration": "",
         "classInstantiationNew": "",
-        "AccoladStart": "",
-        "AccoladEnd": "\n end",
+        "AccoladeStart": "",
+        "AccoladeEnd": "\n end",
         "NoneNull": "None",
         "selfOrThis": "self",
         "selfOnFunctionParams": true,
-        "semicolomn": "",
+        "semicolon": "",
         "scriptStarter": "",
-        "scriptEnder": "",
+        "scriptEnd": "",
         "prefixVariable": ""
     }
     ```
@@ -270,13 +270,13 @@ Some few things to know before using testa.
             <td> The keyword synthax instantiation. </td>
         </tr>
         <tr>
-            <td> <b>AccoladStart</b> </td>
+            <td> <b>AccoladeStart</b> </td>
             <td> <i>string</i> </td>
             <td> <b><i>"{"</i></b> </td>
             <td> This define the start of a function or a class. </td>
         </tr>
         <tr>
-            <td> <b>AccoladEnd</b> </td>
+            <td> <b>AccoladeEnd</b> </td>
             <td> <i>string</i> </td>
             <td> <b><i>"}"</i></b> </td>
             <td> This define the end of a method or a class. </td>
@@ -300,10 +300,10 @@ Some few things to know before using testa.
             <td> The 'self' or 'this' parameter present on method. </td>
         </tr>
         <tr>
-            <td> <b>semicolomn</b> </td>
+            <td> <b>semicolon</b> </td>
             <td> <i>string</i> </td>
             <td> <b><i>";"</i></b> </td>
-            <td>  For thoose langage that supporting instructions only with a ";" (semicolomn). </td>
+            <td>  For thoose langage that supporting instructions only with a ";" (semicolon). </td>
         </tr>
 </table>
 
