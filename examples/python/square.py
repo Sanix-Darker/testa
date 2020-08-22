@@ -16,8 +16,6 @@ from math import sqrt as math_square
 # << 3.0
 # ::case_end::
 # ::code_start::
-
-
 def square(a):
     return math_square(a)
 # ::code_end::

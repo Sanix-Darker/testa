@@ -1,20 +1,6 @@
 {
+    "module": "ta-py",
     "path": ["./python/sha256.py", "./python/square.py"],
     "extensions": [".py"],
-    "launcher": "python",
-    "outputMethod": "print",
-    "commentStartBy": "#",
-    "tryCatch": "try: \n\t **** \nexcept Exception as es: \n\t print(str(es))\n",
-    "function": "def ",
-    "varDeclaration": "",
-    "classInstantiationNew": "",
-    "AccoladeStart": ":",
-    "AccoladeEnd": "",
-    "NoneNull": "None",
-    "selfOrThis": "self",
-    "selfOnFunctionParams": true,
-    "semicolon": "",
-    "scriptStarter": "",
-    "scriptEnd": "",
-    "prefixVariable": ""
+    "launcher": "python"
 }

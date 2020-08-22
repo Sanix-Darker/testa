@@ -1,20 +1,6 @@
 {
+    "module": "ta-php",
     "path": ["./php/square.php"],
     "extensions": [".php"],
-    "launcher": "php",
-    "outputMethod": "print",
-    "commentStartBy": "//",
-    "tryCatch": "try{ \n\t **** \n}catch(Exception $e){ \n\t print($e);}",
-    "function": "function ",
-    "varDeclaration": "$",
-    "classInstantiationNew": "new ",
-    "AccoladeStart": "{",
-    "AccoladeEnd": "}",
-    "NoneNull": "null",
-    "selfOrThis": "$this",
-    "selfOnFunctionParams": false,
-    "semicolon": ";",
-    "scriptStarter": "<?php \n",
-    "scriptEnd": "\n ?>",
-    "prefixVariable": "$"
+    "launcher": "php"
 }

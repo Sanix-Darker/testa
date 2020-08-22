@@ -26,7 +26,13 @@ Path = customPath.Path
 
 
 class Testa:
-    def __init__(self):
+    def __init__(self, scriptStarter=" ", prefixVariable="", commentStartBy="#", launcher="python",
+                 outputMethod="print", extension=".py",
+                 tryCatch="try: \n\t **** \nexcept Exception as es: \n\t print(str(es))",
+                 function="def ", varDeclaration="", classInstantiationNew="",
+                 AccoladeStart=":", AccoladeEnd="", NoneNull="None", selfOrThis="self",
+                 self_on_function_params=True, semicolon="", scriptEnd=" "):
+
         (self.countTest,
          self.countSuccess,
          self.countFail,
@@ -37,28 +43,29 @@ class Testa:
 
         self.resume = ""
         self.generateReport = True
-        self.commentStartBy = "#"
-        self.launcher = "python"
-        self.outputMethod = "print"
-        self.extension = ".py"
-        self.tryCatch = "try: \n\t **** \nexcept Exception as es: \n\t print(str(es))"
+        self.commentStartBy = commentStartBy
+        self.launcher = launcher
+        self.outputMethod = outputMethod
+        self.extension = extension
+        self.tryCatch = tryCatch
 
         # For building class test
-        self.scriptStarter = " "  # with what the script start For example in php it's <?php, etc...
-        self.prefixVariable = ""  # in php we have '$' for example
-        self.function = "def "  # function, etc...
-        self.varDeclaration = ""  # var, let, etc...
-        self.classInstantiationNew = ""  # new, etc...
-        self.AccoladeStart = ":"  # {
-        self.AccoladeEnd = ""  # }
-        self.NoneNull = "None"  # null
-        self.selfOrThis = "self"  # this
-        self.self_on_function_params = True  # if there is a need of self in the declaration of a function
-        self.semicolon = ""  # ;
+        self.scriptStarter = scriptStarter  # with what the script start For example in php it's <?php, etc...
+        self.prefixVariable = prefixVariable  # in php we have '$' for example
+        self.function = function  # function, etc...
+        self.varDeclaration = varDeclaration  # var, let, etc...
+        self.classInstantiationNew = classInstantiationNew  # new, etc...
+        self.AccoladeStart = AccoladeStart  # {
+        self.AccoladeEnd = AccoladeEnd  # }
+        self.NoneNull = NoneNull  # null
+        self.selfOrThis = selfOrThis  # this
+        # if there is a need of self in the declaration of a function
+        self.self_on_function_params = self_on_function_params
+        self.semicolon = semicolon  # ;
         self.TeslAssertClass = ""
         self.listAssertFailed = ""
         self.date_report = ""
-        self.scriptEnd = " "  # with what the script start For example in php it's <?php, etc...
+        self.scriptEnd = scriptEnd  # with what the script start For example in php it's <?php, etc...
 
     def start(self):
         self.addResume("""
@@ -79,13 +86,15 @@ class Testa:
         self.TeslAssertClass = "class TestaAssert" + self.AccoladeStart
 
         self.TeslAssertClass += "\n    " + self.function + " checkAssert(" + str(
-            selfOnParams(self.selfOrThis, self.self_on_function_params, True)) + " " + self.prefixVariable + "assertt)" + self.AccoladeStart
-        
-        self.TeslAssertClass += "\n        return " + self.prefixVariable + "assertt" + self.semicolon + self.AccoladeEnd
+            selfOnParams(self.selfOrThis, self.self_on_function_params, True)) + " " + self.prefixVariable + "assertt)" \
+                                + self.AccoladeStart
+
+        self.TeslAssertClass += "\n        return " + self.prefixVariable + "assertt" + self.semicolon \
+                                + self.AccoladeEnd
 
         self.TeslAssertClass += "\n    " + self.function + " isEqual(" + str(
-            selfOnParams(self.selfOrThis, self.self_on_function_params, True)) + " " + self.prefixVariable + "a, " + self.prefixVariable + "b)" \
-                                + self.AccoladeStart
+            selfOnParams(self.selfOrThis, self.self_on_function_params, True)) + " " + self.prefixVariable + "a, " \
+                                + self.prefixVariable + "b)" + self.AccoladeStart
 
         self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" \
                                 + self.prefixVariable + "a == " + self.prefixVariable + "b)" + self.semicolon \
@@ -102,28 +111,28 @@ class Testa:
         self.TeslAssertClass += "\n    " + self.function + " isTrue(" + str(
             selfOnParams(self.selfOrThis, self.self_on_function_params,
                          True)) + " " + self.prefixVariable + "x)" + self.AccoladeStart
-        
+
         self.TeslAssertClass += "\n        return  " + self.selfOrThis + ".checkAssert(" + self.prefixVariable + "x)" \
                                 + self.semicolon + self.AccoladeEnd
 
         self.TeslAssertClass += "\n    " + self.function + " isFalse(" + str(
             selfOnParams(self.selfOrThis, self.self_on_function_params,
                          True)) + " " + self.prefixVariable + "y)" + self.AccoladeStart
-        
+
         self.TeslAssertClass += "\n        return  " + self.selfOrThis + ".checkAssert(" + self.prefixVariable + "y)" \
                                 + self.semicolon + self.AccoladeEnd
 
         self.TeslAssertClass += "\n    " + self.function + " isIsNoneNull(" + str(
             selfOnParams(self.selfOrThis, self.self_on_function_params,
                          True)) + " " + self.prefixVariable + "x)" + self.AccoladeStart
-        
+
         self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
                                 + "x == " + self.NoneNull + ")" + self.semicolon + self.AccoladeEnd
 
         self.TeslAssertClass += "\n    " + self.function + " isIsNotNoneNull(" + str(
             selfOnParams(self.selfOrThis, self.self_on_function_params,
                          True)) + " " + self.prefixVariable + "x)" + self.AccoladeStart
-        
+
         self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
                                 + "x != " + self.NoneNull + ")" + self.semicolon + self.AccoladeEnd
 
@@ -131,14 +140,14 @@ class Testa:
             selfOnParams(self.selfOrThis, self.self_on_function_params,
                          True)) + " " + self.prefixVariable + "a, " + self.prefixVariable + "b)" \
                                 + self.AccoladeStart
-        
+
         self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
                                 + "a > " + self.prefixVariable + "b)" + self.semicolon + self.AccoladeEnd
 
         self.TeslAssertClass += "\n    " + self.function + " isSupEqual(" + str(
-            selfOnParams(self.selfOrThis, self.self_on_function_params, True)) + " " + self.prefixVariable + "a, "\
-                 + self.prefixVariable + "b)" + self.AccoladeStart
-        
+            selfOnParams(self.selfOrThis, self.self_on_function_params, True)) + " " + self.prefixVariable + "a, " \
+                                + self.prefixVariable + "b)" + self.AccoladeStart
+
         self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
                                 + "a >= " + self.prefixVariable + "b)" + self.semicolon + self.AccoladeEnd
 
@@ -393,26 +402,26 @@ class Testa:
                 in_recording_mode5 = True
         elif "::import_end::" in line:
             in_recording_mode5 = False
-            import_to_write = ""
+            # import_to_write = ""
         else:
             import_to_write += line.replace(self.commentStartBy, "") + "\n"
 
         return in_recording_mode5, import_to_write
 
-    def appendDoc(self, line, doc_, file_path, in_recording_mode4):
+    def appendDoc(self, line, file_path, in_recording_mode4):
         if not in_recording_mode4:
             if "::doc_start::" in line:
-                doc_, in_recording_mode4 = "------------------------------------------\n " + \
-                                              "Documentation on :" + file_path + \
-                                              "\n------------------------------------------", True
+                with open("./doc_" + file_path.replace("/", "-").replace(self.extension, "") + ".txt", "a+") as frt:
+                    frt.write("------------------------------------------\n " + "Documentation on :" + file_path + \
+                              "\n------------------------------------------")
+                in_recording_mode4 = True
         elif "::doc_end::" in line:
-            with open("./doc_" + file_path.replace("/", "-").replace(self.extension, "") + ".txt", "w") as frt:
-                frt.write(doc_)
-            in_recording_mode4, doc_ = False, ""
+            in_recording_mode4 = False
         else:
-            doc_ += "\n" + line.replace(self.commentStartBy, "")
+            with open("./doc_" + file_path.replace("/", "-").replace(self.extension, "") + ".txt", "a+") as frt:
+                frt.write("\n" + line.replace(self.commentStartBy, ""))
 
-        return in_recording_mode4, doc_
+        return in_recording_mode4
 
     def appendCode(self, line, functions, import_to_write, function_to_write, allready_write, in_recording_mode3):
         # The function and then
@@ -471,10 +480,10 @@ class Testa:
 
         return in_recording_mode2, allready_write, functions, result
 
-    def testaProcess(self, line, case, doc_, result, is_assert, functions, file_path, function_to_write,
+    def testaProcess(self, line, case, result, is_assert, functions, file_path, function_to_write,
                      import_to_write, allready_write, in_recording_mode4, in_recording_mode3, in_recording_mode2):
 
-        (in_recording_mode4, doc_) = self.appendDoc(line, doc_, file_path, in_recording_mode4)
+        in_recording_mode4 = self.appendDoc(line, file_path, in_recording_mode4)
 
         # We append case
         (in_recording_mode2,
@@ -492,8 +501,7 @@ class Testa:
             self.iteration = self.iteration + 1
             is_assert = False
 
-        return (doc_,
-                result,
+        return (result,
                 is_assert,
                 in_recording_mode4,
                 in_recording_mode3,
@@ -501,7 +509,7 @@ class Testa:
                 function_to_write,
                 allready_write)
 
-    def appendTesta(self, line, doc_, case, result, functions, is_assert, file_path, import_to_write, allready_write,
+    def appendTesta(self, line, case, result, functions, is_assert, file_path, import_to_write, allready_write,
                     function_to_write, in_recording_mode, in_recording_mode2, in_recording_mode3, in_recording_mode4):
         # First we get the testa block
         if not in_recording_mode:
@@ -510,16 +518,15 @@ class Testa:
         elif "::testa_end::" in line:
             in_recording_mode = False
         else:
-            (doc_,
-                result,
-                is_assert,
-                in_recording_mode4,
-                in_recording_mode3,
-                in_recording_mode2,
-                function_to_write,
-                allready_write) = self.testaProcess(line, case, doc_, result, is_assert, functions, file_path,
-                                                    function_to_write, import_to_write, allready_write,
-                                                    in_recording_mode4, in_recording_mode3, in_recording_mode2)
+            (result,
+             is_assert,
+             in_recording_mode4,
+             in_recording_mode3,
+             in_recording_mode2,
+             function_to_write,
+             allready_write) = self.testaProcess(line, case, result, is_assert, functions, file_path,
+                                                 function_to_write, import_to_write, allready_write,
+                                                 in_recording_mode4, in_recording_mode3, in_recording_mode2)
 
         return (in_recording_mode4,
                 in_recording_mode3,
@@ -544,8 +551,7 @@ class Testa:
              functions,
              function_to_write,
              allready_write,
-             import_to_write,
-             doc_) = [], [], [], "", "", "", ""
+             import_to_write) = [], [], [], "", "", ""
 
             with open(file_path, 'r') as filee:
                 lines = filee.readlines()
@@ -562,7 +568,7 @@ class Testa:
                      in_recording_mode,
                      function_to_write,
                      allready_write,
-                     is_assert) = self.appendTesta(line, doc_, case, result, functions, is_assert, file_path,
+                     is_assert) = self.appendTesta(line, case, result, functions, is_assert, file_path,
                                                    import_to_write, allready_write, function_to_write,
                                                    in_recording_mode, in_recording_mode2, in_recording_mode3,
                                                    in_recording_mode4)

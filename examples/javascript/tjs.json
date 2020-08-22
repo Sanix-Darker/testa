@@ -1,20 +1,6 @@
 {
+    "module": "ta-js",
     "path": ["./javascript/square.js", "./javascript/my_javascript_app/"],
     "extensions": [".js"],
-    "launcher": "node",
-    "outputMethod": "console.log",
-    "commentStartBy": "//",
-    "tryCatch": "}try{ \n\t **** \n}catch(err){ \n\t console.log(es);}",
-    "function": " ",
-    "varDeclaration": "var ",
-    "classInstantiationNew": "new ",
-    "AccoladeStart": "{",
-    "AccoladeEnd": "}",
-    "NoneNull": "null",
-    "selfOrThis": "this",
-    "selfOnFunctionParams": false,
-    "semicolon": ";",
-    "scriptStarter": "",
-    "scriptEnd": "",
-    "prefixVariable": ""
+    "launcher": "node"
 }

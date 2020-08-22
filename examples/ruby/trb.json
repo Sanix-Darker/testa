@@ -1,20 +1,6 @@
 {
+    "module": "ta-rb",
     "path": ["./ruby/my_ruby_app/", "./ruby/square.rb"],
     "extensions": [".rb"],
-    "launcher": "ruby",
-    "outputMethod": "puts",
-    "commentStartBy": "#",
-    "tryCatch": "try: \n\t **** \nexcept Exception as es \n\t puts(es)",
-    "function": "def ",
-    "varDeclaration": "",
-    "classInstantiationNew": "",
-    "AccoladeStart": "",
-    "AccoladeEnd": "\n end",
-    "NoneNull": "None",
-    "selfOrThis": "self",
-    "selfOnFunctionParams": true,
-    "semicolon": "",
-    "scriptStarter": "",
-    "scriptEnd": "",
-    "prefixVariable": ""
+    "launcher": "ruby"
 }
