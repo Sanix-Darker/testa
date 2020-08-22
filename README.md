@@ -1,7 +1,6 @@
 # Testa
 
 Testa is the best, simple and Test tool "CrossPlatform" and "CrossLanguages" (Only Script language for now) develop by developpers for developpers based on comments in your code.
-
 The power in this tool is that the grammar is the same for all your implementation languages.
 
 **Note:** This project is completly experimental, am still working on it, not sure where am going with it lol.
@@ -351,96 +350,6 @@ python testacli.py -c ./php/tphp.json
 python testacli.py -c ./ruby/trb.json
 ```
 And that's where the magic of Testa is, for any language, you have only to write a simple JSON file and specify paths where you will do tests.
-
-## DEMO
-
-Records of the test will be saved in a .txt file with this format for example:
-
-```php
-##################################################################
-#         |_   _| | ____| / ___|  | |        / \                 #
-#           | |   |  _|   \___ \  | |       / _ \                #
-#           | |   | |___   ___) | | |___   / ___ \               #
-#           |_|   |_____| |____/  |_____| /_/   \_\ v0.1         #
-#----------------------------------------------------------------#
-#-------------------------------------------- By S@n1x d4rk3r ---#
-##################################################################
-
-
-| **********************************************************************************************************************************
-| ---------------------------------------------------------------
-|  Testa-Test on :./javascript/square.js
-| ---------------------------------------------------------------
--Test 1----------------------------------------------------------
-|
-| >> output == wanted
-| << False
-| 
-| On: square
-| Statement: square(9)
-| output: 44
-| Wanted : 3.0
-| _______________________________________________________________
-| 
-| Status: ✗ Failed!
-| End on: 0.07390022277832031 s.
-| _______________________________________________________________
-
-| **********************************************************************************************************************************
-| ---------------------------------------------------------------
-|  Testa-Test on :javascript/my_javascript_app/divisionby2.js
-| ---------------------------------------------------------------
--Test 2----------------------------------------------------------
-|
-| >> output == wanted
-| << False
-| 
-| On: divisionby2
-| Statement: divisionby2(14)
-| output: 8
-| Wanted : 7.0
-| _______________________________________________________________
-| 
-| Status: ✗ Failed!
-| End on: 0.07592105865478516 s.
-| _______________________________________________________________
-
-| **********************************************************************************************************************************
-| ---------------------------------------------------------------
-|  Testa-Test on :javascript/my_javascript_app/multiplicationby3.js
-| ---------------------------------------------------------------
--Test 3----------------------------------------------------------
-|
-| >> output == wanted
-| << True
-| 
-| On: multiplicationby3
-| Statement: multiplicationby3(2)
-| output: 6
-| Wanted : 6
-| _______________________________________________________________
-| 
-| Status: ✓ Success!
-| End on: 0.08027839660644531 s.
-| _______________________________________________________________
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Testa reports:
-%%
-%% 3 tests done! 
-%%
-%% 1 succeed and 2 failed!
-%% 
-%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%% Tests failing:
-%%    -'square' in ./javascript/square.js
-%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%% Tests failing:
-%%    -'divisionby2' in javascript/my_javascript_app/divisionby2.js
-%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-%% Running time: 0.23009967803955078 s
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-```
 
 ## Author
 
