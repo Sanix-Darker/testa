@@ -26,8 +26,6 @@ List of languages, where you can perform testa test:
 
 ## Documentation
 
-# TEST-A DOCUMENTATION
-
 Some few things to know before using testa.
 
 ## How to config it
@@ -301,7 +299,7 @@ function addition(a, b){
 // ::testa_start::
 // ::case_start::
 // >> square(9)
-// << 3.0
+// << 3
 // ::case_end::
 // ::code_start::
 function square($a){
