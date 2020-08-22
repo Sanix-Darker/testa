@@ -15,12 +15,10 @@
 # Created by Sanix-darker [ https://github.com/sanix-darker ]
 # -----------------------------------------------------------------------------------------------------
 #
-import json
+
 import time
-import argparse
 from os import remove, path as pathit
 from subprocess import Popen, PIPE, STDOUT
-
 from src import custom_pathlib as customPath
 from src.utils import *
 
@@ -28,7 +26,6 @@ Path = customPath.Path
 
 
 class Testa:
-
     def __init__(self):
         (self.countTest,
          self.countSuccess,
@@ -294,12 +291,12 @@ class Testa:
     def checkAssert(self, assertt, assert_string=None, msg=None):
         # Timer started!
         self.setTestTimer(0)
-        then = time.time()  # Time before the operations start
-
+        # Time before the operations start
+        then = time.time()
         self.checkCore(assertt, assert_string, msg)
 
-        now = time.time()  # Time after it finished
-        self.setTestTimer(now - then)
+        # Time after it finished
+        self.setTestTimer(time.time() - then)
         self.setTotalTimer(self.totalTimer + int(self.getTestTimer()))
 
         return assertt
@@ -320,22 +317,15 @@ class Testa:
             proc = Popen([self.launcher, file_function], stdout=PIPE, stderr=STDOUT)
             output = proc.communicate()[0].decode("utf-8")
 
-            function_ = str(case[ii].replace("\n", "").split("(")[0])
-            statement_ = str(case[ii].replace("\n", ""))
-            output_ = str(output.replace("\n", ""))
-            retult_ = str(result[ii].replace("\n", ""))
+            function_, statement_ = str(case[ii].replace("\n", "").split("(")[0]), str(case[ii].replace("\n", ""))
+            output_, retult_ = str(output.replace("\n", "")), str(result[ii].replace("\n", ""))
 
-            descriptive_message = ""
-            descriptive_message += "\n| On: " + function_ + "\n"
-            descriptive_message += "| Statement: " + statement_ + "\n"
-            descriptive_message += "| output: " + output_ + "\n"
+            descriptive_message = "\n| On: " + function_ + "\n" + "| Statement: " + statement_ + "\n"
+            descriptive_message += "| output: " + output_ + "\n" + "| Wanted : " + retult_
             # if it's not a simple assertion
-            descriptive_message += "| Wanted : " + retult_ + ""
 
-            output = output.replace("\n", "")
-            wanted = result[ii].replace("\n", "")
-            assert_ = (output_.lower() == wanted.lower())
-            assert_string = "output == wanted"
+            output, wanted = output.replace("\n", ""), result[ii].replace("\n", "")
+            assert_, assert_string = (output_.lower() == wanted.lower()), "output == wanted"
 
             if not assert_:
                 if ii == 0:
@@ -393,8 +383,128 @@ class Testa:
                 # We replace the output method by putting a comment at the beginning
                 fileee.write(function_to_write.replace(self.outputMethod,
                                                        self.commentStartBy + self.outputMethod))
-
         return function_to_write, allready_write
+
+    def appendImport(self, line, import_to_write, in_recording_mode5):
+        # if we have some import at the head of the file that's method depends on
+        # First we get the testa block
+        if not in_recording_mode5:
+            if "::import_start::" in line:
+                in_recording_mode5 = True
+        elif "::import_end::" in line:
+            in_recording_mode5 = False
+            import_to_write = ""
+        else:
+            import_to_write += line.replace(self.commentStartBy, "") + "\n"
+
+        return in_recording_mode5, import_to_write
+
+    def appendDoc(self, line, doc_, file_path, in_recording_mode4):
+        if not in_recording_mode4:
+            if "::doc_start::" in line:
+                (doc_,
+                 in_recording_mode4) = ("------------------------------------------\n " +
+                                        "Documentation on :" + file_path +
+                                        "\n------------------------------------------", True)
+        elif "::doc_end::" in line:
+            with open("./doc_" + file_path.replace("/", "-").replace(self.extension, "") + ".txt",
+                      "w") as frt:
+                frt.write(doc_)
+            in_recording_mode4, doc_ = False, ""
+        else:
+            doc_ += "\n" + line.replace(self.commentStartBy, "")
+
+        return in_recording_mode4, doc_
+
+    def appendCode(self, line, functions, import_to_write, function_to_write, allready_write, in_recording_mode3):
+        # The function and then
+        if not in_recording_mode3:
+            if "::code_start::" in line:
+                self.iteration = self.iteration + 1
+                in_recording_mode3 = True
+                function_to_write += import_to_write
+        elif "::code_end::" in line:
+            self.iteration = self.iteration + 1
+            in_recording_mode3 = False
+            function_to_write = ""
+        else:
+            (function_to_write,
+             allready_write) = self.writeFunctionsInFile(line, function_to_write, allready_write, functions)
+
+        return in_recording_mode3, function_to_write, allready_write
+
+    def appendCase(self, line, case, result, functions, allready_write, in_recording_mode2):
+        # Second we get the case block
+        # Here we find the test case
+        if not in_recording_mode2:
+            if "::case_start::" in line:
+                in_recording_mode2 = True
+        elif "::case_end::" in line:
+            in_recording_mode2 = False
+        else:
+            # We need to verify here if it's a simple assert or more
+            case_to_add = line.replace(" ", "").replace(">>", "").replace(self.commentStartBy, "")
+            if ">>" in line:
+                if case_to_add not in case:
+                    # We append on case list
+                    case.append(case_to_add)
+                    if "testa." in line:
+                        is_assert = True
+                        functions_filepath = "testfunction__" + str(self.iteration) + self.extension
+                        if len(line) > 3:
+                            if functions_filepath not in functions and line not in allready_write:
+                                # We append on function list
+                                functions.append(functions_filepath)
+                                allready_write += case_to_add
+                            with open(functions_filepath, "a+") as fileee:
+                                # We replace the output method by putting a comment at the beginning
+                                fileee.write(case_to_add.replace(self.outputMethod, self.commentStartBy
+                                                                 + self.outputMethod))
+            # if it's not a simple assertion
+            result_to_add = line.replace(" ", "").replace("<<", "").replace(self.commentStartBy, "")
+            if "<<" in line and len(result) < len(case):
+                # if result_to_add not in result:
+                # We append on result list
+                result.append(result_to_add)
+
+        return in_recording_mode2, allready_write, functions, result
+
+    def appendTesta(self, line, doc_, case, result, functions, is_assert,
+                    file_path, import_to_write, allready_write, function_to_write,
+                    in_recording_mode, in_recording_mode2, in_recording_mode3, in_recording_mode4):
+        # First we get the testa block
+        if not in_recording_mode:
+            if "::testa_start::" in line:
+                in_recording_mode = True
+        elif "::testa_end::" in line:
+            in_recording_mode = False
+        else:
+            (in_recording_mode4,
+             doc_) = self.appendDoc(line, doc_, file_path, in_recording_mode4)
+
+            # We append case
+            (in_recording_mode2,
+             allready_write,
+             functions,
+             result) = self.appendCase(line, case, result, functions, allready_write, in_recording_mode2)
+
+            # Third, the code block
+            if not is_assert:
+                (in_recording_mode3,
+                 function_to_write,
+                 allready_write) = self.appendCode(line, functions, import_to_write, function_to_write,
+                                                   allready_write, in_recording_mode3)
+            elif is_assert:
+                self.iteration = self.iteration + 1
+                is_assert = False
+
+        return (in_recording_mode4,
+                in_recording_mode3,
+                in_recording_mode2,
+                in_recording_mode,
+                function_to_write,
+                allready_write,
+                is_assert)
 
     # This method test the list of functions contained in a file
     def TestFunctionsInAFile(self, file_path):
@@ -406,99 +516,33 @@ class Testa:
             self.testaPrint("---------------------------------------------------------------")
 
             # Read the file and parcours line by lines
-            case, result, functions = [], [], []
-            function_to_write, allready_write, import_to_write, doc_ = "", "", "", ""
+            (case,
+             result,
+             functions,
+             function_to_write,
+             allready_write,
+             import_to_write,
+             doc_) = [], [], [], "", "", "", ""
+
             with open(file_path, 'r') as filee:
                 lines = filee.readlines()
-
                 in_recording_mode, in_recording_mode2, in_recording_mode3 = False, False, False
                 in_recording_mode4, in_recording_mode5, is_assert = False, False, False
 
                 for line in lines:
-                    # if we have some import at the head of the file that's method depends on
-                    # First we get the testa block
-                    if not in_recording_mode5:
-                        if "::import_start::" in line:
-                            in_recording_mode5 = True
-                    elif "::import_end::" in line:
-                        in_recording_mode5 = False
-                        # import_to_write = ""
-                    else:
-                        import_to_write += line.replace(self.commentStartBy, "") + "\n"
+                    (in_recording_mode5,
+                     import_to_write) = self.appendImport(line, import_to_write, in_recording_mode5)
 
-                    # First we get the testa block
-                    if not in_recording_mode:
-                        if "::testa_start::" in line:
-                            in_recording_mode = True
-                    elif "::testa_end::" in line:
-                        in_recording_mode = False
-                    else:
-                        if not in_recording_mode4:
-                            if "::doc_start::" in line:
-                                (doc_,
-                                 in_recording_mode4) = ("------------------------------------------\n " +
-                                                        "Documentation on :" + file_path +
-                                                        "\n------------------------------------------", True)
-                        elif "::doc_end::" in line:
-                            with open("./doc_" + file_path.replace("/", "-").replace(self.extension, "") + ".txt",
-                                      "w") as frt:
-                                frt.write(doc_)
-                            in_recording_mode4, doc_ = False, ""
-                        else:
-                            doc_ += "\n" + line.replace(self.commentStartBy, "")
-
-                        # Second we get the case block
-                        # Here we find the test case
-                        if not in_recording_mode2:
-                            if "::case_start::" in line:
-                                in_recording_mode2 = True
-                        elif "::case_end::" in line:
-                            in_recording_mode2 = False
-                        else:
-                            # We need to verify here if it's a simple assert or more
-                            case_to_add = line.replace(" ", "").replace(">>", "").replace(self.commentStartBy, "")
-                            if ">>" in line:
-                                if case_to_add not in case:
-                                    # We append on case list
-                                    case.append(case_to_add)
-                                    if "testa." in line:
-                                        is_assert = True
-                                        functions_filepath = "testfunction__" + str(self.iteration) + self.extension
-                                        if len(line) > 3:
-                                            if functions_filepath not in functions and line not in allready_write:
-                                                # We append on function list
-                                                functions.append(functions_filepath)
-                                                allready_write += case_to_add
-                                            with open(functions_filepath, "a+") as fileee:
-                                                # We replace the output method by putting a comment at the beginning
-                                                fileee.write(case_to_add.replace(self.outputMethod, self.commentStartBy
-                                                                                 + self.outputMethod))
-                            # if it's not a simple assertion
-                            result_to_add = line.replace(" ", "").replace("<<", "").replace(self.commentStartBy, "")
-                            if "<<" in line and len(result) < len(case):
-                                # if result_to_add not in result:
-                                # We append on result list
-                                result.append(result_to_add)
-
-                        # Third, the code block
-                        if not is_assert:
-                            # The function and then
-                            if not in_recording_mode3:
-                                if "::code_start::" in line:
-                                    self.iteration = self.iteration + 1
-                                    in_recording_mode3 = True
-                                    function_to_write += import_to_write
-                            elif "::code_end::" in line:
-                                self.iteration = self.iteration + 1
-                                in_recording_mode3 = False
-                                function_to_write = ""
-                            else:
-                                (function_to_write,
-                                 allready_write) = self.writeFunctionsInFile(line, function_to_write, allready_write,
-                                                                                                            functions)
-                        elif is_assert:
-                            self.iteration = self.iteration + 1
-                            is_assert = False
+                    (in_recording_mode4,
+                     in_recording_mode3,
+                     in_recording_mode2,
+                     in_recording_mode,
+                     function_to_write,
+                     allready_write,
+                     is_assert) = self.appendTesta(line, doc_, case, result, functions, is_assert, file_path,
+                                                   import_to_write, allready_write, function_to_write,
+                                                   in_recording_mode, in_recording_mode2, in_recording_mode3,
+                                                   in_recording_mode4)
 
             self.proceedFunctionsAndBuildOutput(case, file_path, result, import_to_write, functions)
 
@@ -527,8 +571,4 @@ class Testa:
                         print("[+] > This path " + str(path) + " is not valid, verify it again before relaunch me.")
             else:
                 print("[+] > This path " + str(path) + " (file/directory) is not valid.")
-
         print("[+] Testa testing ended on " + str(path))
-
-# Let's run the Main script
-# main()
