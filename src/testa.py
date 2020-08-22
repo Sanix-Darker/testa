@@ -30,13 +30,14 @@ Path = customPath.Path
 class Testa:
 
     def __init__(self):
-        self.countTest = 0
-        self.countSuccess = 0
-        self.countFail = 0
-        self.totalTimer = 0
-        self.testTimer = 0
-        self.stopTestTimer = 0
-        self.iteration = 0
+        (self.countTest,
+         self.countSuccess,
+         self.countFail,
+         self.totalTimer,
+         self.testTimer,
+         self.stopTestTimer,
+         self.iteration) = (0, 0, 0, 0, 0, 0, 0)
+
         self.resume = ""
         self.generateReport = True
         self.commentStartBy = "#"
@@ -79,10 +80,6 @@ class Testa:
 
         # Assert Method tests,let's build our TestClass ere to do tests
         self.TeslAssertClass = "class TestaAssert" + self.AccoladeStart
-
-        # self.TeslAssertClass += "\n    "+self.function+" __init__("+self.selfOnParams(self.selfOrThis,
-        # self.self_on_function_params)+")"+self.AccoladeStart self.TeslAssertClass += "\n
-        # "+self.selfOrThis+".zero = 0"+self.semicolon + self.AccoladeEnd
 
         self.TeslAssertClass += "\n    " + self.function + " checkAssert(" + str(
             selfOnParams(self.selfOrThis, self.self_on_function_params, True)) + " " + self.prefixVariable + "assertt)" + self.AccoladeStart
@@ -133,7 +130,6 @@ class Testa:
         self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
                                 + "x != " + self.NoneNull + ")" + self.semicolon + self.AccoladeEnd
 
-        
         self.TeslAssertClass += "\n    " + self.function + " isSup(" + str(
             selfOnParams(self.selfOrThis, self.self_on_function_params,
                          True)) + " " + self.prefixVariable + "a, " + self.prefixVariable + "b)" \
@@ -177,8 +173,7 @@ class Testa:
         self.addResume("%%")
         self.addResume("%% " + str(self.countSuccess) + " succeed and " + str(self.countFail) + " failed!")
         self.addResume("%% " + self.listAssertFailed)
-        self.addResume(
-            "%% " + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" if len(self.listAssertFailed) > 3 else "")
+        self.addResume("%% " + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" if len(self.listAssertFailed) > 3 else "")
         self.addResume("%% Running time: " + str(self.totalTimer) + " s")
         self.addResume("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 
@@ -210,7 +205,6 @@ class Testa:
             time.sleep(0.0001)
             self.testTimer += 0.0001
             self.totalTimer += 0.0001
-
             if self.stopTestTimer:
                 break
 
@@ -265,37 +259,36 @@ class Testa:
     def footTestPresentation(self):
         self.setResume(self.resume + "\n")
 
-    def checkCore(self, assertt, assert_string=None, msg=None):
+    def generateFromStatus(self, msg, assertt, status):
+        if msg is not None:
+            self.testaPrint(str(msg))
+        self.testaPrint("_______________________________________________________________")
+        self.testaPrint("")
+        if assertt:
+            self.testaPrint("Status: " + status + " Success!")
+        else:
+            self.testaPrint("Status: " + status + " Failed!")
+        self.testaPrint("End on: " + str(self.getTestTimer()) + " s.")
+        self.testaPrint("_______________________________________________________________")
 
-        self.headTestPresentation()
-        self.addTestCount()
-
-        if assert_string is not None:
-            self.testaPrint(">> " + str(assert_string))
-        self.testaPrint("<< " + str(assertt))
-
+    def setStatusCharacter(self, assertt):
         status = "✗"
         if assertt:
             self.addCountSuccess()
             status = "✓"
         else:
             self.addCountFail()
+        return status
 
-        if msg is not None:
-            self.testaPrint(str(msg))
+    def checkCore(self, assertt, assert_string=None, msg=None):
+        self.headTestPresentation()
+        self.addTestCount()
+        if assert_string is not None:
+            self.testaPrint(">> " + str(assert_string))
+        self.testaPrint("<< " + str(assertt))
 
-        self.testaPrint("_______________________________________________________________")
-        self.testaPrint("")
-
-        if assertt:
-            self.testaPrint("Status: " + status + " Success!")
-        else:
-            self.testaPrint("Status: " + status + " Failed!")
-
-        self.testaPrint("End on: " + str(self.getTestTimer()) + " s.")
-
-        self.testaPrint("_______________________________________________________________")
-
+        status = self.setStatusCharacter(assertt)
+        self.generateFromStatus(msg, assertt, status)
         self.footTestPresentation()
 
     def checkAssert(self, assertt, assert_string=None, msg=None):
@@ -315,6 +308,94 @@ class Testa:
         self.checkCore(assertt, assert_string, msg)
         return assertt
 
+    def executeEachFunction(self, case, result, file_path, functions):
+        # Now we will test each function by running each file and get the result
+        # if the result is what it's expect We build a Test that win, if not we write it failed
+        ii = 0  # iteration for Test case array
+        for file_function in functions:
+            # Timer started!
+            self.setTestTimer(0)
+            then = time.time()  # Time before the operations start
+
+            proc = Popen([self.launcher, file_function], stdout=PIPE, stderr=STDOUT)
+            output = proc.communicate()[0].decode("utf-8")
+
+            function_ = str(case[ii].replace("\n", "").split("(")[0])
+            statement_ = str(case[ii].replace("\n", ""))
+            output_ = str(output.replace("\n", ""))
+            retult_ = str(result[ii].replace("\n", ""))
+
+            descriptive_message = ""
+            descriptive_message += "\n| On: " + function_ + "\n"
+            descriptive_message += "| Statement: " + statement_ + "\n"
+            descriptive_message += "| output: " + output_ + "\n"
+            # if it's not a simple assertion
+            descriptive_message += "| Wanted : " + retult_ + ""
+
+            output = output.replace("\n", "")
+            wanted = result[ii].replace("\n", "")
+            assert_ = (output_.lower() == wanted.lower())
+            assert_string = "output == wanted"
+
+            if not assert_:
+                if ii == 0:
+                    self.listAssertFailed += "\n%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n%% Tests " \
+                                             "failing: "
+                self.listAssertFailed += "\n%%    -'" + function_ + "' in " + file_path
+
+            now = time.time()  # Time after it finished
+            self.setTestTimer(now - then)
+            self.setTotalTimer(self.totalTimer + int(self.getTestTimer()))
+            self.checkAssertFunction(assert_, assert_string, descriptive_message)
+
+            if wanted == output:
+                print("[+] | Success!\n-----------------------------------------------------")
+            else:
+                print("[+] | Error")
+            # We remove the tempory function file
+            remove(file_function)
+            ii = ii + 1
+
+    def proceedFunctionsAndBuildOutput(self, case, file_path, result, import_to_write, functions):
+        # Parcours now each functions file path
+        ii = 0  # iteration for Test case array
+        for fnc in functions:
+            # if it's not a simple assertion
+            to_write = self.outputMethod + "(" + case[ii].replace("\n", "") + ")" + self.semicolon + " \n " \
+                       + self.commentStartBy + " Should returns: " + result[ii]
+            # We open each function path and add the testa class a the top
+            with open(fnc, "r+") as fileee:
+                to_append_at_the_end = fileee.read()
+                with open(fnc, "w") as fileee2:
+                    fileee2.write(
+                        self.scriptStarter + "\n" + self.TeslAssertClass + "\n\n" + import_to_write + "\n\n"
+                        + to_append_at_the_end)  # + self.AccoladeEnd
+            with open(fnc, "a+") as fileee:
+                # print("[+] FINAL: ", self.tryCatch.replace("****", to_write) + self.scriptEnd)
+                fileee.write(self.tryCatch.replace("****", to_write) + self.scriptEnd)
+            # Let's delete duplicated lines
+            delete_duplicate_line(fnc)
+            ii = ii + 1
+        self.executeEachFunction(case, result, file_path, functions)
+
+    def writeFunctionsInFile(self, line, function_to_write, allready_write, functions):
+        # We write this in the file
+        # Remove all commented line
+        functions_filepath = "testfunction__" + str(self.iteration) + self.extension
+        # print(functions_filepath)
+        if "#" not in line and len(line) > 3 and line not in allready_write:
+            function_to_write += line.replace(self.commentStartBy, "") + "\n"
+            allready_write += function_to_write
+            if functions_filepath not in functions:
+                # We append on function list
+                functions.append(functions_filepath)
+            with open(functions_filepath, "a+") as fileee:
+                # We replace the output method by putting a comment at the beginning
+                fileee.write(function_to_write.replace(self.outputMethod,
+                                                       self.commentStartBy + self.outputMethod))
+
+        return function_to_write, allready_write
+
     # This method test the list of functions contained in a file
     def TestFunctionsInAFile(self, file_path):
         if not pathit.isdir(file_path):
@@ -323,27 +404,17 @@ class Testa:
             self.testaPrint("---------------------------------------------------------------")
             self.testaPrint(" Testa-Test on :" + file_path)
             self.testaPrint("---------------------------------------------------------------")
+
             # Read the file and parcours line by lines
-            case = []
-            result = []
-            functions = []
-            function_to_write = ""
-            allready_write = ""
-            import_to_write = ""
-            doc_ = ""
+            case, result, functions = [], [], []
+            function_to_write, allready_write, import_to_write, doc_ = "", "", "", ""
             with open(file_path, 'r') as filee:
                 lines = filee.readlines()
 
-                in_recording_mode = False
-                in_recording_mode2 = False
-                in_recording_mode3 = False
-                in_recording_mode4 = False
-                in_recording_mode5 = False
-
-                is_assert = False
+                in_recording_mode, in_recording_mode2, in_recording_mode3 = False, False, False
+                in_recording_mode4, in_recording_mode5, is_assert = False, False, False
 
                 for line in lines:
-
                     # if we have some import at the head of the file that's method depends on
                     # First we get the testa block
                     if not in_recording_mode5:
@@ -362,18 +433,17 @@ class Testa:
                     elif "::testa_end::" in line:
                         in_recording_mode = False
                     else:
-
                         if not in_recording_mode4:
                             if "::doc_start::" in line:
-                                in_recording_mode4 = True
-                                doc_ = "------------------------------------------\n Documentation on :" + file_path \
-                                       + "\n------------------------------------------"
+                                (doc_,
+                                 in_recording_mode4) = ("------------------------------------------\n " +
+                                                        "Documentation on :" + file_path +
+                                                        "\n------------------------------------------", True)
                         elif "::doc_end::" in line:
                             with open("./doc_" + file_path.replace("/", "-").replace(self.extension, "") + ".txt",
                                       "w") as frt:
                                 frt.write(doc_)
-                            in_recording_mode4 = False
-                            doc_ = ""
+                            in_recording_mode4, doc_ = False, ""
                         else:
                             doc_ += "\n" + line.replace(self.commentStartBy, "")
 
@@ -391,7 +461,6 @@ class Testa:
                                 if case_to_add not in case:
                                     # We append on case list
                                     case.append(case_to_add)
-
                                     if "testa." in line:
                                         is_assert = True
                                         functions_filepath = "testfunction__" + str(self.iteration) + self.extension
@@ -400,13 +469,10 @@ class Testa:
                                                 # We append on function list
                                                 functions.append(functions_filepath)
                                                 allready_write += case_to_add
-
                                             with open(functions_filepath, "a+") as fileee:
                                                 # We replace the output method by putting a comment at the beginning
-                                                fileee.write(case_to_add.replace(self.outputMethod,
-                                                                                 self.commentStartBy
+                                                fileee.write(case_to_add.replace(self.outputMethod, self.commentStartBy
                                                                                  + self.outputMethod))
-
                             # if it's not a simple assertion
                             result_to_add = line.replace(" ", "").replace("<<", "").replace(self.commentStartBy, "")
                             if "<<" in line and len(result) < len(case):
@@ -421,116 +487,23 @@ class Testa:
                                 if "::code_start::" in line:
                                     self.iteration = self.iteration + 1
                                     in_recording_mode3 = True
-
                                     function_to_write += import_to_write
-
                             elif "::code_end::" in line:
-
                                 self.iteration = self.iteration + 1
                                 in_recording_mode3 = False
                                 function_to_write = ""
-
                             else:
-                                # We write this in the file
-                                # Remove all commented line
-                                functions_filepath = "testfunction__" + str(self.iteration) + self.extension
-                                # print(functions_filepath)
-                                if "#" not in line and len(line) > 3 and line not in allready_write:
-                                    function_to_write += line.replace(self.commentStartBy, "") + "\n"
-                                    allready_write += function_to_write
-
-                                    if functions_filepath not in functions:
-                                        # We append on function list
-                                        functions.append(functions_filepath)
-                                    with open(functions_filepath, "a+") as fileee:
-                                        # We replace the output method by putting a comment at the beginning
-                                        fileee.write(function_to_write.replace(self.outputMethod,
-                                                                               self.commentStartBy + self.outputMethod))
-
+                                (function_to_write,
+                                 allready_write) = self.writeFunctionsInFile(line, function_to_write, allready_write,
+                                                                                                            functions)
                         elif is_assert:
                             self.iteration = self.iteration + 1
                             is_assert = False
 
-            # Parcours now each functions file path
-            ii = 0  # iteration for Test case array
-            # print("[+] functions: ", functions)
-            # print("[+] case: ", case)
-            # print("[+] result: ", result)
-            for fnc in functions:
-                # if it's not a simple assertion
-                to_write = self.outputMethod + "(" + case[ii].replace("\n", "") + ")" + self.semicolon + " \n " \
-                           + self.commentStartBy + " Should returns: " + \
-                           result[ii]
+            self.proceedFunctionsAndBuildOutput(case, file_path, result, import_to_write, functions)
 
-                # We open each function path and add the testa class a the top
-                with open(fnc, "r+") as fileee:
-                    to_append_at_the_end = fileee.read()
-                    with open(fnc, "w") as fileee2:
-                        fileee2.write(
-                            self.scriptStarter + "\n" + self.TeslAssertClass + "\n\n" + import_to_write + "\n\n"
-                            + to_append_at_the_end)  # + self.AccoladeEnd
-
-                with open(fnc, "a+") as fileee:
-                    # print("[+] FINAL: ", self.tryCatch.replace("****", to_write) + self.scriptEnd)
-                    fileee.write(self.tryCatch.replace("****", to_write) + self.scriptEnd)
-
-                # Let's delete duplicated lines
-                delete_duplicate_line(fnc)
-                ii = ii + 1
-
-            # Now we will test each function by running each file and get the result
-            # if the result is what it's expect We build a Test that win, if not we write it failed
-            ii = 0  # iteration for Test case array
-            for file_function in functions:
-
-                # Timer started!
-                self.setTestTimer(0)
-                then = time.time()  # Time before the operations start
-
-                proc = Popen([self.launcher, file_function], stdout=PIPE, stderr=STDOUT)
-                output = proc.communicate()[0].decode("utf-8")
-
-                function_ = str(case[ii].replace("\n", "").split("(")[0])
-                statement_ = str(case[ii].replace("\n", ""))
-                output_ = str(output.replace("\n", ""))
-                retult_ = str(result[ii].replace("\n", ""))
-
-                descriptive_message = ""
-                descriptive_message += "\n| On: " + function_ + "\n"
-                descriptive_message += "| Statement: " + statement_ + "\n"
-                descriptive_message += "| output: " + output_ + "\n"
-
-                # if it's not a simple assertion
-                descriptive_message += "| Wanted : " + retult_ + ""
-
-                output = output.replace("\n", "")
-                wanted = result[ii].replace("\n", "")
-                assert_ = (output_.lower() == wanted.lower())
-                assert_string = "output == wanted"
-
-                if not assert_:
-                    if ii == 0:
-                        self.listAssertFailed += "\n%% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n%% Tests " \
-                                                 "failing: "
-                    self.listAssertFailed += "\n%%    -'" + function_ + "' in " + file_path
-
-                now = time.time()  # Time after it finished
-                self.setTestTimer(now - then)
-                self.setTotalTimer(self.totalTimer + int(self.getTestTimer()))
-
-                self.checkAssertFunction(assert_, assert_string, descriptive_message)
-
-                if wanted == output:
-                    print("[+] | Success!\n-----------------------------------------------------")
-                else:
-                    print("[+] | Error")
-
-                # We remove the tempory function file
-                remove(file_function)
-                ii = ii + 1
-
-    def Function(self, file_path, extension_list=None):  # This method test all functions in one application
-
+    # This method test all functions in one application
+    def Function(self, file_path, extension_list=None):
         path = file_path
         if extension_list is None:
             self.TestFunctionsInAFile(path)
@@ -551,8 +524,7 @@ class Testa:
                                 if not pathit.isdir(path):
                                     self.TestFunctionsInAFile(str(path))
                     else:
-                        print("[+] > This path " + str(path)
-                              + " is not valid, please verify it again before relaunch me.")
+                        print("[+] > This path " + str(path) + " is not valid, verify it again before relaunch me.")
             else:
                 print("[+] > This path " + str(path) + " (file/directory) is not valid.")
 
