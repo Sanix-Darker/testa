@@ -1,6 +1,7 @@
 # Testa
 
-Testa is the best, simple and Test tool "CrossPlatform" and "CrossLanguages" (Only Script language for now) develop by developpers for developpers based on comments in your code.
+Testa is the best, simple Test tool "CrossPlatform" and "CrossLanguages" (Only Script languages supported for now),
+ develop by developpers for developpers based on comments in your code.
 The power in this tool is that the grammar is the same for all your implementation languages.
 
 **Note:** This project is completly experimental, am still working on it, not sure where am going with it lol.
@@ -24,101 +25,46 @@ List of languages, where you can perform testa test:
 - [Done] Ruby
 
 ## Documentation
-
 Some few things to know before using testa.
 
 ## How to config it
 
 ### Config files
-
 You need to config a `testa json file` or just use default one for the appropriate language.
 - An example of testa config file for `Javascript`:
 ```json
 {
+    "module": "ta-js",
     "path": ["./javascript/square.js", "./javascript/my_javascript_app/"],
     "extensions": [".js"],
-    "launcher": "node",
-    "outputMethod": "console.log",
-    "commentStartBy": "//",
-    "tryCatch": "try{ \n\t **** \n}catch(err){ \n\t console.log(es);}",
-    "function": " ",
-    "varDeclaration": "var ",
-    "classInstantiationNew": "new ",
-    "AccoladeStart": "{",
-    "AccoladeEnd": "}",
-    "NoneNull": "null",
-    "selfOrThis": "this",
-    "selfOnFunctionParams": false,
-    "semicolon": ";"
+    "launcher": "node"
 }
 ```
 - An example of testa config file for `PHP`:
 ```json
 {
+    "module": "ta-php",
     "path": ["./php/square.php"],
     "extensions": [".php"],
-    "launcher": "php",
-    "outputMethod": "print",
-    "commentStartBy": "//",
-    "tryCatch": "try{ \n\t **** \n}catch(Exception $e){ \n\t print($e);}",
-    "function": "function ",
-    "varDeclaration": "$",
-    "classInstantiationNew": "new ",
-    "AccoladeStart": "{",
-    "AccoladeEnd": "}",
-    "NoneNull": "null",
-    "selfOrThis": "$this",
-    "selfOnFunctionParams": false,
-    "semicolon": ";",
-    "scriptStarter": "<?php \n",
-    "scriptEnd": "\n ?>",
-    "prefixVariable": "$"
+    "launcher": "php"
 }
 ```
 - An example of testa config file for `python`:
 ```json
 {
-    "path": ["./python/sha256.py"],
+    "module": "ta-py",
+    "path": ["./python/sha256.py", "./python/square.py"],
     "extensions": [".py"],
-    "launcher": "python",
-    "outputMethod": "print",
-    "commentStartBy": "#",
-    "tryCatch": "try: \n\t **** \nexcept Exception as es: \n\t print(str(es))\n",
-    "function": "def ",
-    "varDeclaration": "",
-    "classInstantiationNew": "",
-    "AccoladeStart": ":",
-    "AccoladeEnd": "",
-    "NoneNull": "None",
-    "selfOrThis": "self",
-    "selfOnFunctionParams": true,
-    "semicolon": "",
-    "scriptStarter": "",
-    "scriptEnd": "",
-    "prefixVariable": ""
+    "launcher": "python"
 }
 ```
 - An example of testa config file for `Ruby`:
 ```json
 {
+    "module": "ta-rb",
     "path": ["./ruby/my_ruby_app/", "./ruby/square.rb"],
     "extensions": [".rb"],
-    "launcher": "ruby",
-    "outputMethod": "puts",
-    "commentStartBy": "#",
-    "tryCatch": "try: \n\t **** \nexcept Exception as es \n\t puts(es)",
-    "function": "def ",
-    "varDeclaration": "",
-    "classInstantiationNew": "",
-    "AccoladeStart": "",
-    "AccoladeEnd": "\n end",
-    "NoneNull": "None",
-    "selfOrThis": "self",
-    "selfOnFunctionParams": true,
-    "semicolon": "",
-    "scriptStarter": "",
-    "scriptEnd": "",
-    "prefixVariable": ""
+    "launcher": "ruby"
 }
 ```
 
