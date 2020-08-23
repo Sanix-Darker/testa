@@ -14,5 +14,6 @@
 # ::code_start::
 def square(a)
     return a/2
+end
 # ::code_end::
 # ::testa_end::

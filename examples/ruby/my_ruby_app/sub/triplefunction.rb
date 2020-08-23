@@ -6,5 +6,6 @@
 # ::code_start::
 def triplefunction(a)
     return a*3
+end
 # ::code_end::
 # ::testa_end::

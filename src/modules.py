@@ -2,12 +2,12 @@ global_testa_config = {
     "ta-rb": {
         "outputMethod": "puts",
         "commentStartBy": "#",
-        "tryCatch": "try: \n\t **** \nexcept Exception as es \n\t puts(es)",
+        "tryCatch": "\nbegin\n\t ****rescue \n\tputs(es) \nend",
         "function": "def ",
         "varDeclaration": "",
         "classInstantiationNew": "",
         "AccoladeStart": "",
-        "AccoladeEnd": "\n end",
+        "AccoladeEnd": "\n\tend",
         "NoneNull": "None",
         "selfOrThis": "self",
         "selfOnFunctionParams": True,
@@ -19,7 +19,7 @@ global_testa_config = {
     "ta-py": {
         "outputMethod": "print",
         "commentStartBy": "#",
-        "tryCatch": "try: \n\t **** \nexcept Exception as es: \n\t print(str(es))\n",
+        "tryCatch": "\ntry: \n\t ****except Exception as es: \n\t print(str(es))\n",
         "function": "def ",
         "varDeclaration": "",
         "classInstantiationNew": "",
@@ -36,7 +36,7 @@ global_testa_config = {
     "ta-php": {
         "outputMethod": "print",
         "commentStartBy": "//",
-        "tryCatch": "try{ \n\t **** \n}catch(Exception $e){ \n\t print($e);}",
+        "tryCatch": "\ntry{ \n\t ****}catch(Exception $e){ \n\t print($e);}",
         "function": "function ",
         "varDeclaration": "$",
         "classInstantiationNew": "new ",
@@ -53,7 +53,7 @@ global_testa_config = {
     "ta-js": {
         "outputMethod": "console.log",
         "commentStartBy": "//",
-        "tryCatch": "}try{ \n\t **** \n}catch(err){ \n\t console.log(es);}",
+        "tryCatch": "}\ntry{ \n\t ****}catch(err){ \n\t console.log(es);}",
         "function": " ",
         "varDeclaration": "var ",
         "classInstantiationNew": "new ",

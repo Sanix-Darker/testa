@@ -85,84 +85,84 @@ class Testa:
         # Assert Method tests,let's build our TestClass ere to do tests
         self.TeslAssertClass = "class TestaAssert" + self.AccoladeStart
 
-        self.TeslAssertClass += "\n    " + self.function + " checkAssert(" + str(
-            selfOnParams(self.selfOrThis, self.self_on_function_params, True)) + " " + self.prefixVariable + "assertt)" \
-                                + self.AccoladeStart
+        self.TeslAssertClass += "\n\t" + self.function + " checkAssert(" + str(
+            selfOnParams(self.selfOrThis, self.self_on_function_params, True)) + " " + self.prefixVariable \
+                                + "assertt)" + self.AccoladeStart
 
-        self.TeslAssertClass += "\n        return " + self.prefixVariable + "assertt" + self.semicolon \
+        self.TeslAssertClass += "\n\t\treturn " + self.prefixVariable + "assertt" + self.semicolon \
                                 + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    " + self.function + " isEqual(" + str(
+        self.TeslAssertClass += "\n\t" + self.function + " isEqual(" + str(
             selfOnParams(self.selfOrThis, self.self_on_function_params, True)) + " " + self.prefixVariable + "a, " \
                                 + self.prefixVariable + "b)" + self.AccoladeStart
 
-        self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" \
+        self.TeslAssertClass += "\n\t\treturn " + self.selfOrThis + ".checkAssert(" \
                                 + self.prefixVariable + "a == " + self.prefixVariable + "b)" + self.semicolon \
                                 + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    " + self.function + " isNotEqual(" + str(
+        self.TeslAssertClass += "\n\t" + self.function + " isNotEqual(" + str(
             selfOnParams(self.selfOrThis, self.self_on_function_params,
                          True)) + " " + self.prefixVariable + "a, " + self.prefixVariable + "b)" \
                                 + self.AccoladeStart
 
-        self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
+        self.TeslAssertClass += "\n\t\treturn " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
                                 + "a != " + self.prefixVariable + "b)" + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    " + self.function + " isTrue(" + str(
+        self.TeslAssertClass += "\n\t" + self.function + " isTrue(" + str(
             selfOnParams(self.selfOrThis, self.self_on_function_params,
                          True)) + " " + self.prefixVariable + "x)" + self.AccoladeStart
 
-        self.TeslAssertClass += "\n        return  " + self.selfOrThis + ".checkAssert(" + self.prefixVariable + "x)" \
+        self.TeslAssertClass += "\n\t\treturn  " + self.selfOrThis + ".checkAssert(" + self.prefixVariable + "x)" \
                                 + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    " + self.function + " isFalse(" + str(
+        self.TeslAssertClass += "\n\t" + self.function + " isFalse(" + str(
             selfOnParams(self.selfOrThis, self.self_on_function_params,
                          True)) + " " + self.prefixVariable + "y)" + self.AccoladeStart
 
-        self.TeslAssertClass += "\n        return  " + self.selfOrThis + ".checkAssert(" + self.prefixVariable + "y)" \
+        self.TeslAssertClass += "\n\t\treturn  " + self.selfOrThis + ".checkAssert(" + self.prefixVariable + "y)" \
                                 + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    " + self.function + " isIsNoneNull(" + str(
+        self.TeslAssertClass += "\n\t" + self.function + " isIsNoneNull(" + str(
             selfOnParams(self.selfOrThis, self.self_on_function_params,
                          True)) + " " + self.prefixVariable + "x)" + self.AccoladeStart
 
-        self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
+        self.TeslAssertClass += "\n\t\treturn " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
                                 + "x == " + self.NoneNull + ")" + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    " + self.function + " isIsNotNoneNull(" + str(
+        self.TeslAssertClass += "\n\t" + self.function + " isIsNotNoneNull(" + str(
             selfOnParams(self.selfOrThis, self.self_on_function_params,
                          True)) + " " + self.prefixVariable + "x)" + self.AccoladeStart
 
-        self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
+        self.TeslAssertClass += "\n\t\treturn " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
                                 + "x != " + self.NoneNull + ")" + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    " + self.function + " isSup(" + str(
+        self.TeslAssertClass += "\n\t" + self.function + " isSup(" + str(
             selfOnParams(self.selfOrThis, self.self_on_function_params,
                          True)) + " " + self.prefixVariable + "a, " + self.prefixVariable + "b)" \
                                 + self.AccoladeStart
 
-        self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
+        self.TeslAssertClass += "\n\t\treturn " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
                                 + "a > " + self.prefixVariable + "b)" + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    " + self.function + " isSupEqual(" + str(
+        self.TeslAssertClass += "\n\t" + self.function + " isSupEqual(" + str(
             selfOnParams(self.selfOrThis, self.self_on_function_params, True)) + " " + self.prefixVariable + "a, " \
                                 + self.prefixVariable + "b)" + self.AccoladeStart
 
-        self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
+        self.TeslAssertClass += "\n\t\treturn " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
                                 + "a >= " + self.prefixVariable + "b)" + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    " + self.function + " isInf(" + str(
+        self.TeslAssertClass += "\n\t" + self.function + " isInf(" + str(
             selfOnParams(self.selfOrThis, self.self_on_function_params,
                          True)) + " " + self.prefixVariable + "a, " + self.prefixVariable + "b)" \
                                 + self.AccoladeStart
-        self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
+        self.TeslAssertClass += "\n\t\treturn " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
                                 + "a < " + self.prefixVariable + "b)" + self.semicolon + self.AccoladeEnd
 
-        self.TeslAssertClass += "\n    " + self.function + " isInfEqual(" + str(
+        self.TeslAssertClass += "\n\t" + self.function + " isInfEqual(" + str(
             selfOnParams(self.selfOrThis, self.self_on_function_params,
                          True)) + " " + self.prefixVariable + "a, " + self.prefixVariable + "b)" + self.AccoladeStart
 
-        self.TeslAssertClass += "\n        return " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
+        self.TeslAssertClass += "\n\t\treturn " + self.selfOrThis + ".checkAssert(" + self.prefixVariable \
                                 + "a <= " + self.prefixVariable + "b)" + self.semicolon + self.AccoladeEnd
 
         self.TeslAssertClass += self.AccoladeEnd
