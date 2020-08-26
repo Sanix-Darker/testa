@@ -284,16 +284,16 @@ git clone https://github.com/sanix-darker/testa
 cd ./path/to/testa/examples
 
 # Testa will perform tests following what it is on tjs.json
-python testacli.py -c ./javascript/tjs.json
+python3 testacli.py -c ./javascript/tjs.json
 
 # Or for PYTHON
-python testacli.py -c ./python/tpy.json
+python3 testacli.py -c ./python/tpy.json
 
 # Or for PHP
-python testacli.py -c ./php/tphp.json
+python3 testacli.py -c ./php/tphp.json
 
 # Or for Ruby
-python testacli.py -c ./ruby/trb.json
+python3 testacli.py -c ./ruby/trb.json
 ```
 And that's where the magic of Testa is, for any language, you have only to write a simple JSON file and specify paths where you will do tests.
 

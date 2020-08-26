@@ -6,3 +6,4 @@ TODO.txt
 *doc_*
 .idea
 venv
+*.pyc

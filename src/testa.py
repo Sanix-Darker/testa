@@ -68,17 +68,7 @@ class Testa:
         self.scriptEnd = scriptEnd  # with what the script start For example in php it's <?php, etc...
 
     def start(self):
-        self.addResume("""
-##################################################################
-#      _____ _____ ____ _____       _                            #
-#     |_   _| ____/ ___|_   _|     / \\                           #
-#       | | |  _| \\___ \\ | |_____ / _ \\                          #
-#       | | | |___ ___) || |_____/ ___ \\                         #
-#       |_| |_____|____/ |_|    /_/   \\_\\ v0.1                   #
-#----------------------------------------------------------------#
-#-------------------------------------------- By S@n1x d4rk3r ---#
-##################################################################
-        """)
+        self.addResume("# TESTA reports")
 
         self.date_report = "reports_" + time.strftime("%Y-%m-%d_%H:%M:%S")
 
@@ -172,6 +162,7 @@ class Testa:
                                 + self.semicolon
 
     def end(self):
+        self.addResume("\n```shell")
         self.addResume("\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         self.addResume("%% Testa reports:")
         self.addResume("%%")
@@ -182,9 +173,10 @@ class Testa:
         self.addResume("%% " + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" if len(self.listAssertFailed) > 3 else "")
         self.addResume("%% Running time: " + str(self.totalTimer) + " s")
         self.addResume("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+        self.addResume("\n```")
 
         if self.generateReport:
-            with open("reports_" + time.strftime("%Y-%m-%d_%H:%M:%S") + ".txt", "w") as ffr:
+            with open("reports_" + time.strftime("%Y-%m-%d_%H:%M:%S") + ".md", "w") as ffr:
                 ffr.write(self.resume)
 
     # The getter
@@ -256,11 +248,10 @@ class Testa:
 
     def testaPrint(self, msg):
         self.setResume(self.resume + "\n" + "| " + str(msg))
-        # print("[+]  >"+str(msg))
 
     def headTestPresentation(self):
-        self.setResume(self.resume + "\n-Test " + str(
-            self.countTest + 1) + "----------------------------------------------------------\n|")
+        self.addResume("\n#### Test " + str(self.countTest + 1))
+        self.addResume("----------------------------------")
 
     def footTestPresentation(self):
         self.setResume(self.resume + "\n")
@@ -289,9 +280,10 @@ class Testa:
     def checkCore(self, assertt, assert_string=None, msg=None):
         self.headTestPresentation()
         self.addTestCount()
-        if assert_string is not None:
-            self.testaPrint(">> " + str(assert_string))
-        self.testaPrint("<< " + str(assertt))
+        # if assert_string is not None:
+        #     self.testaPrint(">> " + str(assert_string))
+        # self.testaPrint("<< " + str(assertt))
+        self.testaPrint("_______________________________________________________________")
 
         status = self.setStatusCharacter(assertt)
         self.generateFromStatus(msg, assertt, status)
@@ -329,8 +321,8 @@ class Testa:
             function_, statement_ = str(case[ii].replace("\n", "").split("(")[0]), str(case[ii].replace("\n", ""))
             output_, retult_ = str(output.replace("\n", "")), str(result[ii].replace("\n", ""))
 
-            descriptive_message = "\n| On: " + function_ + "\n" + "| Statement: " + statement_ + "\n"
-            descriptive_message += "| output: " + output_ + "\n" + "| Wanted : " + retult_
+            descriptive_message = "\n| On: `" + function_ + "`\n" + "| Statement: *" + statement_ + "*\n"
+            descriptive_message += "| output: **" + output_ + "**\n" + "| Wanted : ***" + retult_ + "***"
             # if it's not a simple assertion
 
             output, wanted = output.replace("\n", ""), result[ii].replace("\n", "")
@@ -347,10 +339,8 @@ class Testa:
             self.setTotalTimer(self.totalTimer + int(self.getTestTimer()))
             self.checkAssertFunction(assert_, assert_string, descriptive_message)
 
-            if wanted == output:
-                print("[+] | Success!\n-----------------------------------------------------")
-            else:
-                print("[+] | Error")
+            print("[+] | Success!\n------------------------------") if wanted == output else print("[+] | Error")
+            
             # We remove the tempory function file
             remove(file_function)
             ii = ii + 1
@@ -411,14 +401,14 @@ class Testa:
     def appendDoc(self, line, file_path, in_recording_mode4):
         if not in_recording_mode4:
             if "::doc_start::" in line:
-                with open("./doc_" + file_path.replace("/", "-").replace(self.extension, "") + ".txt", "a+") as frt:
+                with open("./doc_" + file_path.replace("/", "-").replace(self.extension, "") + ".md", "a+") as frt:
                     frt.write("------------------------------------------\n " + "Documentation on :" + file_path + \
                               "\n------------------------------------------")
                 in_recording_mode4 = True
         elif "::doc_end::" in line:
             in_recording_mode4 = False
         else:
-            with open("./doc_" + file_path.replace("/", "-").replace(self.extension, "") + ".txt", "a+") as frt:
+            with open("./doc_" + file_path.replace("/", "-").replace(self.extension, "") + ".md", "a+") as frt:
                 frt.write("\n" + line.replace(self.commentStartBy, ""))
 
         return in_recording_mode4
@@ -540,10 +530,8 @@ class Testa:
     def TestFunctionsInAFile(self, file_path):
         if not pathit.isdir(file_path):
             print("[+] Testa testing on " + file_path)
-            self.testaPrint("******************************************************************************")
-            self.testaPrint("---------------------------------------------------------------")
-            self.testaPrint(" Testa-Test on :" + file_path)
-            self.testaPrint("---------------------------------------------------------------")
+            self.addResume("\n------------------------------")
+            self.addResume("\n### On : `" + file_path + "`")
 
             # Read the file and parcours line by lines
             (case,
