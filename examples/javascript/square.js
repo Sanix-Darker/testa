@@ -5,7 +5,7 @@
 // ::doc_end::
 // ::case_start::
 // >> square(9)
-// << 3.0
+// << 3
 // ::case_end::
 // ::code_start::
 function square(a){

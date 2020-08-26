@@ -162,18 +162,17 @@ class Testa:
                                 + self.semicolon
 
     def end(self):
-        self.addResume("\n```shell")
-        self.addResume("\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-        self.addResume("%% Testa reports:")
-        self.addResume("%%")
-        self.addResume("%% " + str(self.countTest) + " tests done! ")
-        self.addResume("%%")
-        self.addResume("%% " + str(self.countSuccess) + " succeed and " + str(self.countFail) + " failed!")
-        self.addResume("%% " + self.listAssertFailed)
-        self.addResume("%% " + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" if len(self.listAssertFailed) > 3 else "")
-        self.addResume("%% Running time: " + str(self.totalTimer) + " s")
-        self.addResume("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-        self.addResume("\n```")
+        self.addResume("\n- - - - - - - - - - - - - - - - - - - - - - - ")
+        self.addResume("| > Results:")
+        self.addResume("|")
+        self.addResume("| " + str(self.countTest) + " test(s) done ! ")
+        self.addResume("|")
+        self.addResume("| " + str(self.countSuccess) + " succeed and " + str(self.countFail) + " failed!")
+        self.addResume("| " + self.listAssertFailed)
+        self.addResume("| " + "- - - - - - - - -" if len(self.listAssertFailed) > 3 else "")
+        self.addResume("| Running time: " + str(self.totalTimer) + " s")
+        self.addResume("\n- - - - - - - - - - - - - - - - - - - - - - - ")
+
 
         if self.generateReport:
             with open("reports_" + time.strftime("%Y-%m-%d_%H:%M:%S") + ".md", "w") as ffr:
@@ -250,7 +249,7 @@ class Testa:
         self.setResume(self.resume + "\n" + "| " + str(msg))
 
     def headTestPresentation(self):
-        self.addResume("\n#### Test " + str(self.countTest + 1))
+        self.addResume("\n##### Test " + str(self.countTest + 1))
         self.addResume("----------------------------------")
 
     def footTestPresentation(self):
@@ -259,14 +258,13 @@ class Testa:
     def generateFromStatus(self, msg, assertt, status):
         if msg is not None:
             self.testaPrint(str(msg))
-        self.testaPrint("_______________________________________________________________")
-        self.testaPrint("")
+        self.testaPrint("- - - - - - -")
         if assertt:
             self.testaPrint("Status: " + status + " Success!")
         else:
             self.testaPrint("Status: " + status + " Failed!")
         self.testaPrint("End on: " + str(self.getTestTimer()) + " s.")
-        self.testaPrint("_______________________________________________________________")
+        self.testaPrint("")
 
     def setStatusCharacter(self, assertt):
         status = "✗"
@@ -283,8 +281,6 @@ class Testa:
         # if assert_string is not None:
         #     self.testaPrint(">> " + str(assert_string))
         # self.testaPrint("<< " + str(assertt))
-        self.testaPrint("_______________________________________________________________")
-
         status = self.setStatusCharacter(assertt)
         self.generateFromStatus(msg, assertt, status)
         self.footTestPresentation()
@@ -531,7 +527,7 @@ class Testa:
         if not pathit.isdir(file_path):
             print("[+] Testa testing on " + file_path)
             self.addResume("\n------------------------------")
-            self.addResume("\n### On : `" + file_path + "`")
+            self.addResume("\n#### File : " + file_path )
 
             # Read the file and parcours line by lines
             (case,
