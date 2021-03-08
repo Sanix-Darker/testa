@@ -1,7 +1,7 @@
 {
     "module": "ta-js",
     "path": [
-        "./javascript/square.js"
+        "./square.js"
     ],
     "extensions": [".js"],
     "launcher": "node"

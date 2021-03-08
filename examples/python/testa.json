@@ -1,8 +1,8 @@
 {
     "module": "ta-py",
     "path": [
-        "./python/sha256.py", 
-        "./python/square.py"
+        "./sha256.py", 
+        "./square.py"
     ],
     "extensions": [".py"],
     "launcher": "python"

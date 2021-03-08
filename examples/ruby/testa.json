@@ -1,8 +1,8 @@
 {
     "module": "ta-rb",
     "path": [
-        "./ruby/my_ruby_app/", 
-        "./ruby/square.rb"
+        "./my_ruby_app/", 
+        "./square.rb"
     ],
     "extensions": [".rb"],
     "launcher": "ruby"
