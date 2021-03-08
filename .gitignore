@@ -7,3 +7,8 @@ TODO.txt
 .idea
 venv
 *.pyc
+dist
+build
+MANIFEST
+*-info
+

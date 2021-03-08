@@ -30,7 +30,9 @@ Some few things to know before using testa.
 ## How to config it
 
 ### Config files
-You need to config a `testa json file` or just use default one for the appropriate language.
+
+You need to config a `testa.json`.
+
 - An example of testa config file for `Javascript`:
 ```json
 {
@@ -154,6 +156,18 @@ You need to config a `testa json file` or just use default one for the appropria
 </table>
 
 
+## How to install it
+
+To install testa, it's really simple, you just have to run:
+```shell
+pip install tsta
+
+# Then cd to the directory tha tcontain your testa.json file 
+# and run :
+tsta
+# That's all, a report will be generated
+```
+
 ## How to use it
 
 In your code, make sure to enclose the instructions you want to test with the testa grammar, for example:
@@ -269,32 +283,6 @@ def square(a)
 # ::testa_end::
 ```
 
-## How to test it
-
-This can look really complicated to config but in fact it's really simple and all available testa Json files have been 
-allready configured for you:
-
-To test it, after cloning this repository, hit:
-
-```shell
-# First clone the repo
-git clone https://github.com/sanix-darker/testa
-
-# now, you need to cd where the json file is:
-cd ./path/to/testa/examples
-
-# Testa will perform tests following what it is on tjs.json
-python3 testacli.py -c ./javascript/tjs.json
-
-# Or for PYTHON
-python3 testacli.py -c ./python/tpy.json
-
-# Or for PHP
-python3 testacli.py -c ./php/tphp.json
-
-# Or for Ruby
-python3 testacli.py -c ./ruby/trb.json
-```
 And that's where the magic of Testa is, for any language, you have only to write a simple JSON file and specify paths where you will do tests.
 
 ## Author

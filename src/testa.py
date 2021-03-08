@@ -3,10 +3,10 @@
 #
 # -----------------------------------------------------------------------------------------------------
 #
-#  _____ _____ ____ _____       _    
-# |_   _| ____/ ___|_   _|     / \   
-#   | | |  _| \___ \ | |_____ / _ \  
-#   | | | |___ ___) || |_____/ ___ \ 
+#  _____ _____ ____ _____       _
+# |_   _| ____/ ___|_   _|     / \
+#   | | |  _| \___ \ | |_____ / _ \
+#   | | | |___ ___) || |_____/ ___ \
 #   |_| |_____|____/ |_|    /_/   \_\
 #
 # Welcome to Testa Python's Class implementation
@@ -33,13 +33,8 @@ class Testa:
                  AccoladeStart=":", AccoladeEnd="", NoneNull="None", selfOrThis="self",
                  self_on_function_params=True, semicolon="", scriptEnd=" "):
 
-        (self.countTest,
-         self.countSuccess,
-         self.countFail,
-         self.totalTimer,
-         self.testTimer,
-         self.stopTestTimer,
-         self.iteration) = (0, 0, 0, 0, 0, 0, 0)
+        (self.countTest, self.countSuccess, self.countFail, self.totalTimer,
+         self.testTimer, self.stopTestTimer, self.iteration) = (0, 0, 0, 0, 0, 0, 0)
 
         self.resume = ""
         self.generateReport = True
@@ -50,24 +45,38 @@ class Testa:
         self.tryCatch = tryCatch
 
         # For building class test
-        self.scriptStarter = scriptStarter  # with what the script start For example in php it's <?php, etc...
-        self.prefixVariable = prefixVariable  # in php we have '$' for example
-        self.function = function  # function, etc...
-        self.varDeclaration = varDeclaration  # var, let, etc...
-        self.classInstantiationNew = classInstantiationNew  # new, etc...
-        self.AccoladeStart = AccoladeStart  # {
-        self.AccoladeEnd = AccoladeEnd  # }
-        self.NoneNull = NoneNull  # null
-        self.selfOrThis = selfOrThis  # this
+        # with what the script start For example in php it's <?php, etc...
+        self.scriptStarter = scriptStarter
+        # in php we have '$' for example
+        self.prefixVariable = prefixVariable
+        # function, etc...
+        self.function = function
+        # var, let, etc...
+        self.varDeclaration = varDeclaration
+        # new, etc...
+        self.classInstantiationNew = classInstantiationNew
+        # {
+        self.AccoladeStart = AccoladeStart
+        # }
+        self.AccoladeEnd = AccoladeEnd
+        # null
+        self.NoneNull = NoneNull
+        # this
+        self.selfOrThis = selfOrThis
         # if there is a need of self in the declaration of a function
         self.self_on_function_params = self_on_function_params
-        self.semicolon = semicolon  # ;
+        # ;
+        self.semicolon = semicolon
         self.TeslAssertClass = ""
         self.listAssertFailed = ""
         self.date_report = ""
-        self.scriptEnd = scriptEnd  # with what the script start For example in php it's <?php, etc...
+        # with what the script start For example in php it's <?php, etc...
+        self.scriptEnd = scriptEnd
 
     def start(self):
+        """
+
+        """
         self.addResume("# TESTA reports")
 
         self.date_report = "reports_" + time.strftime("%Y-%m-%d_%H:%M:%S")
@@ -303,8 +312,11 @@ class Testa:
         return assertt
 
     def executeEachFunction(self, case, result, file_path, functions):
-        # Now we will test each function by running each file and get the result
-        # if the result is what it's expect We build a Test that win, if not we write it failed
+        """
+        Now we will test each function by running each file and get the result
+        if the result is what it's expect We build a Test that win, if not we write it failed
+
+        """
         ii = 0  # iteration for Test case array
         for file_function in functions:
             # Timer started!
@@ -336,13 +348,16 @@ class Testa:
             self.checkAssertFunction(assert_, assert_string, descriptive_message)
 
             print("[+] | Success!\n------------------------------") if wanted == output else print("[+] | Error")
-            
+
             # We remove the tempory function file
             remove(file_function)
             ii = ii + 1
 
     def proceedFunctionsAndBuildOutput(self, case, file_path, result, import_to_write, functions):
-        # Parcours now each functions file path
+        """
+        Parcours now each functions file path
+
+        """
         ii = 0  # iteration for Test case array
         for fnc in functions:
             # if it's not a simple assertion
@@ -364,7 +379,10 @@ class Testa:
         self.executeEachFunction(case, result, file_path, functions)
 
     def writeFunctionsInFile(self, line, function_to_write, allready_write, functions):
-        # We write this in the file
+        """
+        We write this in the file
+
+        """
         # Remove all commented line
         functions_filepath = "testfunction__" + str(self.iteration) + self.extension
         # print(functions_filepath)
@@ -381,7 +399,10 @@ class Testa:
         return function_to_write, allready_write
 
     def appendImport(self, line, import_to_write, in_recording_mode5):
-        # if we have some import at the head of the file that's method depends on
+        """
+        If we have some import at the head of the file that's method depends on
+
+        """
         # First we get the testa block
         if not in_recording_mode5:
             if "::import_start::" in line:
@@ -395,6 +416,9 @@ class Testa:
         return in_recording_mode5, import_to_write
 
     def appendDoc(self, line, file_path, in_recording_mode4):
+        """
+
+        """
         if not in_recording_mode4:
             if "::doc_start::" in line:
                 with open("./doc_" + file_path.replace("/", "-").replace(self.extension, "") + ".md", "a+") as frt:
@@ -410,6 +434,9 @@ class Testa:
         return in_recording_mode4
 
     def appendCode(self, line, functions, import_to_write, function_to_write, allready_write, in_recording_mode3):
+        """
+
+        """
         # The function and then
         if not in_recording_mode3:
             if "::code_start::" in line:
@@ -427,6 +454,9 @@ class Testa:
         return in_recording_mode3, function_to_write, allready_write
 
     def writeFunctionInFile(self, line, case, functions, allready_write):
+        """
+
+        """
         case_to_add = line.replace(" ", "").replace(">>", "").replace(self.commentStartBy, "")
         if ">>" in line:
             if case_to_add not in case:
@@ -447,6 +477,9 @@ class Testa:
         return functions, allready_write
 
     def appendCase(self, line, case, result, functions, allready_write, in_recording_mode2):
+        """
+
+        """
         # Second we get the case block
         # Here we find the test case
         if not in_recording_mode2:
@@ -468,7 +501,9 @@ class Testa:
 
     def testaProcess(self, line, case, result, is_assert, functions, file_path, function_to_write,
                      import_to_write, allready_write, in_recording_mode4, in_recording_mode3, in_recording_mode2):
+        """
 
+        """
         in_recording_mode4 = self.appendDoc(line, file_path, in_recording_mode4)
 
         # We append case
@@ -481,22 +516,19 @@ class Testa:
         if not is_assert:
             (in_recording_mode3,
              function_to_write,
-             allready_write) = self.appendCode(line, functions, import_to_write, function_to_write, allready_write,
-                                               in_recording_mode3)
+             allready_write) = self.appendCode(line, functions, import_to_write, function_to_write, allready_write, in_recording_mode3)
         elif is_assert:
             self.iteration = self.iteration + 1
             is_assert = False
 
-        return (result,
-                is_assert,
-                in_recording_mode4,
-                in_recording_mode3,
-                in_recording_mode2,
-                function_to_write,
-                allready_write)
+        return (result, is_assert, in_recording_mode4, in_recording_mode3,
+                in_recording_mode2, function_to_write, allready_write)
 
     def appendTesta(self, line, case, result, functions, is_assert, file_path, import_to_write, allready_write,
                     function_to_write, in_recording_mode, in_recording_mode2, in_recording_mode3, in_recording_mode4):
+        """
+
+        """
         # First we get the testa block
         if not in_recording_mode:
             if "::testa_start::" in line:
@@ -504,37 +536,28 @@ class Testa:
         elif "::testa_end::" in line:
             in_recording_mode = False
         else:
-            (result,
-             is_assert,
-             in_recording_mode4,
-             in_recording_mode3,
-             in_recording_mode2,
-             function_to_write,
+            (result, is_assert, in_recording_mode4,
+             in_recording_mode3, in_recording_mode2, function_to_write,
              allready_write) = self.testaProcess(line, case, result, is_assert, functions, file_path,
                                                  function_to_write, import_to_write, allready_write,
                                                  in_recording_mode4, in_recording_mode3, in_recording_mode2)
 
-        return (in_recording_mode4,
-                in_recording_mode3,
-                in_recording_mode2,
-                in_recording_mode,
-                function_to_write,
-                allready_write,
-                is_assert)
+        return (in_recording_mode4, in_recording_mode3, in_recording_mode2,
+                in_recording_mode, function_to_write, allready_write, is_assert)
 
     # This method test the list of functions contained in a file
     def TestFunctionsInAFile(self, file_path):
+        """
+
+        """
         if not pathit.isdir(file_path):
             print("[+] Testa testing on " + file_path)
             self.addResume("\n------------------------------")
             self.addResume("\n#### File : " + file_path )
 
             # Read the file and parcours line by lines
-            (case,
-             result,
-             functions,
-             function_to_write,
-             allready_write,
+            (case, result, functions,
+             function_to_write, allready_write,
              import_to_write) = [], [], [], "", "", ""
 
             with open(file_path, 'r') as filee:
@@ -546,12 +569,8 @@ class Testa:
                     (in_recording_mode5,
                      import_to_write) = self.appendImport(line, import_to_write, in_recording_mode5)
 
-                    (in_recording_mode4,
-                     in_recording_mode3,
-                     in_recording_mode2,
-                     in_recording_mode,
-                     function_to_write,
-                     allready_write,
+                    (in_recording_mode4, in_recording_mode3, in_recording_mode2,
+                     in_recording_mode, function_to_write, allready_write,
                      is_assert) = self.appendTesta(line, case, result, functions, is_assert, file_path,
                                                    import_to_write, allready_write, function_to_write,
                                                    in_recording_mode, in_recording_mode2, in_recording_mode3,
@@ -561,6 +580,9 @@ class Testa:
 
     # This method test all functions in one application
     def Function(self, file_path, extension_list=None):
+        """
+
+        """
         path = file_path
         if extension_list is None:
             self.TestFunctionsInAFile(path)
@@ -585,3 +607,4 @@ class Testa:
             else:
                 print("[+] > This path " + str(path) + " (file/directory) is not valid.")
         print("[+] Testa testing ended on " + str(path))
+

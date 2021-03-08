@@ -1,0 +1,6 @@
+{
+    "module": "ta-php",
+    "path": ["./square.php"],
+    "extensions": [".php"],
+    "launcher": "php"
+}

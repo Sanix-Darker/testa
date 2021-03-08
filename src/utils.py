@@ -3,6 +3,9 @@ import sys, traceback
 
 
 def delete_duplicate_line(file_path):
+    """
+
+    """
     lines_seen = set()  # holds lines already seen
     outfile = open(file_path + "_tmp_", "w")
     for line in open(file_path, "r"):
@@ -20,6 +23,9 @@ def delete_duplicate_line(file_path):
 
 
 def record_or_not(record_mode, line, start_block, end_block):
+    """
+
+    """
     if not record_mode:
         if start_block in line:
             record_mode = True
@@ -29,6 +35,9 @@ def record_or_not(record_mode, line, start_block, end_block):
 
 
 def returnStateMentIfMessageIsEmpty(msg, statement):
+    """
+
+    """
     if msg is None:
         return statement + ":"
     else:
@@ -36,6 +45,9 @@ def returnStateMentIfMessageIsEmpty(msg, statement):
 
 
 def selfOnParams(check, self_on_function_params, add_semicolon=False):
+    """
+
+    """
     if self_on_function_params:
         comma = ""
         if add_semicolon:
@@ -51,3 +63,4 @@ def get_trace():
     print("-"*60)
     traceback.print_exc(file=sys.stdout)
     print("-"*60)
+
