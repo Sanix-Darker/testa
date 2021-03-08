@@ -37,16 +37,18 @@ You need to config a `testa.json`.
 ```json
 {
     "module": "ta-js",
-    "path": ["./javascript/square.js", "./javascript/my_javascript_app/"],
+    "path": ["./square.js", "./my_javascript_app/"],
     "extensions": [".js"],
     "launcher": "node"
 }
 ```
+ps : in `path` parameter, you can define either a file or a directory
+
 - An example of testa config file for `PHP`:
 ```json
 {
     "module": "ta-php",
-    "path": ["./php/square.php"],
+    "path": ["./square.php"],
     "extensions": [".php"],
     "launcher": "php"
 }
@@ -55,7 +57,7 @@ You need to config a `testa.json`.
 ```json
 {
     "module": "ta-py",
-    "path": ["./python/sha256.py", "./python/square.py"],
+    "path": ["./sha256.py", "./square.py"],
     "extensions": [".py"],
     "launcher": "python"
 }
@@ -64,7 +66,7 @@ You need to config a `testa.json`.
 ```json
 {
     "module": "ta-rb",
-    "path": ["./ruby/my_ruby_app/", "./ruby/square.rb"],
+    "path": ["./my_ruby_app/", "./square.rb"],
     "extensions": [".rb"],
     "launcher": "ruby"
 }
