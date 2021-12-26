@@ -1,5 +1,6 @@
 # ::import_start::
 from math import sqrt as math_square
+
 # ::import_end::
 
 # ::testa_start::
@@ -18,5 +19,7 @@ from math import sqrt as math_square
 # ::code_start::
 def square(a):
     return math_square(a)
+
+
 # ::code_end::
 # ::testa_end::
