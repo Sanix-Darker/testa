@@ -8,7 +8,7 @@ set-env:
 install: set-env
 	./env/bin/pip install -r build-requirements.txt
 
-publish: install
+build: install
 	echo "We remove unecessary files/folders"
 	echo "----------------------------------"
 	rm -rf build/*
@@ -17,6 +17,8 @@ publish: install
 	echo "----------------------------------\n"
 	echo "python3 setup.py sdist bdist_wheel"
 	./env/bin/python3 setup.py sdist bdist_wheel
+
+publish: build
 	echo "python3 -m twine upload dist/*"
 	./env/bin/python3 -m twine upload dist/*
 	echo "----------------------------------\n"

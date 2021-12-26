@@ -1,4 +1,6 @@
 isort
 black
 flake8
+wheel
+twine
 
