@@ -14,7 +14,7 @@ global_testa_config = {
         "semicolon": "",
         "scriptStarter": "",
         "scriptEnd": "",
-        "prefixVariable": ""
+        "prefixVariable": "",
     },
     "ta-py": {
         "outputMethod": "print",
@@ -31,7 +31,7 @@ global_testa_config = {
         "semicolon": "",
         "scriptStarter": "",
         "scriptEnd": "",
-        "prefixVariable": ""
+        "prefixVariable": "",
     },
     "ta-php": {
         "outputMethod": "print",
@@ -48,7 +48,7 @@ global_testa_config = {
         "semicolon": ";",
         "scriptStarter": "<?php \n",
         "scriptEnd": "\n ?>",
-        "prefixVariable": "$"
+        "prefixVariable": "$",
     },
     "ta-js": {
         "outputMethod": "console.log",
@@ -65,6 +65,6 @@ global_testa_config = {
         "semicolon": ";",
         "scriptStarter": "",
         "scriptEnd": "",
-        "prefixVariable": ""
-    }
+        "prefixVariable": "",
+    },
 }

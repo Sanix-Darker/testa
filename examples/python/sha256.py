@@ -1,7 +1,7 @@
-
 # ::import_start::
-from math import sqrt as math_square
 from hashlib import sha256
+from math import sqrt as math_square
+
 # ::import_end::
 
 # ::testa_start::
@@ -12,6 +12,8 @@ from hashlib import sha256
 # ::code_start::
 def square(a):
     return math_square(a)
+
+
 # ::code_end::
 # ::testa_end::
 
@@ -24,5 +26,7 @@ def square(a):
 # ::code_start::
 def shasha256(a):
     return sha256(a.encode()).hexdigest()
+
+
 # ::code_end::
 # ::testa_end::

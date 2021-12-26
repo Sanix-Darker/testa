@@ -1,11 +1,11 @@
 import argparse
 import json
+import sys
+from os import listdir, path
+
+from src.modules import *
 from src.testa import Testa
 from src.utils import *
-from src.modules import *
-import sys
-from os import path, listdir
-
 
 
 # 1- GET PARAMS
@@ -19,7 +19,7 @@ def main():
             print("[x] The configuration file doesn't exist !")
             exit()
 
-        with open("testa.json", 'r+') as filee:
+        with open("testa.json", "r+") as filee:
             testaconfig = json.loads(filee.read())
 
             if "module" in testaconfig:
@@ -37,7 +37,9 @@ def main():
                 # For building class test
                 function=testaconfig["function"],  # function, etc...
                 varDeclaration=testaconfig["varDeclaration"],  # var, let, etc...
-                classInstantiationNew=testaconfig["classInstantiationNew"],  # new, etc...
+                classInstantiationNew=testaconfig[
+                    "classInstantiationNew"
+                ],  # new, etc...
                 AccoladeStart=testaconfig["AccoladeStart"],  # {
                 AccoladeEnd=testaconfig["AccoladeEnd"],  # }
                 NoneNull=testaconfig["NoneNull"],  # null
@@ -45,7 +47,7 @@ def main():
                 # if there is a need of self in the declaration of a function
                 self_on_function_params=testaconfig["selfOnFunctionParams"],
                 semicolon=testaconfig["semicolon"],
-                scriptEnd=testaconfig["scriptEnd"]  # ;
+                scriptEnd=testaconfig["scriptEnd"],  # ;
             )
 
             # We Start the testa_test
@@ -66,6 +68,5 @@ def main():
         get_trace()
 
 
-if __name__== "__main__":
+if __name__ == "__main__":
     main()
-
